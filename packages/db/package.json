@@ -1,0 +1,38 @@
+{
+  "name": "@bible-visualizer/db",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "exports": {
+    ".": {
+      "types": "./index.ts",
+      "default": "./index.ts"
+    }
+  },
+  "files": ["index.ts", "prisma"],
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "scripts": {
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio",
+    "db:migrate": "prisma migrate dev",
+    "db:seed": "prisma db seed",
+    "lint": "echo \"(no lint configured for @bible-visualizer/db)\"",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf .turbo dist *.tsbuildinfo"
+  },
+  "dependencies": {
+    "@bible-visualizer/bible-data": "workspace:*",
+    "@prisma/client": "6.19.3"
+  },
+  "devDependencies": {
+    "@types/node": "25.6.0",
+    "prisma": "6.19.3",
+    "tsx": "4.21.0",
+    "typescript": "6.0.3"
+  }
+}

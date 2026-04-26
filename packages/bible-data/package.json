@@ -1,0 +1,38 @@
+{
+  "name": "@bible-visualizer/bible-data",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./books": {
+      "types": "./src/books.ts",
+      "default": "./src/books.ts"
+    },
+    "./translations": {
+      "types": "./src/translations.ts",
+      "default": "./src/translations.ts"
+    },
+    "./types": {
+      "types": "./src/types.ts",
+      "default": "./src/types.ts"
+    }
+  },
+  "files": ["src"],
+  "scripts": {
+    "lint": "echo \"(no lint configured for @bible-visualizer/bible-data)\"",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf .turbo dist *.tsbuildinfo"
+  },
+  "dependencies": {
+    "@bible-visualizer/config": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3"
+  }
+}

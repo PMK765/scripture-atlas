@@ -1,0 +1,335 @@
+// Bible Visualizer database schema.
+//
+// Design principles:
+//   - Future-aware: genealogy, prophecy fulfillment, and original-language
+//     morphology are first-class so we don't have to migrate later.
+//   - Traceable: scripture references and confidence levels travel with
+//     every entity that maps to scripture.
+//   - Canon-aware: Books carry their canonical traditions; deuterocanonical
+//     books are integrated into the OT order (Catholic canonical placement)
+//     and labeled as Septuagint, never "apocrypha".
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Canonical metadata
+// ---------------------------------------------------------------------------
+
+model Book {
+  id                  String   @id @default(cuid())
+  code                String   @unique
+  name                String   @unique
+  abbreviation        String   @unique
+  testament           String
+  order               Int      @unique
+  chapters            Int      @default(0)
+  genre               String?
+  authorTraditional   String?
+  canons              String[] @default([])
+  originalLanguage    String
+  scriptureReferences String[]
+  confidenceLevel     String
+  traditionTags       String[] @default([])
+  notes               String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  events              BookEvent[]
+  verses              Verse[]
+  tokens              OriginalLanguageToken[]
+  crossRefSources     CrossReference[]        @relation("crossRefSource")
+  crossRefTargets     CrossReference[]        @relation("crossRefTarget")
+
+  @@index([testament, order])
+  @@index([code])
+}
+
+model Translation {
+  id              String   @id @default(cuid())
+  code            String   @unique
+  name            String
+  language        String
+  year            Int?
+  license         String
+  licenseUrl      String?
+  hasDeuterocanon Boolean  @default(false)
+  sourceUrl       String?
+  notes           String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  verses          Verse[]
+}
+
+model Verse {
+  id            String  @id @default(cuid())
+  translationId String
+  bookId        String
+  chapter       Int
+  verse         Int
+  text          String
+
+  translation   Translation @relation(fields: [translationId], references: [id], onDelete: Cascade)
+  book          Book        @relation(fields: [bookId], references: [id], onDelete: Cascade)
+
+  @@unique([translationId, bookId, chapter, verse])
+  @@index([bookId, chapter, verse])
+  @@index([translationId, bookId])
+}
+
+// ---------------------------------------------------------------------------
+// Original-language morphology
+// ---------------------------------------------------------------------------
+
+model Lemma {
+  id              String   @id @default(cuid())
+  strongsNumber   String   @unique
+  language        String
+  lexicalForm     String
+  transliteration String?
+  pronunciation   String?
+  definition      String?
+  notes           String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  tokens          OriginalLanguageToken[]
+
+  @@index([language])
+  @@index([lexicalForm])
+}
+
+model OriginalLanguageToken {
+  id          String  @id @default(cuid())
+  bookId      String
+  chapter     Int
+  verse       Int
+  position    Int
+  surfaceForm String
+  lemmaId     String
+  morphCode   String?
+  morphology  Json?
+
+  book  Book  @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  lemma Lemma @relation(fields: [lemmaId], references: [id], onDelete: Restrict)
+
+  @@unique([bookId, chapter, verse, position])
+  @@index([lemmaId])
+  @@index([bookId, chapter, verse])
+}
+
+// ---------------------------------------------------------------------------
+// Cross-references (TSK + manual)
+// ---------------------------------------------------------------------------
+
+model CrossReference {
+  id             String  @id @default(cuid())
+  sourceBookId   String
+  sourceChapter  Int
+  sourceVerse    Int
+  sourceVerseEnd Int?
+  targetBookId   String
+  targetChapter  Int
+  targetVerse    Int
+  targetVerseEnd Int?
+  category       String?
+  strength       Int?
+  notes          String?
+
+  sourceBook Book @relation("crossRefSource", fields: [sourceBookId], references: [id], onDelete: Cascade)
+  targetBook Book @relation("crossRefTarget", fields: [targetBookId], references: [id], onDelete: Cascade)
+
+  @@index([sourceBookId, sourceChapter, sourceVerse])
+  @@index([targetBookId, targetChapter, targetVerse])
+  @@index([category])
+}
+
+// ---------------------------------------------------------------------------
+// People, places, events (with future genealogy and prophecy graph)
+// ---------------------------------------------------------------------------
+
+model Person {
+  id                      String   @id @default(cuid())
+  code                    String   @unique
+  name                    String
+  alternateNames          String[] @default([])
+  gender                  String?
+  description             String?
+  scriptureReferences     String[]
+  confidenceLevel         String
+  traditionTags           String[] @default([])
+  era                     String?
+  roles                   String[] @default([])
+  birthYear               Int?
+  deathYear               Int?
+  lifespanYears           Int?
+  ageAtDeathRef           String?
+  isHistoricallyContested Boolean  @default(false)
+  notes                   String?
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  edgesFrom           GenealogyEdge[]    @relation("edgesFrom")
+  edgesTo             GenealogyEdge[]    @relation("edgesTo")
+  tribes              PersonTribe[]
+  foundedTribes       Tribe[]            @relation("tribeFounder")
+  eventParticipations EventParticipant[]
+
+  @@index([name])
+  @@index([era])
+  @@index([code])
+}
+
+model Place {
+  id                  String   @id @default(cuid())
+  name                String
+  alternateNames      String[] @default([])
+  latitude            Float?
+  longitude           Float?
+  modernEquivalent    String?
+  description         String?
+  scriptureReferences String[]
+  confidenceLevel     String
+  traditionTags       String[] @default([])
+  notes               String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  events              EventPlace[]
+
+  @@index([name])
+}
+
+model Event {
+  id                  String   @id @default(cuid())
+  name                String
+  description         String?
+  startYear           Int?
+  endYear             Int?
+  scriptureReferences String[]
+  confidenceLevel     String
+  traditionTags       String[] @default([])
+  notes               String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  participants EventParticipant[]
+  places       EventPlace[]
+  books        BookEvent[]
+
+  @@index([startYear, endYear])
+}
+
+model GenealogyEdge {
+  id                  String   @id @default(cuid())
+  fromPersonId        String
+  toPersonId          String
+  relationship        String
+  viaParent           String?
+  relationKind        String   @default("biological")
+  scriptureReferences String[]
+  confidenceLevel     String
+  traditionTags       String[] @default([])
+  notes               String?
+
+  fromPerson Person @relation("edgesFrom", fields: [fromPersonId], references: [id], onDelete: Cascade)
+  toPerson   Person @relation("edgesTo", fields: [toPersonId], references: [id], onDelete: Cascade)
+
+  @@unique([fromPersonId, toPersonId, relationship, viaParent])
+  @@index([fromPersonId, relationship])
+  @@index([toPersonId, relationship])
+}
+
+model Tribe {
+  id                  String   @id @default(cuid())
+  code                String   @unique
+  name                String
+  alternateNames      String[] @default([])
+  type                String
+  founderPersonId     String?
+  parentTribeId       String?
+  description         String?
+  scriptureReferences String[]
+  confidenceLevel     String
+  traditionTags       String[] @default([])
+  notes               String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  founder    Person?       @relation("tribeFounder", fields: [founderPersonId], references: [id], onDelete: SetNull)
+  parent     Tribe?        @relation("tribeHierarchy", fields: [parentTribeId], references: [id], onDelete: SetNull)
+  subtribes  Tribe[]       @relation("tribeHierarchy")
+  members    PersonTribe[]
+
+  @@index([type])
+  @@index([code])
+}
+
+model PersonTribe {
+  personId            String
+  tribeId             String
+  scriptureReferences String[]
+  confidenceLevel     String
+  traditionTags       String[] @default([])
+  notes               String?
+
+  person Person @relation(fields: [personId], references: [id], onDelete: Cascade)
+  tribe  Tribe  @relation(fields: [tribeId], references: [id], onDelete: Cascade)
+
+  @@id([personId, tribeId])
+  @@index([tribeId])
+}
+
+model EventParticipant {
+  eventId  String
+  personId String
+  role     String?
+
+  event  Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  person Person @relation(fields: [personId], references: [id], onDelete: Cascade)
+
+  @@id([eventId, personId])
+  @@index([personId])
+}
+
+model EventPlace {
+  eventId String
+  placeId String
+
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  place Place @relation(fields: [placeId], references: [id], onDelete: Cascade)
+
+  @@id([eventId, placeId])
+  @@index([placeId])
+}
+
+model BookEvent {
+  bookId  String
+  eventId String
+
+  book  Book  @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@id([bookId, eventId])
+  @@index([eventId])
+}
+
+model Prophecy {
+  id                  String   @id @default(cuid())
+  summary             String
+  prophecyRef         String
+  fulfillmentRef      String?
+  status              String
+  confidenceLevel     String
+  scriptureReferences String[]
+  notes               String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}

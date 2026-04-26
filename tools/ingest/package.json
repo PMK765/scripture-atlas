@@ -1,0 +1,32 @@
+{
+  "name": "@bible-visualizer/ingest",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Ingestion tools: download, parse, and load Bible texts into the database.",
+  "type": "module",
+  "scripts": {
+    "ingest": "tsx src/cli.ts",
+    "ingest:web": "tsx src/cli.ts web",
+    "ingest:bsb": "tsx src/cli.ts bsb",
+    "ingest:kjv": "tsx src/cli.ts kjv",
+    "ingest:brenton": "tsx src/cli.ts brenton",
+    "ingest:sblgnt": "tsx src/cli.ts sblgnt",
+    "ingest:wlc": "tsx src/cli.ts wlc",
+    "ingest:lxx": "tsx src/cli.ts lxx",
+    "ingest:all": "tsx src/cli.ts all",
+    "typecheck": "tsc --noEmit",
+    "lint": "echo \"(no lint configured for @bible-visualizer/ingest)\""
+  },
+  "dependencies": {
+    "@bible-visualizer/bible-data": "workspace:*",
+    "@bible-visualizer/config": "workspace:*",
+    "@bible-visualizer/db": "workspace:*",
+    "yauzl": "3.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.5",
+    "@types/yauzl": "2.10.3",
+    "tsx": "4.21.0",
+    "typescript": "6.0.3"
+  }
+}
