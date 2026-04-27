@@ -2158,7 +2158,7 @@ const edgesNehemiah11: GenealogyEdge[] = [
   explicit("pelaliah", "jeroham-pelaliah", ["Nehemiah 11:12"]),
   explicit("amzi-zechariah", "pelaliah", ["Nehemiah 11:12"]),
   explicit("zechariah-pashhur-priest", "amzi-zechariah", ["Nehemiah 11:12"]),
-  explicit("pashhur-priest", "zechariah-pashhur-priest", ["Nehemiah 11:12"]),
+  explicit("pashhur-of-immer", "zechariah-pashhur-priest", ["Nehemiah 11:12"]),
   explicit("azarel-ahzai", "amashsai", ["Nehemiah 11:13"]),
   explicit("ahzai-meshillemoth", "azarel-ahzai", ["Nehemiah 11:13"]),
   explicit("meshillemoth-immer", "ahzai-meshillemoth", ["Nehemiah 11:13"]),
@@ -2521,6 +2521,47 @@ const edgesRelationGapFillers: GenealogyEdge[] = [
   ]),
 ];
 
+const edgesAuditCrossLinks: GenealogyEdge[] = [
+  explicit("pallu", "eliab-of-reuben", ["Numbers 16:1", "Numbers 26:8-9"]),
+  explicit("ahlai-zabad", "zabad-son-of-ahlai", ["1 Chronicles 11:41"]),
+  explicit("hachmoni-jehiel", "jashobeam", ["1 Chronicles 11:11", "1 Chronicles 27:32"], {
+    confidenceLevel: "inferred",
+    notes: "Identifies the Hachmoni who fathered Jehiel (1 Chr 27:32) with the Hachmoni named as Jashobeam's father (1 Chr 11:11). 2 Samuel 23:8 reads 'Tahchemonite' instead.",
+  }),
+  explicit("bebai", "zechariah-of-bebai", ["Ezra 8:11"]),
+  explicit("shemida", "shemida-aniam", ["1 Chronicles 7:19"]),
+  explicit("helem-asher", "zophah", ["1 Chronicles 7:35"]),
+  explicit("azriel-jeremoth", "jerimoth-son-of-azriel", ["1 Chronicles 27:19"]),
+  explicit("hanani-seer", "jehu-prophet", [
+    "1 Kings 16:1",
+    "1 Kings 16:7",
+    "2 Chronicles 19:2",
+    "2 Chronicles 20:34",
+  ]),
+  explicit("jethro", "hobab", ["Numbers 10:29", "Judges 4:11"], {
+    notes: "Hobab is named 'son of Reuel'; Reuel is identified with Jethro (Exodus 2:18; 3:1).",
+  }),
+  explicit("gershom", "jonathan-of-gershom", ["Judges 18:30"], {
+    confidenceLevel: "inferred",
+    notes: "The Masoretic Text writes 'Manasseh' with a suspended nun, by which tradition the original 'Moses' was protected from the priest of Dan; most modern editions read 'Moses,' making Jonathan the grandson of Moses via Gershom.",
+  }),
+  explicit("shaphan-scribe", "jaazaniah-son-of-shaphan", ["Ezekiel 8:11"], {
+    confidenceLevel: "inferred",
+    notes: "Identifies Shaphan in Ezekiel 8:11 with the scribe of Josiah's reign whose other sons (Ahikam, Elasah, Gemariah) are named in Jeremiah; the identification is widely accepted but not stated in the text.",
+  }),
+  explicit("shammah-son-of-agee", "jonathan-son-of-shammah", [
+    "2 Samuel 23:32-33",
+    "1 Chronicles 11:34",
+  ], {
+    confidenceLevel: "inferred",
+    notes: "Identifies Shammah the Hararite (2 Sam 23:32-33), Jonathan's father, with Shammah son of Agee the Hararite of David's Three (2 Sam 23:11). Both are 'the Hararite'; the identification is probable but not explicit.",
+  }),
+  explicit("immer-priest-course", "pashhur-of-immer", ["Jeremiah 20:1"], {
+    confidenceLevel: "inferred",
+    notes: "Identifies Immer the priestly course-head (1 Chr 24:14) with the Immer named as father of Pashhur the persecutor of Jeremiah (Jer 20:1).",
+  }),
+];
+
 export const genealogyEdges: GenealogyEdge[] = [
   ...edgesGenesis,
   ...edgesTableOfNations,
@@ -2617,4 +2658,5 @@ export const genealogyEdges: GenealogyEdge[] = [
   ...edgesGapFillers,
   ...edgesJeremiah26to45,
   ...edgesRelationGapFillers,
+  ...edgesAuditCrossLinks,
 ];

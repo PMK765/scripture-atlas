@@ -118,4 +118,6 @@ export const merges: ReadonlyArray<readonly [keep: string, drop: string, reason:
   ["ziba", "ziba-of-saul", "Ziba servant of Saul's house"],
   ["eliel-mighty-47", "eliel-the-mahavite", "Eliel the Mahavite, mighty man 1 Chr 11:47"],
   ["shemaiah-wall-singer", "shemaiah-wall-trumpet-singer", "Same wall-dedication Shemaiah singer"],
+  ["pashhur-of-immer", "pashhur-priest", "Pashhur son of Immer (Jer 20:1) — same priest"],
+  ["urijah-prophet", "uriah-of-shemaiah", "Same Urijah son of Shemaiah of Kiriath-jearim, Jer 26:20-23"],
 ];

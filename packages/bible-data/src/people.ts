@@ -8392,17 +8392,6 @@ const peopleGospelMinor: Person[] = [
 
 const peopleProphetOpponents: Person[] = [
   {
-    id: "pashhur-priest",
-    name: "Pashhur son of Immer",
-    gender: "male",
-    era: "exile",
-    roles: ["priest"],
-    tribes: ["levi", "aaronic-priesthood"],
-    description: "Chief officer in the temple who beat Jeremiah and put him in stocks. Jeremiah renamed him Magor-missabib ('terror on every side') and prophesied his death in Babylon.",
-    scriptureReferences: ["Jeremiah 20:1-6"],
-    confidenceLevel: "explicit",
-  },
-  {
     id: "ahab-of-kolaiah",
     name: "Ahab son of Kolaiah",
     gender: "male",
@@ -12227,16 +12216,6 @@ const peopleJeremiahCircle: Person[] = [
     era: "exile",
     description: "Father of Hananiah the false prophet.",
     scriptureReferences: ["Jeremiah 28:1"],
-    confidenceLevel: "explicit",
-  },
-  {
-    id: "uriah-of-shemaiah",
-    name: "Uriah son of Shemaiah",
-    gender: "male",
-    era: "exile",
-    roles: ["prophet"],
-    description: "Prophet from Kiriath-jearim who prophesied like Jeremiah; fled to Egypt from Jehoiakim but was extradited and executed and his body cast into the common burial place.",
-    scriptureReferences: ["Jeremiah 26:20-23"],
     confidenceLevel: "explicit",
   },
   {
