@@ -2419,6 +2419,108 @@ const edgesNumbers34Leaders: GenealogyEdge[] = [
   explicit("ammihud-naphtali", "pedahel-son-of-ammihud", ["Numbers 34:28"]),
 ];
 
+const edgesGapFillers: GenealogyEdge[] = [
+  explicit("ur-of-eliphal", "eliphal-of-ur", ["1 Chronicles 11:35"]),
+];
+
+const edgesJeremiah26to45: GenealogyEdge[] = [
+  explicit("shemaiah-father-of-urijah", "urijah-prophet", ["Jeremiah 26:20"]),
+  explicit("achbor-of-micaiah", "elnathan-nehushta", ["Jeremiah 26:22", "Jeremiah 36:12"], {
+    confidenceLevel: "inferred",
+    notes: "Identifies Elnathan father of Nehushta (2 Kings 24:8) with Elnathan son of Achbor of Jehoiakim's court.",
+  }),
+  explicit("kolaiah-jer", "ahab-of-kolaiah", ["Jeremiah 29:21"]),
+  explicit("maaseiah-father-of-zephaniah", "zephaniah-priest", [
+    "Jeremiah 21:1",
+    "Jeremiah 29:25",
+    "Jeremiah 37:3",
+  ]),
+  explicit("habazziniah", "jeremiah-rechabite", ["Jeremiah 35:3"]),
+  explicit("jeremiah-rechabite", "jaazaniah-rechabite", ["Jeremiah 35:3"]),
+  explicit("igdaliah-man-of-god", "hanan-of-igdaliah", ["Jeremiah 35:4"]),
+  explicit("shallum-doorkeeper-jer35", "maaseiah-of-shallum-jer35", ["Jeremiah 35:4"]),
+  explicit("mahseiah-grandfather-of-baruch", "neriah", ["Jeremiah 32:12", "Jeremiah 51:59"]),
+  explicit("cushi-jer36", "shelemiah-of-cushi", ["Jeremiah 36:14"]),
+  explicit("shelemiah-of-cushi", "nethaniah-of-shelemiah-jer36", ["Jeremiah 36:14"]),
+  explicit("nethaniah-of-shelemiah-jer36", "jehudi-of-nethaniah", ["Jeremiah 36:14"]),
+  explicit("azriel-of-seraiah-jer36", "seraiah-of-azriel", ["Jeremiah 36:26"]),
+  explicit("abdeel-jer36", "shelemiah-of-abdeel", ["Jeremiah 36:26"]),
+  explicit("malchiah-father-of-pashhur", "pashhur-of-malchiah", [
+    "Jeremiah 21:1",
+    "Jeremiah 38:1",
+  ]),
+  explicit("mattan-of-shephatiah", "shephatiah-of-mattan", ["Jeremiah 38:1"]),
+  explicit("elishama-grandfather-of-ishmael", "nethaniah-of-elishama", [
+    "Jeremiah 41:1",
+    "2 Kings 25:25",
+  ]),
+  explicit("tanhumeth-jer40", "seraiah-son-of-tanhumeth", [
+    "Jeremiah 40:8",
+    "2 Kings 25:23",
+  ]),
+  explicit("hoshaiah-jer42", "jezaniah-of-hoshaiah", ["Jeremiah 42:1"]),
+  explicit("hoshaiah-jer42", "azariah-of-hoshaiah", ["Jeremiah 43:2"]),
+];
+
+const edgesRelationGapFillers: GenealogyEdge[] = [
+  explicit("raphu", "palti-son-of-raphu", ["Numbers 13:9"]),
+  explicit("sodi", "gaddiel-son-of-sodi", ["Numbers 13:10"]),
+  explicit("susi", "gaddi-son-of-susi", ["Numbers 13:11"]),
+  explicit("gemalli", "ammiel-son-of-gemalli", ["Numbers 13:12"]),
+  explicit("vophsi", "nahbi-son-of-vophsi", ["Numbers 13:14"]),
+  explicit("machi", "geuel-son-of-machi", ["Numbers 13:15"]),
+  explicit("paruah", "jehoshaphat-son-of-paruah", ["1 Kings 4:17"]),
+  explicit("ela-of-shimei", "shimei-son-of-ela", ["1 Kings 4:18"]),
+  explicit("dodo-bethlehemite", "elhanan-son-of-dodo", [
+    "2 Samuel 23:24",
+    "1 Chronicles 11:26",
+  ]),
+  explicit("dodai-the-ahohite", "eleazar-son-of-dodo", ["1 Chronicles 27:4"], {
+    confidenceLevel: "inferred",
+    notes: "Identifies Dodai the Ahohite (1 Chr 27:4) with the Dodo named as Eleazar's father (2 Sam 23:9; 1 Chr 11:12).",
+  }),
+  explicit("ikkesh-of-tekoa", "ira-son-of-ikkesh", [
+    "2 Samuel 23:26",
+    "1 Chronicles 11:28",
+    "1 Chronicles 27:9",
+  ]),
+  explicit("ribai-of-gibeah", "ittai-son-of-ribai", [
+    "2 Samuel 23:29",
+    "1 Chronicles 11:31",
+  ]),
+  explicit("sharar-the-hararite", "ahiam-son-of-sharar", ["2 Samuel 23:33"]),
+  explicit("ahasbai-of-maacah", "eliphelet-son-of-ahasbai", ["2 Samuel 23:34"]),
+  explicit("agee-the-hararite", "shammah-son-of-agee", ["2 Samuel 23:11"]),
+  explicit("imlah", "micaiah-imlah", [
+    "1 Kings 22:8-9",
+    "2 Chronicles 18:7-8",
+  ]),
+  explicit("barachel-the-buzite", "elihu-buzite", ["Job 32:2", "Job 32:6"]),
+  explicit("pyrrhus-of-berea", "sopater-of-berea", ["Acts 20:4"]),
+  explicit("patroclus-of-nicanor", "nicanor-seleucid", ["2 Maccabees 8:9"]),
+  explicit("hamor-the-hivite", "shechem-of-hamor", ["Genesis 34:2"]),
+  explicit("salu-simeonite", "zimri-num25", ["Numbers 25:14"]),
+  explicit("zur-midian", "cozbi-of-zur", ["Numbers 25:15"], {
+    viaParent: "father",
+  }),
+  explicit("nimshi", "jehoshaphat-of-nimshi", ["2 Kings 9:2", "2 Kings 9:14"]),
+  explicit("jehoshaphat-of-nimshi", "jehu", ["2 Kings 9:2", "2 Kings 9:14"]),
+  explicit("laish-of-gallim", "phaltiel-son-of-laish", [
+    "1 Samuel 25:44",
+    "2 Samuel 3:15",
+  ]),
+  ...spouse("phaltiel-son-of-laish", "michal", [
+    "1 Samuel 25:44",
+    "2 Samuel 3:15-16",
+  ]),
+  explicit("hiel-of-bethel", "abiram-firstborn-of-hiel", ["1 Kings 16:34"]),
+  explicit("hiel-of-bethel", "segub-of-hiel", ["1 Kings 16:34"]),
+  explicit("jabesh-father-of-shallum", "shallum-of-israel", [
+    "2 Kings 15:10",
+    "2 Kings 15:13",
+  ]),
+];
+
 export const genealogyEdges: GenealogyEdge[] = [
   ...edgesGenesis,
   ...edgesTableOfNations,
@@ -2512,4 +2614,7 @@ export const genealogyEdges: GenealogyEdge[] = [
   ...edgesNTMinor,
   ...edgesPauline,
   ...edgesActsPaulineMinor,
+  ...edgesGapFillers,
+  ...edgesJeremiah26to45,
+  ...edgesRelationGapFillers,
 ];
