@@ -10,8 +10,9 @@ data (people, places, events, prophecy), genealogies, timelines, and maps.
 - Turborepo + pnpm workspaces
 - TypeScript 6 everywhere
 - Next.js 16 (App Router) + React 19 + Tailwind CSS v4
-- Prisma 7 + PostgreSQL
+- Prisma 6 + PostgreSQL
 - Zustand for client state, shadcn/ui-compatible component foundation
+- Reactflow + Dagre for genealogy graphs; Leaflet for biblical geography
 
 ## Layout
 
@@ -33,16 +34,26 @@ pnpm dev
 
 The web app boots on http://localhost:3000.
 
-### Database (optional for the homepage)
+### Database
 
-The Prisma client lives in `packages/db`. To use it:
+Most data-driven pages (people, tribes, places, timeline, map) read from
+PostgreSQL. The Prisma client lives in `packages/db`, and the entire dataset
+is rebuilt from the TypeScript source-of-truth in `packages/bible-data` by
+the seed script — it is idempotent (`upsert` everywhere) and safe to re-run.
 
 ```bash
 cp packages/db/.env.example packages/db/.env
 # edit DATABASE_URL
 pnpm --filter @bible-visualizer/db db:generate
 pnpm --filter @bible-visualizer/db db:push
+pnpm --filter @bible-visualizer/db db:seed
 ```
+
+The biblical data lives entirely in TypeScript under
+`packages/bible-data/src/*.ts` (people, genealogy edges, tribes, places,
+events, books, translations). Postgres is a derived index, not the source
+of truth — re-running the seed against a fresh database reproduces the full
+dataset.
 
 ## Scripts
 
@@ -53,6 +64,7 @@ pnpm --filter @bible-visualizer/db db:push
 | `pnpm lint`      | Lint all workspaces                       |
 | `pnpm typecheck` | Type-check all workspaces                 |
 | `pnpm format`    | Prettier-format the repo                  |
+| `pnpm --filter @bible-visualizer/db db:seed` | Rebuild DB from `packages/bible-data` |
 
 ## Design principles
 

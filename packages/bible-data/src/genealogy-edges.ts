@@ -657,8 +657,8 @@ const edgesHighPriests: GenealogyEdge[] = [
   explicit("meraioth-priest", "amariah-priest-1", ["1 Chronicles 6:7", "1 Chronicles 6:52"]),
   explicit("amariah-priest-1", "ahitub-priest-1", ["1 Chronicles 6:7-8", "1 Chronicles 6:52"]),
   explicit("ahitub-priest-1", "zadok", ["2 Samuel 8:17", "1 Chronicles 6:8", "1 Chronicles 6:53"]),
-  explicit("zadok", "ahimaaz-priest", ["2 Samuel 15:27", "1 Chronicles 6:8-9", "1 Chronicles 6:53-54"]),
-  explicit("ahimaaz-priest", "azariah-priest-1", ["1 Chronicles 6:9"]),
+  explicit("zadok", "ahimaaz-of-zadok", ["2 Samuel 15:27", "1 Chronicles 6:8-9", "1 Chronicles 6:53-54"]),
+  explicit("ahimaaz-of-zadok", "azariah-priest-1", ["1 Chronicles 6:9"]),
   explicit("azariah-priest-1", "johanan-priest", ["1 Chronicles 6:9-10"]),
   explicit("johanan-priest", "azariah-priest-2", ["1 Chronicles 6:10-11"]),
   explicit("azariah-priest-2", "amariah-priest-2", ["1 Chronicles 6:11"]),
@@ -819,17 +819,17 @@ const edgesChronicles7: GenealogyEdge[] = [
   explicit("ephraim", "shuthelah", ["Numbers 26:35-36", "1 Chronicles 7:20"]),
   explicit("ephraim", "ezer-ephraim", ["1 Chronicles 7:21"]),
   explicit("ephraim", "elead-ephraim", ["1 Chronicles 7:21"]),
-  explicit("ephraim", "beriah-ephraim", ["1 Chronicles 7:23"]),
+  explicit("ephraim", "beriah-of-ephraim", ["1 Chronicles 7:23"]),
   explicit("ephraim", "sheerah", ["1 Chronicles 7:24"]),
 
-  explicit("beriah-ephraim", "rephah", ["1 Chronicles 7:23-25"]),
+  explicit("beriah-of-ephraim", "rephah", ["1 Chronicles 7:23-25"]),
   explicit("rephah", "resheph", ["1 Chronicles 7:25"]),
   explicit("resheph", "telah", ["1 Chronicles 7:25"]),
   explicit("telah", "tahan-ephraim", ["1 Chronicles 7:25"]),
   explicit("tahan-ephraim", "ladan-ephraim", ["1 Chronicles 7:26"]),
   explicit("ladan-ephraim", "ammihud-ephraim", ["1 Chronicles 7:26"]),
-  explicit("ammihud-ephraim", "elishama-ephraim", ["Numbers 1:10", "1 Chronicles 7:26"]),
-  explicit("elishama-ephraim", "nun", ["1 Chronicles 7:27"]),
+  explicit("ammihud-ephraim", "elishama-son-of-ammihud", ["Numbers 1:10", "1 Chronicles 7:26"]),
+  explicit("elishama-son-of-ammihud", "nun", ["1 Chronicles 7:27"]),
 ];
 
 const edgesChronicles4: GenealogyEdge[] = [
@@ -889,7 +889,7 @@ const edgesNTMinor: GenealogyEdge[] = [
   motherOf("eunice", "timothy", ["Acts 16:1", "2 Timothy 1:5"]),
   explicit("lois", "eunice", ["2 Timothy 1:5"], { viaParent: "either", confidenceLevel: "inferred" }),
 
-  explicit("mary-of-john-mark", "mark-evangelist", ["Acts 12:12"], { viaParent: "mother" }),
+  explicit("mary-mother-of-john-mark", "mark-evangelist", ["Acts 12:12"], { viaParent: "mother" }),
 ];
 
 const edgesPostExileLeaders: GenealogyEdge[] = [
@@ -910,9 +910,9 @@ const edgesGospelMinor: GenealogyEdge[] = [
   explicit("simon-of-cyrene", "alexander-of-cyrene", ["Mark 15:21"]),
 
   explicit("herod-the-great", "herod-antipas", ["Matthew 14:1-12", "Luke 3:1"]),
-  explicit("herod-the-great", "philip-tetrarch", ["Luke 3:1"]),
+  explicit("herod-the-great", "herod-philip-ii", ["Luke 3:1"]),
   ...spouse("herod-antipas", "herodias", ["Matthew 14:3-4", "Mark 6:17-18", "Luke 3:19"]),
-  motherOf("herodias", "salome-of-herodias", ["Matthew 14:6", "Mark 6:22"]),
+  motherOf("herodias", "salome-daughter-of-herodias", ["Matthew 14:6", "Mark 6:22"]),
 
   explicit("herod-agrippa-i", "agrippa-ii", ["Acts 25:13"], { confidenceLevel: "inferred" }),
   explicit("herod-agrippa-i", "drusilla", ["Acts 24:24"], { confidenceLevel: "inferred" }),
@@ -970,8 +970,7 @@ const edgesHorites: GenealogyEdge[] = [
 ];
 
 const edgesSolomonOfficers: GenealogyEdge[] = [
-  explicit("zadok", "ahimaaz-of-zadok", ["2 Samuel 15:27", "2 Samuel 15:36", "2 Samuel 18:19-30", "1 Chronicles 6:8-9"]),
-  explicit("ahimaaz-of-zadok", "azariah-son-of-zadok", ["1 Chronicles 6:9"], { confidenceLevel: "inferred" }),
+    explicit("ahimaaz-of-zadok", "azariah-son-of-zadok", ["1 Chronicles 6:9"], { confidenceLevel: "inferred" }),
 
   explicit("shisha", "elihoreph", ["1 Kings 4:3"]),
   explicit("shisha", "ahijah-son-of-shisha", ["1 Kings 4:3"]),
@@ -1029,12 +1028,12 @@ const edgesTobit: GenealogyEdge[] = [
   ...spouse("tobit", "anna-of-tobit", ["Tobit 1:9"]),
   explicit("tobit", "tobias", ["Tobit 1:9"]),
   ...spouse("raguel-of-tobit", "edna-of-raguel", ["Tobit 7:2"]),
-  explicit("raguel-of-tobit", "sarah-of-raguel", ["Tobit 3:7", "Tobit 7:2"]),
-  ...spouse("tobias", "sarah-of-raguel", ["Tobit 7:13", "Tobit 8:1-9"]),
+  explicit("raguel-of-tobit", "sarah-of-tobit", ["Tobit 3:7", "Tobit 7:2"]),
+  ...spouse("tobias", "sarah-of-tobit", ["Tobit 7:13", "Tobit 8:1-9"]),
 ];
 
 const edgesMightyMen: GenealogyEdge[] = [
-  explicit("jehoiada-of-benaiah", "benaiah-son-of-jehoiada", ["2 Samuel 23:20", "1 Chronicles 11:22"]),
+  explicit("jehoiada-aaronite", "benaiah-son-of-jehoiada", ["2 Samuel 23:20", "1 Chronicles 11:22"]),
   explicit("ner-of-saul", "abner", ["1 Samuel 14:50-51"]),
   explicit("abiathar", "jonathan-son-of-abiathar", ["2 Samuel 15:27", "2 Samuel 15:36", "2 Samuel 17:17-21"]),
 ];
@@ -1090,15 +1089,15 @@ const edgesAsaphHemanJeduthunSons: GenealogyEdge[] = [
 ];
 
 const edgesMightyMenExtra: GenealogyEdge[] = [
-  explicit("hotham-aroerite", "shama-son-of-hotham", ["1 Chronicles 11:44"]),
-  explicit("hotham-aroerite", "jeiel-son-of-hotham", ["1 Chronicles 11:44"]),
+  explicit("hotham-aroerite", "shama-aroerite", ["1 Chronicles 11:44"]),
+  explicit("hotham-aroerite", "jeiel-aroerite", ["1 Chronicles 11:44"]),
   explicit("elnaam-father", "jeribai-son-of-elnaam", ["1 Chronicles 11:46"]),
   explicit("elnaam-father", "joshaviah-son-of-elnaam", ["1 Chronicles 11:46"]),
   explicit("ahithophel", "eliam-son-of-ahithophel", ["2 Samuel 23:34"]),
 ];
 
 const edgesPauline: GenealogyEdge[] = [
-  ...spouse("philologus", "julia-of-rome", ["Romans 16:15"], { confidenceLevel: "inferred" }),
+  ...spouse("philologus", "julia", ["Romans 16:15"], { confidenceLevel: "inferred" }),
 ];
 
 const edgesKorahRebellion: GenealogyEdge[] = [
@@ -1117,7 +1116,7 @@ const edgesChroniclesOfficers: GenealogyEdge[] = [
 ];
 
 const edgesJeremiahCircle: GenealogyEdge[] = [
-  explicit("neriah", "baruch-of-jeremiah", ["Jeremiah 32:12", "Jeremiah 36:4"]),
+  explicit("neriah", "baruch-scribe", ["Jeremiah 32:12", "Jeremiah 36:4"]),
   explicit("neriah", "seraiah-quartermaster", ["Jeremiah 51:59"]),
   explicit("azaliah-of-meshullam", "shaphan-scribe", ["2 Kings 22:3", "2 Chronicles 34:8"]),
   explicit("shaphan-scribe", "ahikam-of-shaphan", ["2 Kings 22:12", "Jeremiah 26:24"]),
@@ -1125,7 +1124,7 @@ const edgesJeremiahCircle: GenealogyEdge[] = [
   explicit("shaphan-scribe", "gemariah-of-shaphan", ["Jeremiah 36:10"]),
   explicit("gemariah-of-shaphan", "micaiah-of-gemariah", ["Jeremiah 36:11"]),
   explicit("ahikam-of-shaphan", "gedaliah-of-ahikam", ["2 Kings 25:22", "Jeremiah 39:14"]),
-  explicit("hilkiah-of-jeremiah", "jeremiah", ["Jeremiah 1:1"]),
+  explicit("hilkiah-priest", "jeremiah", ["Jeremiah 1:1"]),
   explicit("azzur-of-gibeon", "hananiah-of-azzur", ["Jeremiah 28:1"]),
   explicit("kareah", "johanan-of-kareah", ["Jeremiah 40:8"]),
   explicit("kareah", "jonathan-of-kareah", ["Jeremiah 40:8"]),
@@ -1136,9 +1135,8 @@ const edgesJeremiahCircle: GenealogyEdge[] = [
 const edgesMosaicEgypt: GenealogyEdge[] = [
   ...spouse("potiphar", "potiphar-wife", ["Genesis 39:7"]),
   explicit("potiphera", "asenath", ["Genesis 41:45"]),
-  explicit("hur", "uri-hur", ["Exodus 31:2", "1 Chronicles 2:20"]),
-  explicit("uri-hur", "bezalel", ["Exodus 31:2", "1 Chronicles 2:20"]),
-  explicit("ahisamach", "oholiab", ["Exodus 31:6"]),
+  explicit("hur", "uri", ["Exodus 31:2", "1 Chronicles 2:20"]),
+    explicit("ahisamach", "oholiab", ["Exodus 31:6"]),
 ];
 
 const edgesJoashJehoiada: GenealogyEdge[] = [
@@ -1169,7 +1167,7 @@ const edgesProphetCircles: GenealogyEdge[] = [
   explicit("gedaliah-zephaniah", "cushi-zephaniah", ["Zephaniah 1:1"]),
   explicit("cushi-zephaniah", "zephaniah-prophet", ["Zephaniah 1:1"]),
   explicit("iddo-prophet", "berechiah-of-zechariah", ["Zechariah 1:1"]),
-  explicit("berechiah-of-zechariah", "zechariah-prophet", ["Zechariah 1:1"]),
+  explicit("berechiah-of-zechariah", "zechariah-of-iddo", ["Zechariah 1:1"]),
 ];
 
 const edgesSamuelKingdomMisc: GenealogyEdge[] = [
@@ -1266,7 +1264,7 @@ const edgesMoabAmmon: GenealogyEdge[] = [
   explicit("tabrimmon", "ben-hadad-i", ["1 Kings 15:18"]),
   explicit("hezion", "tabrimmon", ["1 Kings 15:18"]),
   explicit("tou-of-hamath", "hadoram-of-tou", ["2 Samuel 8:10", "1 Chronicles 18:10"]),
-  explicit("barzillai-gileadite", "chimham", ["2 Samuel 19:37-40"], { confidenceLevel: "inferred" }),
+  explicit("barzillai-the-gileadite", "chimham", ["2 Samuel 19:37-40"], { confidenceLevel: "inferred" }),
 ];
 
 const edgesJudgesMinor: GenealogyEdge[] = [
@@ -1290,14 +1288,12 @@ const edgesHerodianFamily: GenealogyEdge[] = [
   explicit("antipater-father-of-herod", "herod-the-great", ["Josephus, Antiquities 14-17"], { confidenceLevel: "inferred" }),
   explicit("herod-the-great", "herod-archelaus", ["Matthew 2:22"], { confidenceLevel: "inferred" }),
   explicit("herod-the-great", "herod-philip-i", ["Matthew 14:3", "Mark 6:17"], { confidenceLevel: "inferred" }),
-  explicit("herod-the-great", "herod-philip-ii", ["Luke 3:1"], { confidenceLevel: "inferred" }),
-  explicit("herod-the-great", "aristobulus-iv", ["Josephus, Antiquities 16-17"], { confidenceLevel: "inferred" }),
+    explicit("herod-the-great", "aristobulus-iv", ["Josephus, Antiquities 16-17"], { confidenceLevel: "inferred" }),
   ...spouse("herod-the-great", "mariamne-i", ["Josephus, Antiquities 14-15"], { confidenceLevel: "inferred" }),
   explicit("aristobulus-iv", "herod-agrippa-i", ["Acts 12 background"], { confidenceLevel: "inferred" }),
   explicit("aristobulus-iv", "herodias", ["Matthew 14:3 background"], { confidenceLevel: "inferred" }),
   explicit("herod-philip-i", "salome-daughter-of-herodias", ["Matthew 14:6", "Mark 6:22"], { confidenceLevel: "inferred" }),
-  motherOf("herodias", "salome-daughter-of-herodias", ["Matthew 14:6", "Mark 6:22"]),
-  ...spouse("herod-philip-i", "herodias", ["Matthew 14:3", "Mark 6:17", "Luke 3:19"]),
+    ...spouse("herod-philip-i", "herodias", ["Matthew 14:3", "Mark 6:17", "Luke 3:19"]),
   ...spouse("herod-philip-ii", "salome-daughter-of-herodias", ["Josephus, Antiquities 18"], { confidenceLevel: "inferred" }),
   explicit("alexander-jannaeus", "hyrcanus-ii", ["Josephus"], { confidenceLevel: "inferred" }),
   explicit("alexander-jannaeus", "aristobulus-ii", ["Josephus"], { confidenceLevel: "inferred" }),
@@ -1326,9 +1322,9 @@ const edgesGatekeepers: GenealogyEdge[] = [
   explicit("obed-edom-gittite", "issachar-of-obed-edom", ["1 Chronicles 26:5"]),
   explicit("obed-edom-gittite", "peullethai", ["1 Chronicles 26:5"]),
   explicit("shemaiah-of-obed-edom", "othni", ["1 Chronicles 26:7"]),
-  explicit("shemaiah-of-obed-edom", "rephael-of-shemaiah", ["1 Chronicles 26:7"]),
-  explicit("shemaiah-of-obed-edom", "obed-of-shemaiah", ["1 Chronicles 26:7"]),
-  explicit("shemaiah-of-obed-edom", "elzabad-of-shemaiah", ["1 Chronicles 26:7"]),
+  explicit("shemaiah-of-obed-edom", "shemaiah-rephael", ["1 Chronicles 26:7"]),
+  explicit("shemaiah-of-obed-edom", "shemaiah-obed-son", ["1 Chronicles 26:7"]),
+  explicit("shemaiah-of-obed-edom", "shemaiah-elzabad", ["1 Chronicles 26:7"]),
   explicit("shemaiah-of-obed-edom", "elihu-of-shemaiah", ["1 Chronicles 26:7"]),
   explicit("shemaiah-of-obed-edom", "semachiah", ["1 Chronicles 26:7"]),
   explicit("hosah-gatekeeper", "shimri-of-hosah", ["1 Chronicles 26:10"]),
@@ -1360,7 +1356,7 @@ const edgesEzra8Returnees: GenealogyEdge[] = [
 ];
 
 const edgesRomans16: GenealogyEdge[] = [
-  motherOf("mother-of-rufus", "rufus-of-romans", ["Romans 16:13"]),
+  motherOf("rufus-mother", "rufus-of-romans", ["Romans 16:13"]),
 ];
 
 const edgesGospelsTrailing: GenealogyEdge[] = [
@@ -1369,10 +1365,7 @@ const edgesGospelsTrailing: GenealogyEdge[] = [
 ];
 
 const edgesApocryphal: GenealogyEdge[] = [
-  explicit("raguel-of-tobit", "sarah-of-tobit", ["Tobit 7:1-15"]),
-  motherOf("edna-of-tobit", "sarah-of-tobit", ["Tobit 7:2"]),
-  ...spouse("raguel-of-tobit", "edna-of-tobit", ["Tobit 7:2"]),
-  ...spouse("tobias", "sarah-of-tobit", ["Tobit 7:11-15"]),
+  motherOf("edna-of-raguel", "sarah-of-tobit", ["Tobit 7:2"]),
   explicit("hilkiah-father-of-susanna", "susanna-of-daniel", ["Daniel 13:2-3"]),
   ...spouse("joakim-of-susanna", "susanna-of-daniel", ["Daniel 13:1-4"]),
   ...spouse("manasseh-of-judith", "judith", ["Judith 8:2-3"]),
@@ -1529,8 +1522,7 @@ const edgesChronicles7Extras: GenealogyEdge[] = [
     confidenceLevel: "inferred",
     notes: "1 Chronicles 7:20-22 lists Shuthelah → ... → Ezer and Elead with text uncertain whether they are immediate sons of Ephraim or further descendants; the Chronicler closes the unit with 'their father Ephraim mourned for them many days.' Treated here as son of Ephraim.",
   }),
-  explicit("ephraim", "beriah-of-ephraim", ["1 Chronicles 7:23"]),
-  explicit("heber-asher", "japhlet", ["1 Chronicles 7:32"]),
+    explicit("heber-asher", "japhlet", ["1 Chronicles 7:32"]),
   explicit("heber-asher", "shomer", ["1 Chronicles 7:32"]),
   explicit("heber-asher", "hotham-asher", ["1 Chronicles 7:32"]),
   explicit("heber-asher", "shua-asher", ["1 Chronicles 7:32"], {
@@ -1653,14 +1645,14 @@ const edges1Chronicles4Extras: GenealogyEdge[] = [
   explicit("ishbah", "eshtemoa-of-ishbah", ["1 Chronicles 4:17"]),
   explicit("shelah-of-judah", "er-of-shelah", ["1 Chronicles 4:21"]),
   explicit("er-of-shelah", "lecah-judah", ["1 Chronicles 4:21"]),
-  explicit("shelah-of-judah", "laadah", ["1 Chronicles 4:21"]),
-  explicit("laadah", "mareshah-of-laadah", ["1 Chronicles 4:21"]),
+  explicit("shelah-of-judah", "laadah-mareshah", ["1 Chronicles 4:21"]),
+  explicit("laadah-mareshah", "mareshah-of-laadah", ["1 Chronicles 4:21"]),
   explicit("shelah-of-judah", "ashbea", ["1 Chronicles 4:21"], {
     confidenceLevel: "inferred",
     notes: "1 Chronicles 4:21 references the families of the house of Ashbea descended from Shelah.",
   }),
   explicit("shelah-of-judah", "joash-of-shelah", ["1 Chronicles 4:22"], { confidenceLevel: "inferred" }),
-  explicit("joel-simeon-jehu", "joshibiah", ["1 Chronicles 4:35"]),
+  explicit("joel-simeon-chief", "joshibiah", ["1 Chronicles 4:35"]),
 ];
 
 const edges1Chronicles23to26: GenealogyEdge[] = [
@@ -1776,7 +1768,7 @@ const edgesNumbers26Clans: GenealogyEdge[] = [
   }),
   explicit("zelophehad", "mahlah", ["Numbers 26:33", "Numbers 27:1"]),
   explicit("ephraim", "becher-ephraim", ["Numbers 26:35"]),
-  explicit("ephraim", "tahan-ephraim-num", ["Numbers 26:35"]),
+  explicit("ephraim", "tahan-ephraim", ["Numbers 26:35"]),
   explicit("shuthelah", "eran", ["Numbers 26:36"]),
   explicit("benjamin", "ashbel", ["Genesis 46:21", "Numbers 26:38"]),
   explicit("benjamin", "ahiram", ["Genesis 46:21", "Numbers 26:38"]),
@@ -1993,18 +1985,14 @@ const edgesLukeGenealogy: GenealogyEdge[] = [
 ];
 
 const edgesChr27Princes: GenealogyEdge[] = [
-  explicit("shemaiah-of-obed-edom", "shemaiah-rephael", ["1 Chronicles 26:7"]),
-  explicit("shemaiah-of-obed-edom", "shemaiah-obed-son", ["1 Chronicles 26:7"]),
-  explicit("shemaiah-of-obed-edom", "shemaiah-elzabad", ["1 Chronicles 26:7"]),
-  explicit("shemaiah-of-obed-edom", "shemaiah-elihu", ["1 Chronicles 26:7"]),
-  explicit("zichri-eliezer-reuben", "eliezer-zichri", ["1 Chronicles 27:16"]),
-  explicit("kemuel-levi", "hashabiah-kemuel", ["1 Chronicles 27:17"]),
-  explicit("michael-omri-issachar", "omri-michael-issachar", ["1 Chronicles 27:18"]),
-  explicit("obadiah-ishmaiah", "ishmaiah-obadiah", ["1 Chronicles 27:19"]),
+          explicit("zichri-eliezer-reuben", "eliezer-son-of-zichri", ["1 Chronicles 27:16"]),
+  explicit("kemuel-levi", "hashabiah-son-of-kemuel", ["1 Chronicles 27:17"]),
+  explicit("michael-omri-issachar", "omri-son-of-michael", ["1 Chronicles 27:18"]),
+  explicit("obadiah-ishmaiah", "ishmaiah-son-of-obadiah", ["1 Chronicles 27:19"]),
   explicit("azriel-jeremoth", "jeremoth-azriel", ["1 Chronicles 27:19"]),
-  explicit("azaziah-hoshea", "hoshea-azaziah", ["1 Chronicles 27:20"]),
-  explicit("pedaiah-of-joel-manasseh", "joel-pedaiah", ["1 Chronicles 27:20"]),
-  explicit("zechariah-iddo-gilead", "iddo-zechariah-gilead", ["1 Chronicles 27:21"]),
+  explicit("azaziah-hoshea", "hoshea-son-of-azaziah", ["1 Chronicles 27:20"]),
+  explicit("pedaiah-of-joel-manasseh", "joel-son-of-pedaiah", ["1 Chronicles 27:20"]),
+  explicit("zechariah-iddo-gilead", "iddo-son-of-zechariah", ["1 Chronicles 27:21"]),
 ];
 
 const edgesKeturahLine: GenealogyEdge[] = [
@@ -2124,11 +2112,11 @@ const edges1Chronicles7: GenealogyEdge[] = [
   explicit("tahath-ephraim-2", "zabad-ephraim", ["1 Chronicles 7:21"]),
   explicit("zabad-ephraim", "shuthelah-ephraim-2", ["1 Chronicles 7:21"]),
   explicit("ephraim", "ezer-ephraim-2", ["1 Chronicles 7:21"]),
-  explicit("beriah-ephraim", "rephah-ephraim", ["1 Chronicles 7:25"]),
+  explicit("beriah-of-ephraim", "rephah-ephraim", ["1 Chronicles 7:25"]),
   explicit("rephah-ephraim", "resheph-ephraim", ["1 Chronicles 7:25"]),
   explicit("tahan-ephraim", "laadan-ephraim", ["1 Chronicles 7:26"]),
   explicit("laadan-ephraim", "ammihud-ephraim", ["1 Chronicles 7:26"]),
-  explicit("elishama-ephraim", "non-ephraim", ["1 Chronicles 7:27"]),
+  explicit("elishama-son-of-ammihud", "non-ephraim", ["1 Chronicles 7:27"]),
   explicit("non-ephraim", "joshua", ["1 Chronicles 7:27"]),
   explicit("zophah", "imrah-asher", ["1 Chronicles 7:36"]),
   explicit("zophah", "iri-asher", ["1 Chronicles 7:36"]),
@@ -2180,7 +2168,7 @@ const edgesNehemiah11: GenealogyEdge[] = [
   explicit("azrikam-hashabiah-levite", "hasshub-azrikam-levite", ["Nehemiah 11:15"]),
   explicit("hashabiah-bunni-levite", "azrikam-hashabiah-levite", ["Nehemiah 11:15"]),
   explicit("bunni-levite-jerusalem", "hashabiah-bunni-levite", ["Nehemiah 11:15"]),
-  explicit("mica-zabdi-asaph", "mattaniah-mica-asaphite", ["Nehemiah 11:17"]),
+  explicit("mica-zabdi-asaph", "mattaniah-mica", ["Nehemiah 11:17"]),
   explicit("zabdi-asaph", "mica-zabdi-asaph", ["Nehemiah 11:17"]),
   explicit("asaph", "zabdi-asaph", ["Nehemiah 11:17"]),
   explicit("shammua-galal", "abda-shammua-jeduthun", ["Nehemiah 11:17"]),
@@ -2198,7 +2186,7 @@ const edgesNehemiah3: GenealogyEdge[] = [
   explicit("hakkoz", "uriah-hakkoz", ["Nehemiah 3:4", "Ezra 8:33"]),
   explicit("uriah-hakkoz", "meremoth-son-of-uriah", ["Nehemiah 3:4"]),
   explicit("meshezabel", "berechiah-meshullam-builder", ["Nehemiah 3:4"]),
-  explicit("berechiah-meshullam-builder", "meshullam-berechiah-builder", ["Nehemiah 3:4"]),
+  explicit("berechiah-meshullam-builder", "meshullam-of-berechiah", ["Nehemiah 3:4"]),
   explicit("baana-zadok-father", "zadok-son-of-baana", ["Nehemiah 3:4"]),
   explicit("paseah-joiada", "joiada-paseah", ["Nehemiah 3:6"]),
   explicit("besodeiah", "meshullam-besodeiah", ["Nehemiah 3:6"]),
@@ -2210,15 +2198,15 @@ const edgesNehemiah3: GenealogyEdge[] = [
   explicit("rechab-malchijah", "malchijah-son-of-rechab", ["Nehemiah 3:14"]),
   explicit("col-hozeh", "shallun-son-of-col-hozeh", ["Nehemiah 3:15"]),
   explicit("azbuk", "nehemiah-azbuk", ["Nehemiah 3:16"]),
-  explicit("bani-rehum-father", "rehum-bani-levite", ["Nehemiah 3:17"]),
+  explicit("bani-rehum-father", "rehum-son-of-bani", ["Nehemiah 3:17"]),
   explicit("henadad", "bavvai-henadad", ["Nehemiah 3:18"]),
   explicit("henadad", "binnui-son-of-henadad", ["Nehemiah 3:24"]),
-  explicit("jeshua-high-priest", "ezer-jeshua-builder", ["Nehemiah 3:19"]),
+  explicit("jeshua-high-priest", "ezer-son-of-jeshua", ["Nehemiah 3:19"]),
   explicit("zabbai-bebai", "baruch-son-of-zabbai", ["Nehemiah 3:20"]),
   explicit("ananiah-azariah", "maaseiah-ananiah", ["Nehemiah 3:23"]),
-  explicit("maaseiah-ananiah", "azariah-maaseiah-builder", ["Nehemiah 3:23"]),
-  explicit("uzai", "palal-uzai", ["Nehemiah 3:25"]),
-  explicit("parosh-returnee", "pedaiah-parosh-builder", ["Nehemiah 3:25"]),
+  explicit("maaseiah-ananiah", "azariah-son-of-maaseiah", ["Nehemiah 3:23"]),
+  explicit("uzai", "palal-son-of-uzai", ["Nehemiah 3:25"]),
+  explicit("parosh-returnee", "pedaiah-son-of-parosh", ["Nehemiah 3:25"]),
   explicit("immer-priest-course", "zadok-immer-builder", ["Nehemiah 3:29"]),
   explicit("shecaniah-priest-course", "shemaiah-son-of-shecaniah", ["Nehemiah 3:29"]),
   explicit("zalaph", "hanun-son-of-zalaph", ["Nehemiah 3:30"]),
@@ -2247,8 +2235,7 @@ const edgesEzra10: GenealogyEdge[] = [
   explicit("parosh-returnee", "malchijah-parosh", ["Ezra 10:25"]),
   explicit("parosh-returnee", "mijamin-parosh", ["Ezra 10:25"]),
   explicit("parosh-returnee", "eleazar-parosh", ["Ezra 10:25"]),
-  explicit("parosh-returnee", "malchijah-parosh-2", ["Ezra 10:25"]),
-  explicit("parosh-returnee", "benaiah-parosh", ["Ezra 10:25"]),
+    explicit("parosh-returnee", "benaiah-parosh", ["Ezra 10:25"]),
   explicit("elam-returnee", "mattaniah-elam-ezra10", ["Ezra 10:26"]),
   explicit("elam-returnee", "zechariah-elam-ezra10", ["Ezra 10:26"]),
   explicit("elam-returnee", "jehiel-elam-ezra10", ["Ezra 10:26"]),
@@ -2386,11 +2373,9 @@ const edgesJehoshaphatHouse: GenealogyEdge[] = [
 
 const edgesMightyMenChr11: GenealogyEdge[] = [
   explicit("ahlai-zabad", "zabad-ahlai", ["1 Chronicles 11:41"]),
-  explicit("shiza-reubenite", "adina-shiza", ["1 Chronicles 11:42"]),
-  explicit("maachah-hanan-mighty", "hanan-maachah", ["1 Chronicles 11:43"]),
-  explicit("hotham-aroerite", "shama-aroerite", ["1 Chronicles 11:44"]),
-  explicit("hotham-aroerite", "jeiel-aroerite", ["1 Chronicles 11:44"]),
-  explicit("shimri-jediael-mighty", "jediael-shimri-mighty", ["1 Chronicles 11:45"]),
+  explicit("shiza-reubenite", "adina-son-of-shiza", ["1 Chronicles 11:42"]),
+  explicit("maachah-hanan-mighty", "hanan-son-of-maacah", ["1 Chronicles 11:43"]),
+      explicit("shimri-jediael-mighty", "jediael-shimri-mighty", ["1 Chronicles 11:45"]),
   explicit("shimri-jediael-mighty", "joha-shimri-mighty", ["1 Chronicles 11:45"]),
 ];
 
