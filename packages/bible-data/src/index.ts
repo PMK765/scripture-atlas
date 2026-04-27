@@ -4,3 +4,5 @@ export * from "./translations";
 export * from "./people";
 export * from "./genealogy-edges";
 export * from "./tribes";
+export * from "./places";
+export * from "./events";

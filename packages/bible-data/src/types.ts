@@ -109,6 +109,7 @@ export interface Place extends Traceable {
   id: string;
   name: string;
   alternateNames?: string[];
+  region?: string;
   latitude?: number;
   longitude?: number;
   modernEquivalent?: string;
@@ -118,6 +119,7 @@ export interface Place extends Traceable {
 export interface BiblicalEvent extends Traceable {
   id: string;
   name: string;
+  category?: string;
   description?: string;
   startYear?: number;
   endYear?: number;

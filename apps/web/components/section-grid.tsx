@@ -11,9 +11,9 @@ type SectionDef = {
 
 const sections: SectionDef[] = [
   { key: "books", href: "#books", icon: BookOpen },
-  { key: "timeline", href: "#timeline", icon: Clock },
-  { key: "people", href: "#people", icon: Users },
-  { key: "map", href: "#map", icon: Map },
+  { key: "timeline", href: "/timeline", icon: Clock },
+  { key: "people", href: "/people", icon: Users },
+  { key: "map", href: "/map", icon: Map },
 ];
 
 export function SectionGrid() {

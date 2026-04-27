@@ -1,4 +1,12 @@
-import { books, genealogyEdges, people, translations, tribes } from "@bible-visualizer/bible-data";
+import {
+  books,
+  events,
+  genealogyEdges,
+  people,
+  places,
+  translations,
+  tribes,
+} from "@bible-visualizer/bible-data";
 import { prisma } from "../index";
 
 async function seedBooks(): Promise<number> {
@@ -267,6 +275,114 @@ async function seedTribes(): Promise<{
   return { upserts, pruned: pruned.count, memberships };
 }
 
+async function seedPlaces(): Promise<{ upserts: number; pruned: number }> {
+  let upserts = 0;
+  for (const place of places) {
+    await prisma.place.upsert({
+      where: { code: place.id },
+      update: {
+        name: place.name,
+        alternateNames: place.alternateNames ?? [],
+        region: place.region ?? null,
+        latitude: place.latitude ?? null,
+        longitude: place.longitude ?? null,
+        modernEquivalent: place.modernEquivalent ?? null,
+        description: place.description ?? null,
+        scriptureReferences: place.scriptureReferences,
+        confidenceLevel: place.confidenceLevel,
+        traditionTags: place.traditionTags ?? [],
+        notes: place.notes ?? null,
+      },
+      create: {
+        code: place.id,
+        name: place.name,
+        alternateNames: place.alternateNames ?? [],
+        region: place.region ?? null,
+        latitude: place.latitude ?? null,
+        longitude: place.longitude ?? null,
+        modernEquivalent: place.modernEquivalent ?? null,
+        description: place.description ?? null,
+        scriptureReferences: place.scriptureReferences,
+        confidenceLevel: place.confidenceLevel,
+        traditionTags: place.traditionTags ?? [],
+        notes: place.notes ?? null,
+      },
+    });
+    upserts += 1;
+  }
+  const validCodes = places.map((p) => p.id);
+  const pruned = await prisma.place.deleteMany({
+    where: { code: { notIn: validCodes } },
+  });
+  return { upserts, pruned: pruned.count };
+}
+
+async function seedEvents(): Promise<{ upserts: number; pruned: number; placeLinks: number }> {
+  let upserts = 0;
+  for (const event of events) {
+    await prisma.event.upsert({
+      where: { code: event.id },
+      update: {
+        name: event.name,
+        category: event.category ?? null,
+        description: event.description ?? null,
+        startYear: event.startYear ?? null,
+        endYear: event.endYear ?? null,
+        scriptureReferences: event.scriptureReferences,
+        confidenceLevel: event.confidenceLevel,
+        traditionTags: event.traditionTags ?? [],
+        notes: event.notes ?? null,
+      },
+      create: {
+        code: event.id,
+        name: event.name,
+        category: event.category ?? null,
+        description: event.description ?? null,
+        startYear: event.startYear ?? null,
+        endYear: event.endYear ?? null,
+        scriptureReferences: event.scriptureReferences,
+        confidenceLevel: event.confidenceLevel,
+        traditionTags: event.traditionTags ?? [],
+        notes: event.notes ?? null,
+      },
+    });
+    upserts += 1;
+  }
+  const validCodes = events.map((e) => e.id);
+  const pruned = await prisma.event.deleteMany({
+    where: { code: { notIn: validCodes } },
+  });
+
+  const eventRows = await prisma.event.findMany({ select: { id: true, code: true } });
+  const placeRows = await prisma.place.findMany({ select: { id: true, code: true } });
+  const eventCodeToId = new Map(eventRows.map((e) => [e.code, e.id]));
+  const placeCodeToId = new Map(placeRows.map((p) => [p.code, p.id]));
+
+  await prisma.eventPlace.deleteMany({});
+  let placeLinks = 0;
+  for (const event of events) {
+    if (!event.placeIds?.length) continue;
+    const eventId = eventCodeToId.get(event.id);
+    if (!eventId) continue;
+    for (const placeCode of event.placeIds) {
+      const placeId = placeCodeToId.get(placeCode);
+      if (!placeId) {
+        console.warn(`Event ${event.id}: place ${placeCode} not found, skipping link.`);
+        continue;
+      }
+      await prisma.eventPlace.create({
+        data: {
+          eventId,
+          placeId,
+        },
+      });
+      placeLinks += 1;
+    }
+  }
+
+  return { upserts, pruned: pruned.count, placeLinks };
+}
+
 async function main(): Promise<void> {
   const startedAt = Date.now();
   const bookCount = await seedBooks();
@@ -278,12 +394,20 @@ async function main(): Promise<void> {
     pruned: tribesPruned,
     memberships: tribeMemberships,
   } = await seedTribes();
+  const { upserts: placeCount, pruned: placesPruned } = await seedPlaces();
+  const {
+    upserts: eventCount,
+    pruned: eventsPruned,
+    placeLinks: eventPlaceLinks,
+  } = await seedEvents();
   const elapsed = Date.now() - startedAt;
   const tPrune = translationsPruned > 0 ? ` (pruned ${translationsPruned} obsolete)` : "";
   const pPrune = peoplePruned > 0 ? ` (pruned ${peoplePruned} obsolete)` : "";
   const trPrune = tribesPruned > 0 ? ` (pruned ${tribesPruned} obsolete)` : "";
+  const plPrune = placesPruned > 0 ? ` (pruned ${placesPruned} obsolete)` : "";
+  const evPrune = eventsPruned > 0 ? ` (pruned ${eventsPruned} obsolete)` : "";
   console.log(
-    `Seed complete in ${elapsed}ms — ${bookCount} books, ${translationCount} translations${tPrune}, ${peopleCount} people${pPrune}, ${edgeCount} genealogy edges, ${tribeCount} tribes${trPrune}, ${tribeMemberships} memberships.`,
+    `Seed complete in ${elapsed}ms — ${bookCount} books, ${translationCount} translations${tPrune}, ${peopleCount} people${pPrune}, ${edgeCount} genealogy edges, ${tribeCount} tribes${trPrune}, ${tribeMemberships} memberships, ${placeCount} places${plPrune}, ${eventCount} events${evPrune} (${eventPlaceLinks} event-place links).`,
   );
 }
 

@@ -27,7 +27,7 @@ export function SiteHeader() {
           <Link className="hover:text-foreground" href="/#books">
             Books
           </Link>
-          <Link className="hover:text-foreground" href="/#timeline">
+          <Link className="hover:text-foreground" href="/timeline">
             Timeline
           </Link>
           <Link className="hover:text-foreground" href="/people">
@@ -36,7 +36,7 @@ export function SiteHeader() {
           <Link className="hover:text-foreground" href="/tribes">
             Tribes
           </Link>
-          <Link className="hover:text-foreground" href="/#map">
+          <Link className="hover:text-foreground" href="/map">
             Map
           </Link>
         </nav>

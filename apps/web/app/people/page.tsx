@@ -106,11 +106,14 @@ export default async function PeoplePage({ searchParams }: PageProps) {
         )}
 
         <p className="mt-10 max-w-2xl text-xs text-muted-foreground">
-          Curation status: Genesis 4–5, 11, 16, 19, 21–25, 28–30, 35–36, 41, 49 are complete
-          (Cainite and Sethite lines, Shem to Abraham, Ishmael&rsquo;s sons, Keturah&rsquo;s sons,
-          Lot&rsquo;s sons, Esau&rsquo;s house, Jacob&rsquo;s twelve sons + Dinah, Joseph&rsquo;s
-          family). The remaining ~2,900 named biblical figures are pending hand-curation. Data is
-          rigorously sourced; gaps mean &ldquo;not yet curated&rdquo;, not &ldquo;not in
+          Curation status: Primeval (Genesis 1&ndash;11), patriarchs (Genesis 12&ndash;50),
+          Exodus/Numbers, Joshua/Judges/Ruth, the united and divided monarchies (Saul, David, all
+          kings of Judah and Israel), the writing prophets, post-exilic figures (Zerubbabel, Ezra,
+          Nehemiah, Esther), the Holy Family, John the Baptist, the Twelve, and the early
+          apostolic generation are all in. {totalAll.toLocaleString()} figures curated so far.
+          The remaining named biblical figures (priestly genealogies in 1 Chronicles, the post-exile
+          lists in Ezra/Nehemiah, the obscure persons in Acts and the epistles) are pending. Every
+          claim is rigorously sourced; gaps mean &ldquo;not yet curated&rdquo;, not &ldquo;not in
           scripture&rdquo;.
         </p>
       </main>

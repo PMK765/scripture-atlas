@@ -189,8 +189,10 @@ model Person {
 
 model Place {
   id                  String   @id @default(cuid())
+  code                String   @unique
   name                String
   alternateNames      String[] @default([])
+  region              String?
   latitude            Float?
   longitude           Float?
   modernEquivalent    String?
@@ -205,11 +207,15 @@ model Place {
   events              EventPlace[]
 
   @@index([name])
+  @@index([code])
+  @@index([region])
 }
 
 model Event {
   id                  String   @id @default(cuid())
+  code                String   @unique
   name                String
+  category            String?
   description         String?
   startYear           Int?
   endYear             Int?
@@ -225,6 +231,8 @@ model Event {
   books        BookEvent[]
 
   @@index([startYear, endYear])
+  @@index([code])
+  @@index([category])
 }
 
 model GenealogyEdge {
