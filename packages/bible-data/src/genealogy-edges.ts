@@ -2622,6 +2622,53 @@ const edgesWikipediaDiff: GenealogyEdge[] = [
     "1 Chronicles 7:14",
     "Numbers 26:31",
   ]),
+  explicit("reuben", "bohan-reuben", ["Joshua 15:6", "Joshua 18:17"], {
+    confidenceLevel: "inferred",
+    notes: "Joshua 15:6 calls him 'Bohan son of Reuben' but he is not listed among Reuben's four named sons (Hanoch, Pallu, Hezron, Carmi); the relationship may be tribal rather than direct.",
+  }),
+  explicit("sheva-calebite", "machbena", ["1 Chronicles 2:49"]),
+  explicit("jahdai", "shaaph-of-jahdai", ["1 Chronicles 2:47"]),
+  explicit("chelubai", "shaaph-of-caleb", ["1 Chronicles 2:49"]),
+  explicit("chelubai", "sheva-calebite", ["1 Chronicles 2:48-49"]),
+  explicit("david", "ibhar-of-david", [
+    "2 Samuel 5:15",
+    "1 Chronicles 3:6",
+    "1 Chronicles 14:5",
+  ]),
+  explicit("david", "elishua-of-david", [
+    "2 Samuel 5:15",
+    "1 Chronicles 14:5",
+  ]),
+  explicit("david", "elpelet-of-david", ["1 Chronicles 14:5"]),
+  explicit("david", "nogah-of-david", [
+    "1 Chronicles 3:7",
+    "1 Chronicles 14:6",
+  ]),
+  explicit("david", "nepheg-of-david", [
+    "2 Samuel 5:15",
+    "1 Chronicles 3:7",
+    "1 Chronicles 14:6",
+  ]),
+  explicit("david", "japhia-of-david", [
+    "2 Samuel 5:15",
+    "1 Chronicles 3:7",
+    "1 Chronicles 14:6",
+  ]),
+  explicit("david", "elishama-of-david", [
+    "2 Samuel 5:16",
+    "1 Chronicles 3:8",
+    "1 Chronicles 14:7",
+  ]),
+  explicit("david", "eliada-of-david", [
+    "2 Samuel 5:16",
+    "1 Chronicles 3:8",
+    "1 Chronicles 14:7",
+  ]),
+  explicit("david", "eliphelet-of-david", [
+    "2 Samuel 5:16",
+    "1 Chronicles 3:8",
+    "1 Chronicles 14:7",
+  ]),
 ];
 
 export const genealogyEdges: GenealogyEdge[] = [
