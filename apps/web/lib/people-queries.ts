@@ -1,3 +1,4 @@
+import { ERAS } from "@bible-visualizer/config";
 import { prisma } from "@bible-visualizer/db";
 
 export interface PersonSummary {
@@ -98,11 +99,14 @@ function toSummary(row: PersonSummaryRow): PersonSummary {
   };
 }
 
+export type PeopleSort = "name" | "chronological";
+
 export async function getAllPeople(filters?: {
   era?: string;
   role?: string;
   tribe?: string;
   search?: string;
+  sort?: PeopleSort;
 }): Promise<PersonSummary[]> {
   const where: {
     era?: string;
@@ -127,10 +131,147 @@ export async function getAllPeople(filters?: {
   }
   const rows = await prisma.person.findMany({
     where,
-    select: personSummarySelect,
+    select: { ...personSummarySelect, birthYear: true },
     orderBy: [{ name: "asc" }],
   });
+
+  if (filters?.sort === "chronological") {
+    return chronologicalOrder(rows);
+  }
+
   return rows.map(toSummary);
+}
+
+async function chronologicalOrder(
+  rows: Array<PersonSummaryRow & { birthYear: number | null }>,
+): Promise<PersonSummary[]> {
+  const eraRank = new Map<string, number>(ERAS.map((e, i) => [e, i]));
+  const idsInScope = new Set(rows.map((r) => r.id));
+
+  const edges = await prisma.genealogyEdge.findMany({
+    where: {
+      OR: [{ relationship: "parent-of" }, { relationship: "spouse-of" }],
+      fromPersonId: { in: [...idsInScope] },
+      toPersonId: { in: [...idsInScope] },
+    },
+    select: {
+      fromPersonId: true,
+      toPersonId: true,
+      relationship: true,
+    },
+  });
+
+  const byId = new Map(rows.map((r) => [r.id, r]));
+  const buckets = new Map<string, Array<typeof rows[number]>>();
+  for (const r of rows) {
+    const era = r.era ?? "__unknown__";
+    const list = buckets.get(era);
+    if (list) list.push(r);
+    else buckets.set(era, [r]);
+  }
+
+  const ordered: typeof rows = [];
+
+  const sortedEras = [...buckets.keys()].sort((a, b) => {
+    const ar = eraRank.get(a) ?? ERAS.length;
+    const br = eraRank.get(b) ?? ERAS.length;
+    return ar - br;
+  });
+
+  for (const era of sortedEras) {
+    const bucket = buckets.get(era)!;
+    const bucketIds = new Set(bucket.map((p) => p.id));
+
+    const parentsInBucket = new Map<string, string[]>();
+    const spousesInBucket = new Map<string, string[]>();
+    for (const e of edges) {
+      if (!bucketIds.has(e.fromPersonId) || !bucketIds.has(e.toPersonId)) continue;
+      if (e.relationship === "parent-of") {
+        const list = parentsInBucket.get(e.toPersonId);
+        if (list) list.push(e.fromPersonId);
+        else parentsInBucket.set(e.toPersonId, [e.fromPersonId]);
+      } else if (e.relationship === "spouse-of") {
+        const list = spousesInBucket.get(e.fromPersonId);
+        if (list) list.push(e.toPersonId);
+        else spousesInBucket.set(e.fromPersonId, [e.toPersonId]);
+      }
+    }
+
+    const depth = new Map<string, number>();
+    const computeDepth = (id: string, seen: Set<string>): number => {
+      const cached = depth.get(id);
+      if (cached !== undefined) return cached;
+      if (seen.has(id)) return 0;
+      seen.add(id);
+      const parents = parentsInBucket.get(id);
+      if (!parents || parents.length === 0) {
+        depth.set(id, 0);
+        return 0;
+      }
+      let max = 0;
+      for (const p of parents) {
+        max = Math.max(max, computeDepth(p, seen) + 1);
+      }
+      depth.set(id, max);
+      seen.delete(id);
+      return max;
+    };
+    for (const p of bucket) computeDepth(p.id, new Set());
+
+    for (let iter = 0; iter < 16; iter += 1) {
+      let changed = false;
+      for (const p of bucket) {
+        const cur = depth.get(p.id) ?? 0;
+        const spouses = spousesInBucket.get(p.id) ?? [];
+        let maxSpouse = cur;
+        for (const sid of spouses) {
+          const sd = depth.get(sid) ?? 0;
+          if (sd > maxSpouse) maxSpouse = sd;
+        }
+        if (maxSpouse > cur) {
+          depth.set(p.id, maxSpouse);
+          changed = true;
+        }
+      }
+      if (!changed) break;
+    }
+
+    bucket.sort((a, b) => {
+      const ad = depth.get(a.id) ?? 0;
+      const bd = depth.get(b.id) ?? 0;
+      if (ad !== bd) return ad - bd;
+      const ay = a.birthYear;
+      const by = b.birthYear;
+      if (ay !== null && by !== null) return ay - by;
+      if (ay !== null) return -1;
+      if (by !== null) return 1;
+      return a.name.localeCompare(b.name);
+    });
+
+    const placed = new Set<string>();
+    const result: typeof rows = [];
+    for (const person of bucket) {
+      if (placed.has(person.id)) continue;
+      result.push(person);
+      placed.add(person.id);
+      const spouses = spousesInBucket.get(person.id) ?? [];
+      for (const sid of spouses) {
+        if (placed.has(sid)) continue;
+        const spouse = byId.get(sid);
+        if (!spouse) continue;
+        if (spouse.era !== person.era) continue;
+        const spouseHasParents = (parentsInBucket.get(sid) ?? []).length > 0;
+        const spouseHasYear = spouse.birthYear !== null;
+        if (spouseHasParents || spouseHasYear) continue;
+        result.push(spouse);
+        placed.add(sid);
+      }
+    }
+
+    ordered.push(...result);
+  }
+
+  return ordered.map(toSummary);
 }
 
 export async function getPersonByCode(code: string): Promise<PersonDetail | null> {

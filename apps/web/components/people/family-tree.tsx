@@ -37,7 +37,6 @@ function PersonNode({ data }: NodeProps) {
   const { person, isFocus } = data as PersonNodeData;
   const eraLabel = person.era ? ERA_LABELS[person.era as Era] ?? person.era : null;
   const lifespan = person.lifespanYears ? `${person.lifespanYears} yrs` : null;
-  const isContested = person.confidenceLevel === "debated";
 
   return (
     <>
@@ -47,7 +46,6 @@ function PersonNode({ data }: NodeProps) {
           "flex items-center gap-2.5 rounded-lg border bg-card p-2 text-card-foreground shadow-sm transition-colors",
           isFocus && "border-primary bg-primary/10 ring-2 ring-primary/40",
           !isFocus && "hover:border-primary/50",
-          isContested && !isFocus && "border-dashed border-amber-500/60",
         )}
         style={{ width: NODE_WIDTH }}
       >
@@ -77,11 +75,6 @@ function PersonNode({ data }: NodeProps) {
             ) : null}
             {lifespan ? (
               <span className="font-mono text-muted-foreground">{lifespan}</span>
-            ) : null}
-            {isContested ? (
-              <span className="rounded-sm bg-amber-500/15 px-1.5 py-0.5 text-amber-700 dark:text-amber-300">
-                debated
-              </span>
             ) : null}
           </div>
         </div>

@@ -2,15 +2,17 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useRef, type FormEvent } from "react";
-import { Search, X } from "lucide-react";
+import { useMemo, useRef, useState, type FormEvent } from "react";
+import { ArrowDownAZ, Clock, Search, X } from "lucide-react";
 import { ERA_LABELS, type Era } from "@bible-visualizer/config";
 import { cn } from "@/lib/utils";
+import type { PeopleSort } from "@/lib/people-queries";
 
 export interface PeopleFilterBarProps {
   eras: Array<{ era: string; count: number }>;
   roles: Array<{ role: string; count: number }>;
   tribes: Array<{ code: string; name: string; count: number }>;
+  activeSort: PeopleSort;
 }
 
 const ROLE_LABELS: Record<string, string> = {
@@ -31,7 +33,9 @@ const ROLE_LABELS: Record<string, string> = {
   "ancestor-of-christ": "Christ's line",
 };
 
-export function PeopleFilterBar({ eras, roles, tribes }: PeopleFilterBarProps) {
+const COLLAPSED_LIMIT = 6;
+
+export function PeopleFilterBar({ eras, roles, tribes, activeSort }: PeopleFilterBarProps) {
   const router = useRouter();
   const params = useSearchParams();
   const activeQ = params?.get("q") ?? "";
@@ -49,12 +53,14 @@ export function PeopleFilterBar({ eras, roles, tribes }: PeopleFilterBarProps) {
     router.push(`/people${next.toString() ? `?${next.toString()}` : ""}`);
   };
 
-  const buildHref = (key: "era" | "role" | "tribe", val: string | null): string => {
+  const buildHref = (key: "era" | "role" | "tribe" | "sort", val: string | null): string => {
     const next = new URLSearchParams(params?.toString() ?? "");
     if (val === null) next.delete(key);
     else next.set(key, val);
     return `/people${next.toString() ? `?${next.toString()}` : ""}`;
   };
+
+  const hasActiveFilter = !!(activeQ || activeEra || activeRole || activeTribe);
 
   return (
     <div className="space-y-4">
@@ -81,14 +87,41 @@ export function PeopleFilterBar({ eras, roles, tribes }: PeopleFilterBarProps) {
         </button>
       </form>
 
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="flex items-center gap-1 rounded-md border bg-card p-0.5 text-xs">
+          <SortChip
+            href={buildHref("sort", null)}
+            active={activeSort === "name"}
+            icon={<ArrowDownAZ className="h-3.5 w-3.5" />}
+          >
+            Name
+          </SortChip>
+          <SortChip
+            href={buildHref("sort", "chronological")}
+            active={activeSort === "chronological"}
+            icon={<Clock className="h-3.5 w-3.5" />}
+            title="By era, then birth year (when known)"
+          >
+            Chronological
+          </SortChip>
+        </div>
+        {activeSort === "chronological" ? (
+          <p className="text-[11px] text-muted-foreground">
+            Bucketed by era → generation depth → birth year (when known) → name. Spouses
+            kept adjacent.
+          </p>
+        ) : null}
+      </div>
+
       {eras.length > 0 ? (
-        <FilterRow label="Era">
+        <CollapsibleFilterRow label="Era" totalCount={eras.length} activeKey={activeEra}>
           <FilterPill href={buildHref("era", null)} active={!activeEra}>
             All
           </FilterPill>
           {eras.map(({ era, count }) => (
             <FilterPill
               key={era}
+              filterKey={era}
               href={buildHref("era", era)}
               active={activeEra === era}
             >
@@ -96,17 +129,18 @@ export function PeopleFilterBar({ eras, roles, tribes }: PeopleFilterBarProps) {
               <span className="ml-1.5 text-[10px] text-muted-foreground">{count}</span>
             </FilterPill>
           ))}
-        </FilterRow>
+        </CollapsibleFilterRow>
       ) : null}
 
       {roles.length > 0 ? (
-        <FilterRow label="Role">
+        <CollapsibleFilterRow label="Role" totalCount={roles.length} activeKey={activeRole}>
           <FilterPill href={buildHref("role", null)} active={!activeRole}>
             Any
           </FilterPill>
           {roles.map(({ role, count }) => (
             <FilterPill
               key={role}
+              filterKey={role}
               href={buildHref("role", role)}
               active={activeRole === role}
             >
@@ -114,17 +148,18 @@ export function PeopleFilterBar({ eras, roles, tribes }: PeopleFilterBarProps) {
               <span className="ml-1.5 text-[10px] text-muted-foreground">{count}</span>
             </FilterPill>
           ))}
-        </FilterRow>
+        </CollapsibleFilterRow>
       ) : null}
 
       {tribes.length > 0 ? (
-        <FilterRow label="Tribe">
+        <CollapsibleFilterRow label="Tribe" totalCount={tribes.length} activeKey={activeTribe}>
           <FilterPill href={buildHref("tribe", null)} active={!activeTribe}>
             Any
           </FilterPill>
           {tribes.map(({ code, name, count }) => (
             <FilterPill
               key={code}
+              filterKey={code}
               href={buildHref("tribe", code)}
               active={activeTribe === code}
             >
@@ -132,10 +167,10 @@ export function PeopleFilterBar({ eras, roles, tribes }: PeopleFilterBarProps) {
               <span className="ml-1.5 text-[10px] text-muted-foreground">{count}</span>
             </FilterPill>
           ))}
-        </FilterRow>
+        </CollapsibleFilterRow>
       ) : null}
 
-      {(activeQ || activeEra || activeRole || activeTribe) && (
+      {hasActiveFilter ? (
         <div className="flex flex-wrap items-center gap-2 pt-1 text-xs text-muted-foreground">
           <span>Active:</span>
           {activeQ ? (
@@ -166,19 +201,89 @@ export function PeopleFilterBar({ eras, roles, tribes }: PeopleFilterBarProps) {
             Clear all
           </Link>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }
 
-function FilterRow({ label, children }: { label: string; children: React.ReactNode }) {
+function CollapsibleFilterRow({
+  label,
+  totalCount,
+  activeKey,
+  children,
+}: {
+  label: string;
+  totalCount: number;
+  activeKey: string | null;
+  children: React.ReactNode;
+}) {
+  const [expanded, setExpanded] = useState(false);
+
+  const items = useMemo(() => {
+    const arr = Array.isArray(children) ? children : [children];
+    return arr.flat().filter(Boolean) as Array<React.ReactElement<{ filterKey?: string; active?: boolean }>>;
+  }, [children]);
+
+  const overflowCount = Math.max(0, items.length - 1 - COLLAPSED_LIMIT);
+
+  const visible = expanded
+    ? items
+    : items.filter((child, idx) => {
+        if (idx === 0) return true;
+        if (idx <= COLLAPSED_LIMIT) return true;
+        const fk = child.props.filterKey;
+        if (fk && activeKey === fk) return true;
+        return false;
+      });
+
   return (
     <div className="flex flex-wrap items-center gap-2">
       <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
         {label}
       </span>
-      <div className="flex flex-wrap gap-1.5">{children}</div>
+      <div className="flex flex-wrap items-center gap-1.5">
+        {visible}
+        {overflowCount > 0 && totalCount > COLLAPSED_LIMIT ? (
+          <button
+            type="button"
+            onClick={() => setExpanded((v) => !v)}
+            className="inline-flex items-center rounded-full border border-dashed px-2.5 py-1 text-xs text-muted-foreground hover:border-primary/40 hover:text-foreground"
+          >
+            {expanded ? "Show less" : `Show ${overflowCount} more`}
+          </button>
+        ) : null}
+      </div>
     </div>
+  );
+}
+
+function SortChip({
+  href,
+  active,
+  icon,
+  children,
+  title,
+}: {
+  href: string;
+  active: boolean;
+  icon: React.ReactNode;
+  children: React.ReactNode;
+  title?: string;
+}) {
+  return (
+    <Link
+      href={href}
+      title={title}
+      className={cn(
+        "inline-flex items-center gap-1.5 rounded px-2 py-1 transition-colors",
+        active
+          ? "bg-primary/15 text-primary"
+          : "text-muted-foreground hover:bg-muted/50 hover:text-foreground",
+      )}
+    >
+      {icon}
+      {children}
+    </Link>
   );
 }
 
@@ -189,6 +294,7 @@ function FilterPill({
 }: {
   href: string;
   active: boolean;
+  filterKey?: string;
   children: React.ReactNode;
 }) {
   return (

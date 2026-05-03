@@ -11,7 +11,6 @@ import { Portrait } from "@/components/people/portrait";
 import { RelationshipList } from "@/components/people/relationship-list";
 import { getPersonByCode, getPersonNeighborhood } from "@/lib/people-queries";
 import { eraColor } from "@/components/lineages/era-color";
-import { cn } from "@/lib/utils";
 
 export const revalidate = 300;
 
@@ -47,13 +46,6 @@ const ROLE_LABELS: Record<string, string> = {
   "ancestor-of-christ": "In the line of Christ",
 };
 
-const CONFIDENCE_LABELS: Record<string, string> = {
-  stated: "Stated",
-  inferred: "Inferred",
-  traditional: "Traditional",
-  debated: "Debated",
-};
-
 export default async function PersonPage({ params }: PageProps) {
   const { code } = await params;
   const person = await getPersonByCode(code);
@@ -84,6 +76,7 @@ export default async function PersonPage({ params }: PageProps) {
             size={144}
             rounded="lg"
             ringColor={`${accent}66`}
+            interactive
           />
           <div className="min-w-0 flex-1 space-y-3">
             <div className="flex flex-wrap items-baseline gap-3">
@@ -93,15 +86,6 @@ export default async function PersonPage({ params }: PageProps) {
                   {person.gender === "male" ? "♂" : person.gender === "female" ? "♀" : ""}
                 </span>
               ) : null}
-              <Badge
-                variant={person.confidenceLevel === "debated" ? "outline" : "primary"}
-                className={cn(
-                  person.confidenceLevel === "debated" &&
-                    "border-amber-500/60 bg-amber-500/10 text-amber-700 dark:text-amber-300",
-                )}
-              >
-                {CONFIDENCE_LABELS[person.confidenceLevel] ?? person.confidenceLevel}
-              </Badge>
             </div>
 
             {person.alternateNames.length > 0 ? (

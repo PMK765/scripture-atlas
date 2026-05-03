@@ -2,6 +2,8 @@ import Link from "next/link";
 import { ERA_LABELS, type Era } from "@bible-visualizer/config";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Portrait } from "@/components/people/portrait";
+import { eraColor } from "@/components/lineages/era-color";
 import { cn } from "@/lib/utils";
 import type { PersonSummary } from "@/lib/people-queries";
 
@@ -26,6 +28,7 @@ const ROLE_LABELS: Record<string, string> = {
 export function PersonCard({ person }: { person: PersonSummary }) {
   const lifespan = person.lifespanYears ? `${person.lifespanYears} yrs` : null;
   const eraLabel = person.era ? ERA_LABELS[person.era as Era] ?? person.era : null;
+  const accent = eraColor(person.era);
   const primaryRoles = person.roles
     .filter((r) => r !== "ancestor-of-christ")
     .slice(0, 3);
@@ -42,15 +45,27 @@ export function PersonCard({ person }: { person: PersonSummary }) {
         )}
       >
         <CardHeader className="pb-3">
-          <div className="flex items-start justify-between gap-3">
-            <CardTitle className="text-base">{person.name}</CardTitle>
-            {lifespan ? <Badge variant="outline">{lifespan}</Badge> : null}
+          <div className="flex items-start gap-3">
+            <Portrait
+              code={person.code}
+              gender={person.gender}
+              name={person.name}
+              size={48}
+              rounded="md"
+              ringColor={`${accent}55`}
+            />
+            <div className="min-w-0 flex-1">
+              <div className="flex items-start justify-between gap-2">
+                <CardTitle className="text-base leading-tight">{person.name}</CardTitle>
+                {lifespan ? <Badge variant="outline">{lifespan}</Badge> : null}
+              </div>
+              {person.alternateNames.length > 0 ? (
+                <p className="mt-1 line-clamp-1 text-xs text-muted-foreground">
+                  {person.alternateNames.slice(0, 3).join(" · ")}
+                </p>
+              ) : null}
+            </div>
           </div>
-          {person.alternateNames.length > 0 ? (
-            <p className="text-xs text-muted-foreground">
-              {person.alternateNames.slice(0, 3).join(" · ")}
-            </p>
-          ) : null}
         </CardHeader>
         <CardContent className="flex flex-col gap-2 pt-0">
           <div className="flex flex-wrap gap-1.5">

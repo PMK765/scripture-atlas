@@ -65,13 +65,6 @@ const ROLE_LABELS: Record<string, string> = {
   "ancestor-of-christ": "In the line of Christ",
 };
 
-const CONFIDENCE_LABELS: Record<string, string> = {
-  stated: "Stated",
-  inferred: "Inferred",
-  traditional: "Traditional",
-  debated: "Debated",
-};
-
 export function PersonDrawer({ open, code, onOpenChange, onSetRoot }: PersonDrawerProps) {
   const [person, setPerson] = useState<DrawerPerson | null>(null);
   const [loading, setLoading] = useState(false);
@@ -142,6 +135,7 @@ export function PersonDrawer({ open, code, onOpenChange, onSetRoot }: PersonDraw
                     size={72}
                     rounded="lg"
                     ringColor={`${accent}55`}
+                    interactive
                   />
                   <div className="min-w-0 flex-1">
                     <div className="flex items-baseline gap-2">
@@ -181,16 +175,6 @@ export function PersonDrawer({ open, code, onOpenChange, onSetRoot }: PersonDraw
                     {person.lifespanYears} years
                   </Badge>
                 ) : null}
-                <Badge
-                  variant={person.confidenceLevel === "debated" ? "outline" : "default"}
-                  className={cn(
-                    "text-[11px]",
-                    person.confidenceLevel === "debated" &&
-                      "border-amber-500/60 bg-amber-500/10 text-amber-700 dark:text-amber-300",
-                  )}
-                >
-                  {CONFIDENCE_LABELS[person.confidenceLevel] ?? person.confidenceLevel}
-                </Badge>
               </div>
 
               <div className="mt-4 flex flex-wrap gap-2">

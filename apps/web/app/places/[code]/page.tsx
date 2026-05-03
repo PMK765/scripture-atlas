@@ -55,9 +55,6 @@ export default async function PlacePage({
                 {place.region}
               </span>
             ) : null}
-            {place.confidenceLevel === "traditional" ? (
-              <Badge variant="outline">Traditional identification</Badge>
-            ) : null}
             {place.traditionTags?.length ? (
               <Badge variant="outline">{place.traditionTags.join(", ")}</Badge>
             ) : null}

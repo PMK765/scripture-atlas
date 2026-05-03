@@ -298,9 +298,6 @@ export function TimelineExplorer({ events }: TimelineExplorerProps) {
                       {CATEGORY_LABELS[e.category] ?? e.category}
                     </span>
                   ) : null}
-                  {e.confidenceLevel === "traditional" ? (
-                    <Badge variant="outline">Traditional dating</Badge>
-                  ) : null}
                   {e.traditionTags?.length ? (
                     <Badge variant="outline">{e.traditionTags.join(", ")}</Badge>
                   ) : null}

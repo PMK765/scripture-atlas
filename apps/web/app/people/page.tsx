@@ -16,7 +16,13 @@ export const metadata: Metadata = {
 };
 
 interface PageProps {
-  searchParams: Promise<{ era?: string; role?: string; tribe?: string; q?: string }>;
+  searchParams: Promise<{
+    era?: string;
+    role?: string;
+    tribe?: string;
+    q?: string;
+    sort?: string;
+  }>;
 }
 
 export default async function PeoplePage({ searchParams }: PageProps) {
@@ -25,9 +31,10 @@ export default async function PeoplePage({ searchParams }: PageProps) {
   const role = typeof sp.role === "string" ? sp.role : undefined;
   const tribe = typeof sp.tribe === "string" ? sp.tribe : undefined;
   const q = typeof sp.q === "string" ? sp.q : undefined;
+  const sort = sp.sort === "chronological" ? "chronological" : "name";
 
   const [people, eraGroups, roleGroupsRaw, tribeRows, totalAll] = await Promise.all([
-    getAllPeople({ era, role, tribe, search: q }),
+    getAllPeople({ era, role, tribe, search: q, sort }),
     prisma.person.groupBy({
       by: ["era"],
       _count: { _all: true },
@@ -87,7 +94,7 @@ export default async function PeoplePage({ searchParams }: PageProps) {
         </header>
 
         <div className="mb-8">
-          <PeopleFilterBar eras={eras} roles={roles} tribes={tribes} />
+          <PeopleFilterBar eras={eras} roles={roles} tribes={tribes} activeSort={sort} />
         </div>
 
         {people.length === 0 ? (
