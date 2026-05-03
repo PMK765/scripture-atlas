@@ -3,7 +3,8 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",
-    "noEmit": true
+    "noEmit": true,
+    "types": ["geojson"]
   },
   "include": ["src/**/*.ts"]
 }

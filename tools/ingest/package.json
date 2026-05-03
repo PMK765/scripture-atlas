@@ -15,6 +15,7 @@
     "ingest:lxx": "tsx src/cli.ts lxx",
     "ingest:all": "tsx src/cli.ts all",
     "import:obi-places": "tsx src/import-obi-places.ts",
+    "import:obi-overlays": "tsx src/import-obi-overlays.ts",
     "typecheck": "tsc --noEmit",
     "lint": "echo \"(no lint configured for @bible-visualizer/ingest)\""
   },

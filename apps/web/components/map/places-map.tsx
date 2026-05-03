@@ -7,7 +7,11 @@ import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { getDataSource, getDataSourceShortName } from "@bible-visualizer/bible-data";
+import {
+  getDataSource,
+  getDataSourceShortName,
+  type MapOverlay,
+} from "@bible-visualizer/bible-data";
 import type { PlaceSummary } from "@/lib/place-queries";
 import { cn } from "@/lib/utils";
 
@@ -198,13 +202,81 @@ function ClusterLayer({ places, fitKey }: ClusterLayerProps) {
   return null;
 }
 
+interface OverlayLayerProps {
+  overlays: MapOverlay[];
+}
+
+function OverlayLayer({ overlays }: OverlayLayerProps) {
+  const map = useMap();
+  const groupRef = useRef<L.LayerGroup | null>(null);
+
+  useEffect(() => {
+    const group = L.layerGroup();
+    groupRef.current = group;
+    group.addTo(map);
+    return () => {
+      group.removeFrom(map);
+      groupRef.current = null;
+    };
+  }, [map]);
+
+  useEffect(() => {
+    const group = groupRef.current;
+    if (!group) return;
+    group.clearLayers();
+    for (const overlay of overlays) {
+      if (!overlay.geometry) continue;
+      const fillOpacity = overlay.kind === "empire" ? 0.04 : 0.09;
+      const dashArray = overlay.kind === "empire" ? "4 4" : undefined;
+      const layer = L.geoJSON(overlay.geometry, {
+        style: {
+          color: overlay.color,
+          weight: 1.5,
+          opacity: 0.85,
+          fillColor: overlay.color,
+          fillOpacity,
+          dashArray,
+          interactive: true,
+        },
+      });
+      layer.bindTooltip(overlayTooltipHtml(overlay), {
+        sticky: true,
+        direction: "top",
+        opacity: 0.95,
+        className: "place-tooltip",
+      });
+      layer.addTo(group);
+    }
+    return () => {
+      group.clearLayers();
+    };
+  }, [overlays]);
+
+  return null;
+}
+
+function overlayTooltipHtml(o: MapOverlay): string {
+  const sourceName = getDataSourceShortName(o.source) ?? o.source;
+  return `
+    <div style="font-family:inherit;line-height:1.3;max-width:240px;">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:6px;">
+        <span style="font-weight:600;font-size:11px;color:#0f172a;">${escapeHtml(o.name)}</span>
+        <span style="font-size:9px;text-transform:uppercase;letter-spacing:0.06em;color:${o.color};">${escapeHtml(o.kind)}</span>
+      </div>
+      ${o.description ? `<div style="font-size:10px;color:#475569;margin-top:3px;white-space:normal;">${escapeHtml(o.description)}</div>` : ""}
+      <div style="font-size:9px;color:#94a3b8;margin-top:4px;">via ${escapeHtml(sourceName)} · approximate</div>
+    </div>
+  `;
+}
+
 interface PlacesMapProps {
   places: PlaceSummary[];
+  overlays: MapOverlay[];
   activeRegion: string | null;
   fitKey?: string;
 }
 
-export function PlacesMap({ places, activeRegion, fitKey }: PlacesMapProps) {
+export function PlacesMap({ places, overlays, activeRegion, fitKey }: PlacesMapProps) {
   const visible = useMemo(
     () => places.filter((p) => p.latitude !== null && p.longitude !== null),
     [places],
@@ -224,6 +296,7 @@ export function PlacesMap({ places, activeRegion, fitKey }: PlacesMapProps) {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <OverlayLayer overlays={overlays} />
         <ClusterLayer places={visible} fitKey={computedFitKey} />
       </MapContainer>
     </div>

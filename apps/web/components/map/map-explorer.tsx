@@ -4,6 +4,8 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Info, Search, X } from "lucide-react";
+import { overlays as ALL_OVERLAYS } from "@bible-visualizer/bible-data";
+import { OverlayPanel } from "@/components/map/overlay-panel";
 import { cn } from "@/lib/utils";
 import type { PlaceSummary } from "@/lib/place-queries";
 
@@ -127,6 +129,9 @@ export function MapExplorer({ places }: MapExplorerProps) {
   const [tier, setTier] = useState<Tier>("major");
   const [search, setSearch] = useState("");
   const [listLimit, setListLimit] = useState(LIST_PAGE_SIZE);
+  const [activeOverlayIds, setActiveOverlayIds] = useState<Set<string>>(
+    () => new Set(ALL_OVERLAYS.filter((o) => o.geometry).map((o) => o.id)),
+  );
 
   const tierCounts = useMemo(() => {
     let curated = 0;
@@ -204,6 +209,15 @@ export function MapExplorer({ places }: MapExplorerProps) {
     major: tierCounts.majorTotal,
     all: tierCounts.allTotal,
   };
+
+  const visibleOverlays = useMemo(() => {
+    if (activeEra) {
+      return ALL_OVERLAYS.filter(
+        (o) => activeOverlayIds.has(o.id) && o.eras.includes(activeEra),
+      );
+    }
+    return ALL_OVERLAYS.filter((o) => activeOverlayIds.has(o.id));
+  }, [activeOverlayIds, activeEra]);
 
   const activeTierMeta = TIERS.find((t) => t.key === tier) ?? TIERS[0];
 
@@ -426,8 +440,15 @@ export function MapExplorer({ places }: MapExplorerProps) {
         </div>
       )}
 
+      <OverlayPanel
+        overlays={ALL_OVERLAYS}
+        activeIds={activeOverlayIds}
+        onChange={setActiveOverlayIds}
+      />
+
       <PlacesMap
         places={filteredPlaces}
+        overlays={visibleOverlays}
         activeRegion={activeRegion}
         fitKey={`${activeEra ?? "any-era"}|${activeRegion ?? "any-region"}`}
       />
