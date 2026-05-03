@@ -113,6 +113,8 @@ export interface PersonTribeMembership extends Traceable {
   tribeId: string;
 }
 
+export type PlaceProminence = "major" | "notable" | "minor";
+
 export interface Place extends Traceable {
   id: string;
   name: string;
@@ -122,6 +124,11 @@ export interface Place extends Traceable {
   longitude?: number;
   modernEquivalent?: string;
   description?: string;
+  source?: string;
+  sourceUrl?: string;
+  isStub?: boolean;
+  prominence?: PlaceProminence;
+  mentionCount?: number;
 }
 
 export interface BiblicalEvent extends Traceable {

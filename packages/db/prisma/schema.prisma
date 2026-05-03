@@ -201,6 +201,11 @@ model Place {
   confidenceLevel     String
   traditionTags       String[] @default([])
   notes               String?
+  source              String?
+  sourceUrl           String?
+  isStub              Boolean  @default(false)
+  prominence          String?
+  mentionCount        Int      @default(0)
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 
@@ -208,6 +213,8 @@ model Place {
 
   @@index([name])
   @@index([code])
+  @@index([source])
+  @@index([prominence])
   @@index([region])
 }
 

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { projectMeta } from "@bible-visualizer/config";
 
 export function SiteFooter() {
@@ -8,7 +9,13 @@ export function SiteFooter() {
           {projectMeta.name} · Accuracy over interpretation. Traceable references and labeled
           confidence levels.
         </p>
-        <p>Scaffold v0.0.0</p>
+        <nav className="flex items-center gap-4">
+          <Link href="/sources" className="hover:text-foreground">
+            Sources
+          </Link>
+          <span aria-hidden>·</span>
+          <span>Scaffold v0.0.0</span>
+        </nav>
       </div>
     </footer>
   );

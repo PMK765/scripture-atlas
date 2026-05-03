@@ -1,6 +1,7 @@
 import type { Place } from "./types";
+import { importedPlaces } from "./places-imported";
 
-export const places: Place[] = [
+export const curatedPlaces: Place[] = [
   {
     id: "jerusalem",
     name: "Jerusalem",
@@ -650,3 +651,5 @@ export const places: Place[] = [
     notes: "The exact location of Sodom is debated; the traditional southern Dead Sea identification is used here.",
   },
 ];
+
+export const places: Place[] = [...curatedPlaces, ...importedPlaces];

@@ -285,6 +285,7 @@ async function seedTribes(): Promise<{
 async function seedPlaces(): Promise<{ upserts: number; pruned: number }> {
   let upserts = 0;
   for (const place of places) {
+    const prominence = place.prominence ?? (place.source ? "minor" : "major");
     await prisma.place.upsert({
       where: { code: place.id },
       update: {
@@ -299,6 +300,11 @@ async function seedPlaces(): Promise<{ upserts: number; pruned: number }> {
         confidenceLevel: place.confidenceLevel,
         traditionTags: place.traditionTags ?? [],
         notes: place.notes ?? null,
+        source: place.source ?? null,
+        sourceUrl: place.sourceUrl ?? null,
+        isStub: place.isStub ?? false,
+        prominence,
+        mentionCount: place.mentionCount ?? 0,
       },
       create: {
         code: place.id,
@@ -313,6 +319,11 @@ async function seedPlaces(): Promise<{ upserts: number; pruned: number }> {
         confidenceLevel: place.confidenceLevel,
         traditionTags: place.traditionTags ?? [],
         notes: place.notes ?? null,
+        source: place.source ?? null,
+        sourceUrl: place.sourceUrl ?? null,
+        isStub: place.isStub ?? false,
+        prominence,
+        mentionCount: place.mentionCount ?? 0,
       },
     });
     upserts += 1;

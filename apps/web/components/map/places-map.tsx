@@ -2,9 +2,12 @@
 
 import { useEffect, useMemo, useRef } from "react";
 import L from "leaflet";
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
-import Link from "next/link";
+import "leaflet.markercluster";
+import "leaflet.markercluster/dist/MarkerCluster.css";
+import "leaflet.markercluster/dist/MarkerCluster.Default.css";
+import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import { getDataSource, getDataSourceShortName } from "@bible-visualizer/bible-data";
 import type { PlaceSummary } from "@/lib/place-queries";
 import { cn } from "@/lib/utils";
 
@@ -29,64 +32,185 @@ const REGION_COLORS: Record<string, string> = {
   syria: "#22d3ee",
 };
 
-function pinIcon(color: string): L.DivIcon {
+const STUB_COLOR = "#94a3b8";
+
+function pinIcon(color: string, prominence: string | null, name: string): L.DivIcon {
+  const isMajor = prominence === "major";
+  const isNotable = prominence === "notable";
+  const isMinor = prominence === "minor";
+  const size = isMajor ? 16 : isMinor ? 9 : 12;
+  const border = isMinor ? "1px solid rgba(255,255,255,0.7)" : "2px solid white";
+  const opacity = isMinor ? 0.65 : 1;
+  const showLabel = isMajor || isNotable || !prominence;
+  const labelFontSize = isMajor ? 11 : 10;
+  const labelWeight = isMajor ? 600 : 500;
+  const dot = `<span style="
+    position:absolute;left:0;top:0;
+    width:${size}px;height:${size}px;
+    background:${color};
+    border-radius:50%;
+    border:${border};
+    box-shadow:0 0 0 1px rgba(0,0,0,0.45),0 1px 3px rgba(0,0,0,0.3);
+    opacity:${opacity};
+  "></span>`;
+  const label = showLabel
+    ? `<span style="
+        position:absolute;
+        left:${size + 4}px;
+        top:50%;
+        transform:translateY(-50%);
+        font-size:${labelFontSize}px;
+        font-weight:${labelWeight};
+        line-height:1;
+        color:#0f172a;
+        white-space:nowrap;
+        pointer-events:none;
+        text-shadow:
+          0 0 3px #fff,
+          0 0 3px #fff,
+          0 0 2px #fff,
+          0 0 2px #fff;
+      ">${escapeHtml(name)}</span>`
+    : "";
   return L.divIcon({
     className: "place-marker",
-    html: `<span style="
-      display:inline-block;
-      width:14px;height:14px;
-      background:${color};
-      border-radius:50%;
-      border:2px solid white;
-      box-shadow:0 0 0 1px rgba(0,0,0,0.5),0 1px 4px rgba(0,0,0,0.4);
-    "></span>`,
-    iconSize: [14, 14],
-    iconAnchor: [7, 7],
-    popupAnchor: [0, -6],
+    html: `<div style="position:relative;width:${size}px;height:${size}px;">${dot}${label}</div>`,
+    iconSize: [size, size],
+    iconAnchor: [size / 2, size / 2],
+    popupAnchor: [0, -(size / 2 + 1)],
   });
 }
 
-interface FitToMarkersProps {
-  positions: Array<[number, number]>;
+function tooltipHtml(p: PlaceSummary): string {
+  const subtitle = p.modernEquivalent ?? p.region ?? null;
+  return `
+    <div style="font-family:inherit;line-height:1.25;">
+      <div style="font-weight:600;font-size:11px;color:#0f172a;">${escapeHtml(p.name)}</div>
+      ${subtitle ? `<div style="font-size:10px;color:#64748b;margin-top:1px;">${escapeHtml(subtitle)}</div>` : ""}
+    </div>
+  `;
 }
 
-function FitToMarkers({ positions }: FitToMarkersProps) {
+function escapeHtml(value: string): string {
+  return value.replace(/[&<>"']/g, (ch) => {
+    switch (ch) {
+      case "&": return "&amp;";
+      case "<": return "&lt;";
+      case ">": return "&gt;";
+      case '"': return "&quot;";
+      default: return "&#39;";
+    }
+  });
+}
+
+function popupHtml(p: PlaceSummary): string {
+  const sourceMeta = p.source ? getDataSource(p.source) : null;
+  const sourceName = getDataSourceShortName(p.source) ?? p.source ?? "";
+  return `
+    <div style="font-family:inherit;min-width:160px;">
+      <div style="display:flex;align-items:flex-start;gap:6px;justify-content:space-between;">
+        <div style="font-size:13px;font-weight:600;color:#0f172a;">${escapeHtml(p.name)}</div>
+        ${
+          p.isStub
+            ? '<span style="flex-shrink:0;border-radius:3px;background:#e2e8f0;padding:1px 5px;font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;color:#64748b;">stub</span>'
+            : ""
+        }
+      </div>
+      ${p.region ? `<div style="margin-top:2px;font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:#64748b;">${escapeHtml(p.region)}</div>` : ""}
+      ${p.modernEquivalent ? `<div style="margin-top:4px;font-size:11px;color:#475569;">${escapeHtml(p.modernEquivalent)}</div>` : ""}
+      ${
+        p.description
+          ? `<div style="margin-top:4px;font-size:11px;color:#475569;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">${escapeHtml(p.description)}</div>`
+          : ""
+      }
+      ${
+        p.source
+          ? `<div style="margin-top:6px;font-size:10px;color:#64748b;">Coords from <a href="${escapeHtml(p.sourceUrl ?? sourceMeta?.url ?? "#")}" target="_blank" rel="noreferrer" style="color:inherit;text-decoration:underline;">${escapeHtml(sourceName)}</a></div>`
+          : ""
+      }
+      <a href="/places/${escapeHtml(p.code)}" style="display:inline-block;margin-top:6px;font-size:11px;font-weight:500;color:#7c3aed;text-decoration:underline;">View details →</a>
+    </div>
+  `;
+}
+
+interface ClusterLayerProps {
+  places: PlaceSummary[];
+  fitKey: string;
+}
+
+function ClusterLayer({ places, fitKey }: ClusterLayerProps) {
   const map = useMap();
-  const fittedRef = useRef(false);
+  const clusterRef = useRef<L.MarkerClusterGroup | null>(null);
+  const lastFitRef = useRef<string | null>(null);
+
   useEffect(() => {
-    if (fittedRef.current) return;
-    if (positions.length === 0) return;
-    fittedRef.current = true;
-    const bounds = L.latLngBounds(positions);
-    map.fitBounds(bounds, { padding: [40, 40] });
-  }, [map, positions]);
+    const cluster = L.markerClusterGroup({
+      showCoverageOnHover: false,
+      spiderfyOnMaxZoom: true,
+      maxClusterRadius: 48,
+      disableClusteringAtZoom: 10,
+      chunkedLoading: true,
+    });
+    clusterRef.current = cluster;
+    map.addLayer(cluster);
+    return () => {
+      map.removeLayer(cluster);
+      clusterRef.current = null;
+    };
+  }, [map]);
+
+  useEffect(() => {
+    const cluster = clusterRef.current;
+    if (!cluster) return;
+    cluster.clearLayers();
+    const markers: L.Marker[] = [];
+    const positions: L.LatLngExpression[] = [];
+    for (const p of places) {
+      if (p.latitude === null || p.longitude === null) continue;
+      const color = (p.region && REGION_COLORS[p.region]) ?? STUB_COLOR;
+      const marker = L.marker([p.latitude, p.longitude], {
+        icon: pinIcon(color, p.prominence, p.name),
+      });
+      marker.bindTooltip(tooltipHtml(p), {
+        direction: "top",
+        offset: [0, -6],
+        opacity: 0.95,
+        className: "place-tooltip",
+      });
+      marker.bindPopup(popupHtml(p), { maxWidth: 260, closeButton: true });
+      markers.push(marker);
+      positions.push([p.latitude, p.longitude]);
+    }
+    cluster.addLayers(markers);
+
+    if (positions.length > 0 && lastFitRef.current !== fitKey) {
+      lastFitRef.current = fitKey;
+      const bounds = L.latLngBounds(positions);
+      map.fitBounds(bounds, {
+        padding: [50, 50],
+        maxZoom: 8,
+        animate: true,
+        duration: 0.4,
+      });
+    }
+  }, [places, map, fitKey]);
+
   return null;
 }
 
 interface PlacesMapProps {
   places: PlaceSummary[];
   activeRegion: string | null;
+  fitKey?: string;
 }
 
-export function PlacesMap({ places, activeRegion }: PlacesMapProps) {
+export function PlacesMap({ places, activeRegion, fitKey }: PlacesMapProps) {
   const visible = useMemo(
-    () =>
-      places.filter(
-        (p) =>
-          p.latitude !== null &&
-          p.longitude !== null &&
-          (!activeRegion || p.region === activeRegion),
-      ),
-    [places, activeRegion],
+    () => places.filter((p) => p.latitude !== null && p.longitude !== null),
+    [places],
   );
 
-  const positions = useMemo<Array<[number, number]>>(
-    () =>
-      visible
-        .filter((p) => p.latitude !== null && p.longitude !== null)
-        .map((p) => [p.latitude as number, p.longitude as number]),
-    [visible],
-  );
+  const computedFitKey = fitKey ?? `${activeRegion ?? "all"}:${visible.length}`;
 
   return (
     <div className={cn("h-[600px] overflow-hidden rounded-lg border")}>
@@ -100,40 +224,7 @@ export function PlacesMap({ places, activeRegion }: PlacesMapProps) {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <FitToMarkers positions={positions} />
-        {visible.map((p) => {
-          const color = (p.region && REGION_COLORS[p.region]) ?? "#94a3b8";
-          return (
-            <Marker
-              key={p.code}
-              position={[p.latitude as number, p.longitude as number]}
-              icon={pinIcon(color)}
-            >
-              <Popup>
-                <div className="space-y-1">
-                  <p className="text-sm font-semibold">{p.name}</p>
-                  {p.region ? (
-                    <p className="text-xs uppercase tracking-wider text-muted-foreground">
-                      {p.region}
-                    </p>
-                  ) : null}
-                  {p.modernEquivalent ? (
-                    <p className="text-xs text-muted-foreground">{p.modernEquivalent}</p>
-                  ) : null}
-                  {p.description ? (
-                    <p className="line-clamp-3 text-xs text-muted-foreground">{p.description}</p>
-                  ) : null}
-                  <Link
-                    href={`/places/${p.code}`}
-                    className="inline-block pt-1 text-xs font-medium text-primary underline-offset-2 hover:underline"
-                  >
-                    View details →
-                  </Link>
-                </div>
-              </Popup>
-            </Marker>
-          );
-        })}
+        <ClusterLayer places={visible} fitKey={computedFitKey} />
       </MapContainer>
     </div>
   );

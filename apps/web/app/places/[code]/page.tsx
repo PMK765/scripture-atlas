@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
+import { getDataSource, getDataSourceShortName } from "@bible-visualizer/bible-data";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Badge } from "@/components/ui/badge";
+import { SourceBadge } from "@/components/sources/source-badge";
 import { getAllPlaces, getPlaceByCode } from "@/lib/place-queries";
 
 export const revalidate = 300;
@@ -55,14 +57,29 @@ export default async function PlacePage({
                 {place.region}
               </span>
             ) : null}
+            {place.isStub ? (
+              <Badge variant="outline" className="text-[10px]">Stub entry</Badge>
+            ) : null}
             {place.traditionTags?.length ? (
               <Badge variant="outline">{place.traditionTags.join(", ")}</Badge>
             ) : null}
+            <SourceBadge sourceId={place.source} sourceUrl={place.sourceUrl} />
           </div>
           <h1 className="text-3xl font-semibold tracking-tight">{place.name}</h1>
           {place.alternateNames.length > 0 ? (
             <p className="text-sm text-muted-foreground">
               Also: {place.alternateNames.join(" · ")}
+            </p>
+          ) : null}
+          {place.isStub ? (
+            <p className="rounded-md border border-amber-500/30 bg-amber-500/5 p-3 text-xs leading-relaxed text-amber-800 dark:text-amber-200">
+              This is a stub entry. Coordinates and basic identification are imported from an
+              external geographic dataset; the description and scripture references are not yet
+              hand-curated. See{" "}
+              <Link href="/sources" className="font-medium underline-offset-2 hover:underline">
+                Sources
+              </Link>{" "}
+              for the full disclosure.
             </p>
           ) : null}
         </header>
@@ -92,6 +109,19 @@ export default async function PlacePage({
               <dd className="mt-1 font-mono text-sm tabular-nums">
                 {place.latitude.toFixed(4)}°, {place.longitude.toFixed(4)}°
               </dd>
+              {place.source ? (
+                <p className="mt-1 text-[10px] text-muted-foreground">
+                  via{" "}
+                  <a
+                    href={place.sourceUrl ?? getDataSource(place.source)?.url ?? "#"}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline-offset-2 hover:underline"
+                  >
+                    {getDataSourceShortName(place.source) ?? place.source}
+                  </a>
+                </p>
+              ) : null}
             </div>
           ) : null}
         </dl>
