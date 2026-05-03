@@ -13,29 +13,40 @@ import { cn } from "@/lib/utils";
 const KIND_LABEL: Record<OverlayKind, string> = {
   empire: "Empires",
   region: "Regions",
+  province: "Roman provinces",
+  tetrarchy: "Herodian tetrarchies",
   kingdom: "Kingdoms",
   tribe: "Tribes",
-  province: "Roman provinces",
 };
 
-const KIND_ORDER: OverlayKind[] = ["empire", "region", "kingdom", "province", "tribe"];
+const KIND_ORDER: OverlayKind[] = [
+  "region",
+  "province",
+  "tetrarchy",
+  "empire",
+  "kingdom",
+  "tribe",
+];
 
 interface OverlayPanelProps {
   overlays: ReadonlyArray<MapOverlay>;
   activeIds: ReadonlySet<string>;
   onChange: (next: Set<string>) => void;
+  /** Currently selected era label, if any. Surfaces an explainer that overlays auto-tune to era. */
+  eraLabel?: string | null;
 }
 
-export function OverlayPanel({ overlays, activeIds, onChange }: OverlayPanelProps) {
+export function OverlayPanel({ overlays, activeIds, onChange, eraLabel }: OverlayPanelProps) {
   const [open, setOpen] = useState(true);
 
   const grouped = useMemo(() => {
     const buckets: Record<OverlayKind, MapOverlay[]> = {
       empire: [],
       region: [],
+      province: [],
+      tetrarchy: [],
       kingdom: [],
       tribe: [],
-      province: [],
     };
     for (const o of overlays) {
       if (!o.geometry) continue;
@@ -75,38 +86,45 @@ export function OverlayPanel({ overlays, activeIds, onChange }: OverlayPanelProp
 
   return (
     <div className="rounded-lg border bg-card/40">
-      <button
-        type="button"
-        onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left"
-        aria-expanded={open}
-      >
-        <span className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+      <div className="flex items-center justify-between gap-3 px-4 py-3">
+        <button
+          type="button"
+          onClick={() => setOpen((o) => !o)}
+          aria-expanded={open}
+          aria-controls="overlay-panel-body"
+          className="flex flex-1 items-center gap-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground hover:text-foreground"
+        >
           <Layers className="h-3.5 w-3.5" aria-hidden />
           Boundaries
           <span className="rounded-sm bg-muted px-1.5 py-0.5 font-mono text-[10px] normal-case tracking-normal text-foreground">
             {activeCount}/{allIds.length}
           </span>
-        </span>
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              setAll(activeCount === allIds.length ? false : true);
-            }}
-            className="text-[11px] text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
-          >
-            {activeCount === allIds.length ? "Hide all" : "Show all"}
-          </button>
           <ChevronDown
-            className={cn("h-3.5 w-3.5 text-muted-foreground transition-transform", open && "rotate-180")}
+            className={cn("h-3.5 w-3.5 transition-transform", open && "rotate-180")}
             aria-hidden
           />
-        </div>
-      </button>
+        </button>
+        <button
+          type="button"
+          onClick={() => setAll(activeCount !== allIds.length)}
+          className="text-[11px] text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
+        >
+          {activeCount === allIds.length ? "Hide all" : "Show all"}
+        </button>
+      </div>
       {open ? (
-        <div className="space-y-4 border-t px-4 py-3">
+        <div id="overlay-panel-body" className="space-y-4 border-t px-4 py-3">
+          {eraLabel ? (
+            <p className="text-[10px] leading-relaxed text-muted-foreground">
+              Showing boundaries relevant to the{" "}
+              <span className="font-medium text-foreground">{eraLabel}</span> era. Toggle individual
+              entries to override.
+            </p>
+          ) : (
+            <p className="text-[10px] leading-relaxed text-muted-foreground">
+              Pick an era above to auto-tune which empires and provinces are shown.
+            </p>
+          )}
           {KIND_ORDER.map((kind) => {
             const list = grouped[kind];
             if (list.length === 0) return null;

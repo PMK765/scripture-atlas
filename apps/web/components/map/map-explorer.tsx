@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Info, Search, X } from "lucide-react";
 import { overlays as ALL_OVERLAYS } from "@bible-visualizer/bible-data";
 import { OverlayPanel } from "@/components/map/overlay-panel";
@@ -119,6 +119,17 @@ function placeMatchesSearch(p: PlaceSummary, query: string): boolean {
   return false;
 }
 
+function defaultOverlayIdsForEra(era: string | null): Set<string> {
+  if (era === null) {
+    return new Set(
+      ALL_OVERLAYS.filter((o) => o.geometry && o.kind === "region").map((o) => o.id),
+    );
+  }
+  return new Set(
+    ALL_OVERLAYS.filter((o) => o.geometry && o.eras.includes(era)).map((o) => o.id),
+  );
+}
+
 interface MapExplorerProps {
   places: PlaceSummary[];
 }
@@ -130,8 +141,15 @@ export function MapExplorer({ places }: MapExplorerProps) {
   const [search, setSearch] = useState("");
   const [listLimit, setListLimit] = useState(LIST_PAGE_SIZE);
   const [activeOverlayIds, setActiveOverlayIds] = useState<Set<string>>(
-    () => new Set(ALL_OVERLAYS.filter((o) => o.geometry).map((o) => o.id)),
+    () => defaultOverlayIdsForEra(null),
   );
+  const lastEraRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (lastEraRef.current === activeEra) return;
+    lastEraRef.current = activeEra;
+    setActiveOverlayIds(defaultOverlayIdsForEra(activeEra));
+  }, [activeEra]);
 
   const tierCounts = useMemo(() => {
     let curated = 0;
@@ -210,14 +228,10 @@ export function MapExplorer({ places }: MapExplorerProps) {
     all: tierCounts.allTotal,
   };
 
-  const visibleOverlays = useMemo(() => {
-    if (activeEra) {
-      return ALL_OVERLAYS.filter(
-        (o) => activeOverlayIds.has(o.id) && o.eras.includes(activeEra),
-      );
-    }
-    return ALL_OVERLAYS.filter((o) => activeOverlayIds.has(o.id));
-  }, [activeOverlayIds, activeEra]);
+  const visibleOverlays = useMemo(
+    () => ALL_OVERLAYS.filter((o) => activeOverlayIds.has(o.id)),
+    [activeOverlayIds],
+  );
 
   const activeTierMeta = TIERS.find((t) => t.key === tier) ?? TIERS[0];
 
@@ -444,6 +458,11 @@ export function MapExplorer({ places }: MapExplorerProps) {
         overlays={ALL_OVERLAYS}
         activeIds={activeOverlayIds}
         onChange={setActiveOverlayIds}
+        eraLabel={
+          activeEra
+            ? ERA_ORDER.find((e) => e.key === activeEra)?.label ?? activeEra
+            : null
+        }
       />
 
       <PlacesMap

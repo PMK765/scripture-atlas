@@ -202,6 +202,22 @@ function ClusterLayer({ places, fitKey }: ClusterLayerProps) {
   return null;
 }
 
+interface OverlayStyle {
+  weight: number;
+  opacity: number;
+  fillOpacity: number;
+  dashArray?: string;
+}
+
+const STYLE_BY_KIND: Record<MapOverlay["kind"], OverlayStyle> = {
+  empire: { weight: 1, opacity: 0.35, fillOpacity: 0.015, dashArray: "6 5" },
+  region: { weight: 1.4, opacity: 0.75, fillOpacity: 0.07 },
+  province: { weight: 1.2, opacity: 0.7, fillOpacity: 0.05, dashArray: "3 3" },
+  tetrarchy: { weight: 1.2, opacity: 0.75, fillOpacity: 0.06, dashArray: "2 4" },
+  kingdom: { weight: 1.4, opacity: 0.75, fillOpacity: 0.07 },
+  tribe: { weight: 1.2, opacity: 0.7, fillOpacity: 0.06 },
+};
+
 interface OverlayLayerProps {
   overlays: MapOverlay[];
 }
@@ -224,18 +240,25 @@ function OverlayLayer({ overlays }: OverlayLayerProps) {
     const group = groupRef.current;
     if (!group) return;
     group.clearLayers();
-    for (const overlay of overlays) {
+    const KIND_ORDER: Record<MapOverlay["kind"], number> = {
+      empire: 0,
+      region: 1,
+      province: 2,
+      tetrarchy: 3,
+      kingdom: 4,
+      tribe: 5,
+    };
+    const sorted = [...overlays].sort(
+      (a, b) => KIND_ORDER[a.kind] - KIND_ORDER[b.kind],
+    );
+    for (const overlay of sorted) {
       if (!overlay.geometry) continue;
-      const fillOpacity = overlay.kind === "empire" ? 0.04 : 0.09;
-      const dashArray = overlay.kind === "empire" ? "4 4" : undefined;
+      const style = STYLE_BY_KIND[overlay.kind];
       const layer = L.geoJSON(overlay.geometry, {
         style: {
           color: overlay.color,
-          weight: 1.5,
-          opacity: 0.85,
           fillColor: overlay.color,
-          fillOpacity,
-          dashArray,
+          ...style,
           interactive: true,
         },
       });

@@ -30,7 +30,7 @@ const peopleGenesis: Person[] = [
     gender: "female",
     alternateNames: ["Chavah", "Hawwah", "Mother of all living"],
     era: "antediluvian",
-    roles: ["matriarch"],
+    roles: ["matriarch", "ancestor-of-christ"],
     description:
       "The first woman, formed from Adam's side; named 'Eve' because she would be the mother of all living. Mother of Cain, Abel, and Seth, with other unnamed sons and daughters.",
     scriptureReferences: [
@@ -4322,7 +4322,7 @@ const peopleNT: Person[] = [
     alternateNames: ["Miriam", "Maryam", "The Virgin"],
     gender: "female",
     era: "ministry",
-    roles: ["matriarch"],
+    roles: ["matriarch", "ancestor-of-christ"],
     tribes: ["judah", "davidic-dynasty"],
     description:
       "Davidic virgin of Nazareth; betrothed to Joseph. Conceived Jesus by the Holy Spirit. Sang the Magnificat. Pondered the events of Jesus' birth and ministry. Stood at the cross where Jesus committed her to John. Present in the upper room at Pentecost. Distinct from Mary Magdalene, Mary of Bethany, and Mary of Clopas.",
