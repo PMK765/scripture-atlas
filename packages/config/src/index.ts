@@ -11,7 +11,9 @@ export type FeatureFlagKey =
   | "books"
   | "timeline"
   | "people"
+  | "tribes"
   | "map"
+  | "lineages"
   | "genealogy"
   | "prophecy"
   | "originalLanguages"
@@ -45,10 +47,22 @@ export const featureFlags: Record<FeatureFlagKey, FeatureFlag> = {
     description: "Searchable index of biblical figures with references.",
     enabled: true,
   },
+  tribes: {
+    key: "tribes",
+    label: "Tribes",
+    description: "Tribes, nations, and clans across scripture.",
+    enabled: true,
+  },
   map: {
     key: "map",
     label: "Map",
     description: "Geographic exploration of biblical places.",
+    enabled: true,
+  },
+  lineages: {
+    key: "lineages",
+    label: "Lineages",
+    description: "One sprawling family tree from Adam through the apostles.",
     enabled: true,
   },
   genealogy: {
@@ -93,7 +107,7 @@ export const isFeatureEnabled = (key: FeatureFlagKey): boolean => featureFlags[k
 export const TESTAMENTS = ["Old", "New"] as const;
 export type Testament = (typeof TESTAMENTS)[number];
 
-export const CONFIDENCE_LEVELS = ["explicit", "inferred", "traditional", "debated"] as const;
+export const CONFIDENCE_LEVELS = ["stated", "inferred", "traditional", "debated"] as const;
 export type ConfidenceLevel = (typeof CONFIDENCE_LEVELS)[number];
 
 export const CANONICAL_TRADITIONS = [

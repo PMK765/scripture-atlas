@@ -15,7 +15,7 @@ export const tribes: Tribe[] = [
       "Exodus 1:1-7",
       "Exodus 19:5-6",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
 
   {
@@ -34,7 +34,13 @@ export const tribes: Tribe[] = [
       "Joshua 13:15-23",
       "1 Chronicles 5:1-10",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
+    jacobsBlessing: {
+      reference: "Genesis 49:3-4",
+      type: "curse",
+      translation: "WEB",
+      text: "Reuben, you are my firstborn, my might, and the beginning of my strength, excelling in dignity, and excelling in power. Boiling over like water, you shall not excel, because you went up to your father's bed, then defiled it. He went up to my couch.",
+    },
   },
   {
     id: "simeon",
@@ -50,7 +56,13 @@ export const tribes: Tribe[] = [
       "Numbers 26:12-14",
       "Joshua 19:1-9",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
+    jacobsBlessing: {
+      reference: "Genesis 49:5-7",
+      type: "curse",
+      translation: "WEB",
+      text: "Simeon and Levi are brothers. Their swords are weapons of violence. My soul, don't come into their council. My glory, don't be united to their assembly; for in their anger they killed men. In their self-will they hamstrung cattle. Cursed be their anger, for it was fierce; and their wrath, for it was cruel. I will divide them in Jacob, and scatter them in Israel.",
+    },
   },
   {
     id: "levi",
@@ -68,7 +80,13 @@ export const tribes: Tribe[] = [
       "Numbers 35",
       "Joshua 21",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
+    jacobsBlessing: {
+      reference: "Genesis 49:5-7",
+      type: "curse",
+      translation: "WEB",
+      text: "Simeon and Levi are brothers. Their swords are weapons of violence. My soul, don't come into their council. My glory, don't be united to their assembly; for in their anger they killed men. In their self-will they hamstrung cattle. Cursed be their anger, for it was fierce; and their wrath, for it was cruel. I will divide them in Jacob, and scatter them in Israel.",
+    },
   },
   {
     id: "judah",
@@ -88,7 +106,13 @@ export const tribes: Tribe[] = [
       "Hebrews 7:14",
       "Revelation 5:5",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
+    jacobsBlessing: {
+      reference: "Genesis 49:8-12",
+      type: "blessing",
+      translation: "WEB",
+      text: "Judah, your brothers will praise you. Your hand will be on the neck of your enemies. Your father's sons will bow down before you. Judah is a lion's cub. From the prey, my son, you have gone up. He stooped down, he crouched as a lion, as a lioness. Who will rouse him up? The scepter will not depart from Judah, nor the ruler's staff from between his feet, until he comes to whom it belongs. To him will the obedience of the peoples be. Binding his foal to the vine, his donkey's colt to the choice vine, he has washed his garments in wine, his robes in the blood of grapes. His eyes will be red with wine, his teeth white with milk.",
+    },
   },
   {
     id: "dan",
@@ -105,7 +129,13 @@ export const tribes: Tribe[] = [
       "Judges 18",
       "Revelation 7:5-8",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
+    jacobsBlessing: {
+      reference: "Genesis 49:16-18",
+      type: "mixed",
+      translation: "WEB",
+      text: "Dan will judge his people, as one of the tribes of Israel. Dan will be a serpent on the trail, an adder in the path, that bites the horse's heels, so that his rider falls backward. I have waited for your salvation, Yahweh.",
+    },
   },
   {
     id: "naphtali",
@@ -122,7 +152,13 @@ export const tribes: Tribe[] = [
       "Isaiah 9:1",
       "Matthew 4:13-16",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
+    jacobsBlessing: {
+      reference: "Genesis 49:21",
+      type: "blessing",
+      translation: "WEB",
+      text: "Naphtali is a doe set free, who bears beautiful fawns.",
+    },
   },
   {
     id: "gad",
@@ -138,7 +174,13 @@ export const tribes: Tribe[] = [
       "Numbers 32",
       "Joshua 13:24-28",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
+    jacobsBlessing: {
+      reference: "Genesis 49:19",
+      type: "blessing",
+      translation: "WEB",
+      text: "A troop will press on Gad, but he will press on their heel.",
+    },
   },
   {
     id: "asher",
@@ -153,7 +195,13 @@ export const tribes: Tribe[] = [
       "Numbers 26:44-47",
       "Joshua 19:24-31",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
+    jacobsBlessing: {
+      reference: "Genesis 49:20",
+      type: "blessing",
+      translation: "WEB",
+      text: "Asher's food will be rich. He will produce royal dainties.",
+    },
   },
   {
     id: "issachar",
@@ -168,7 +216,13 @@ export const tribes: Tribe[] = [
       "Numbers 26:23-25",
       "Joshua 19:17-23",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
+    jacobsBlessing: {
+      reference: "Genesis 49:14-15",
+      type: "mixed",
+      translation: "WEB",
+      text: "Issachar is a strong donkey, lying down between the saddlebags. He saw a resting place, that it was good, the land, that it was pleasant. He bows his shoulder to the burden, and becomes a servant doing forced labor.",
+    },
   },
   {
     id: "zebulun",
@@ -185,7 +239,13 @@ export const tribes: Tribe[] = [
       "Isaiah 9:1",
       "Matthew 4:13-16",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
+    jacobsBlessing: {
+      reference: "Genesis 49:13",
+      type: "blessing",
+      translation: "WEB",
+      text: "Zebulun will dwell at the haven of the sea. He will be for a haven of ships. His border will be on Sidon.",
+    },
   },
   {
     id: "joseph",
@@ -202,9 +262,15 @@ export const tribes: Tribe[] = [
       "Joshua 17",
       "Revelation 7:8",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     notes:
       "Most lists of the twelve tribes substitute Manasseh and Ephraim for Joseph and Levi in territorial contexts, while Jacob's blessing names Joseph directly.",
+    jacobsBlessing: {
+      reference: "Genesis 49:22-26",
+      type: "blessing",
+      translation: "WEB",
+      text: "Joseph is a fruitful vine, a fruitful vine by a spring. His branches run over the wall. The archers have severely grieved him, shot at him, and persecuted him: but his bow remained strong. The arms of his hands were made strong, by the hands of the Mighty One of Jacob (from there is the shepherd, the stone of Israel), even by the God of your father, who will help you, by the Almighty, who will bless you, with blessings of heaven above, blessings of the deep that lies below, blessings of the breasts, and of the womb. The blessings of your father have prevailed above the blessings of my ancestors, above the boundaries of the ancient hills. They will be on the head of Joseph, on the crown of the head of him who is separated from his brothers.",
+    },
   },
   {
     id: "manasseh",
@@ -221,7 +287,13 @@ export const tribes: Tribe[] = [
       "Joshua 17",
       "1 Chronicles 5:23-26",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
+    jacobsBlessing: {
+      reference: "Genesis 48:14-20",
+      type: "mixed",
+      translation: "WEB",
+      text: "Israel stretched out his right hand, and laid it on Ephraim's head, who was the younger, and his left hand on Manasseh's head, guiding his hands knowingly, for Manasseh was the firstborn… When Joseph saw that his father laid his right hand on the head of Ephraim, it displeased him… and Joseph said to his father, 'Not so, my father; for this is the firstborn. Put your right hand on his head.' His father refused, and said, 'I know, my son, I know. He also will become a people, and he also will be great. However, his younger brother will be greater than he, and his offspring will become a multitude of nations.' He blessed them that day, saying, 'Israel will bless in you, saying, \"God make you as Ephraim and as Manasseh\"' — and he set Ephraim before Manasseh.",
+    },
   },
   {
     id: "ephraim",
@@ -238,7 +310,13 @@ export const tribes: Tribe[] = [
       "Hosea 4:17",
       "Hosea 11:1-9",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
+    jacobsBlessing: {
+      reference: "Genesis 48:14-20",
+      type: "blessing",
+      translation: "WEB",
+      text: "Israel stretched out his right hand, and laid it on Ephraim's head, who was the younger… 'The God before whom my fathers Abraham and Isaac walked, the God who has fed me all my life long to this day, the angel who has redeemed me from all evil, bless the lads, and let my name be named on them, and the name of my fathers Abraham and Isaac. Let them grow into a multitude in the middle of the earth.' … 'I know, my son, I know. He [Manasseh] also will become a people, and he also will be great. However, his younger brother will be greater than he, and his offspring will become a multitude of nations.' He blessed them that day, saying, 'Israel will bless in you, saying, \"God make you as Ephraim and as Manasseh\"' — and he set Ephraim before Manasseh.",
+    },
   },
   {
     id: "benjamin",
@@ -256,7 +334,13 @@ export const tribes: Tribe[] = [
       "1 Samuel 9-10",
       "Philippians 3:5",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
+    jacobsBlessing: {
+      reference: "Genesis 49:27",
+      type: "blessing",
+      translation: "WEB",
+      text: "Benjamin is a ravenous wolf. In the morning he will devour the prey. At evening he will divide the plunder.",
+    },
   },
 
   {
@@ -275,7 +359,7 @@ export const tribes: Tribe[] = [
       "Obadiah",
       "Malachi 1:2-4",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "horites",
@@ -285,7 +369,7 @@ export const tribes: Tribe[] = [
     founderId: "seir-the-horite",
     description: "Pre-Edomite inhabitants of the hill country of Seir, descended from Seir the Horite. Genesis 36:20-30 lists their seven chiefs and many descendants. Driven out and absorbed by the descendants of Esau (Deuteronomy 2:12, 22). Sometimes confused with the Hivites in the textual tradition.",
     scriptureReferences: ["Genesis 14:6", "Genesis 36:20-30", "Deuteronomy 2:12", "Deuteronomy 2:22", "1 Chronicles 1:38-42"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "ishmaelites",
@@ -301,7 +385,7 @@ export const tribes: Tribe[] = [
       "1 Chronicles 1:28-31",
       "Psalm 83:6",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "moabites",
@@ -319,7 +403,7 @@ export const tribes: Tribe[] = [
       "1 Samuel 14:47",
       "Isaiah 15-16",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "ammonites",
@@ -338,7 +422,7 @@ export const tribes: Tribe[] = [
       "Nehemiah 2:10",
       "Nehemiah 13:1-3",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "midianites",
@@ -357,7 +441,7 @@ export const tribes: Tribe[] = [
       "Numbers 31",
       "Judges 6-8",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "aaronic-priesthood",
@@ -375,7 +459,7 @@ export const tribes: Tribe[] = [
       "Numbers 18",
       "1 Chronicles 24",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "davidic-dynasty",
@@ -395,7 +479,7 @@ export const tribes: Tribe[] = [
       "Matthew 1:1",
       "Luke 1:32-33",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "kenites",
@@ -412,7 +496,7 @@ export const tribes: Tribe[] = [
       "1 Samuel 15:6",
       "1 Chronicles 2:55",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "philistines",
@@ -439,7 +523,7 @@ export const tribes: Tribe[] = [
       "Zephaniah 2:4-7",
       "Zechariah 9:5-7",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "hittites",
@@ -464,7 +548,7 @@ export const tribes: Tribe[] = [
       "Ezekiel 16:3",
       "Ezekiel 16:45",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "arameans",
@@ -496,7 +580,7 @@ export const tribes: Tribe[] = [
       "Amos 1:3-5",
       "Amos 9:7",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "israel-northern",
@@ -513,7 +597,7 @@ export const tribes: Tribe[] = [
       "Micah 1:5-7",
       "Ezekiel 23",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "kenizzites",
@@ -530,7 +614,7 @@ export const tribes: Tribe[] = [
       "Judges 3:9",
       "1 Chronicles 4:13-15",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "egyptians",
@@ -552,7 +636,7 @@ export const tribes: Tribe[] = [
       "Hosea 11:1",
       "Matthew 2:13-15",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "herodians",
@@ -569,7 +653,7 @@ export const tribes: Tribe[] = [
       "Acts 12",
       "Acts 23-26",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     notes:
       "The Herodians are not a tribe in the patriarchal sense; they are listed here as a dynastic kingdom-line because biblical figures (Herod the Great, the Tetrarchs, Agrippa I, Agrippa II, Bernice, Drusilla) belong by household to it.",
   },
@@ -592,7 +676,7 @@ export const tribes: Tribe[] = [
       "Habakkuk 1",
       "Revelation 17-18",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "assyrians",
@@ -611,7 +695,7 @@ export const tribes: Tribe[] = [
       "Nahum",
       "Zephaniah 2:13",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "amalekites",
@@ -629,7 +713,7 @@ export const tribes: Tribe[] = [
       "1 Samuel 30",
       "Esther 3:1",
     ],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     notes:
       "Haman the Agagite (Esther 3) is traditionally identified as a late descendant of the Amalekite royal house through Agag (1 Sam 15), making Mordecai's confrontation with him an echo of Saul-Amalek.",
   },

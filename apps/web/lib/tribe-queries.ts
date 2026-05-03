@@ -12,11 +12,19 @@ export interface TribeSummary {
   parent: { code: string; name: string } | null;
 }
 
+export interface JacobsBlessingView {
+  reference: string;
+  type: "blessing" | "curse" | "mixed";
+  text: string;
+  translation: string;
+}
+
 export interface TribeDetail extends TribeSummary {
   scriptureReferences: string[];
   confidenceLevel: string;
   traditionTags: string[];
   notes: string | null;
+  jacobsBlessing: JacobsBlessingView | null;
   subtribes: Array<{ code: string; name: string; type: string }>;
 }
 
@@ -60,6 +68,25 @@ export async function getAllTribes(): Promise<TribeSummary[]> {
   }));
 }
 
+function parseJacobsBlessing(value: unknown): JacobsBlessingView | null {
+  if (!value || typeof value !== "object") return null;
+  const v = value as Record<string, unknown>;
+  if (
+    typeof v.reference !== "string" ||
+    typeof v.text !== "string" ||
+    typeof v.translation !== "string" ||
+    (v.type !== "blessing" && v.type !== "curse" && v.type !== "mixed")
+  ) {
+    return null;
+  }
+  return {
+    reference: v.reference,
+    text: v.text,
+    translation: v.translation,
+    type: v.type,
+  };
+}
+
 export async function getTribeByCode(code: string): Promise<TribeDetail | null> {
   const row = await prisma.tribe.findUnique({
     where: { code },
@@ -69,6 +96,7 @@ export async function getTribeByCode(code: string): Promise<TribeDetail | null> 
       confidenceLevel: true,
       traditionTags: true,
       notes: true,
+      jacobsBlessing: true,
       subtribes: { select: { code: true, name: true, type: true } },
     },
   });
@@ -87,6 +115,7 @@ export async function getTribeByCode(code: string): Promise<TribeDetail | null> 
     confidenceLevel: row.confidenceLevel,
     traditionTags: row.traditionTags,
     notes: row.notes,
+    jacobsBlessing: parseJacobsBlessing(row.jacobsBlessing),
     subtribes: row.subtribes,
   };
 }

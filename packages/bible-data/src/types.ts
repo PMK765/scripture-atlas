@@ -90,6 +90,13 @@ export interface GenealogyEdge extends Traceable {
   relationKind?: RelationKind;
 }
 
+export interface JacobsBlessing {
+  reference: ScriptureReference;
+  type: "blessing" | "curse" | "mixed";
+  text: string;
+  translation: string;
+}
+
 export interface Tribe extends Traceable {
   id: string;
   name: string;
@@ -98,6 +105,7 @@ export interface Tribe extends Traceable {
   founderId?: string;
   parentTribeId?: string;
   description?: string;
+  jacobsBlessing?: JacobsBlessing;
 }
 
 export interface PersonTribeMembership extends Traceable {

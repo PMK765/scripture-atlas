@@ -8,7 +8,7 @@ export const events: BiblicalEvent[] = [
     description:
       "The creation of the heavens and the earth in six days, climaxing in humanity made in God's image.",
     scriptureReferences: ["Genesis 1-2"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     traditionTags: ["young-earth-traditional"],
     notes: "No date is given by scripture; the year is omitted to respect both young-earth and old-earth readings.",
   },
@@ -19,7 +19,7 @@ export const events: BiblicalEvent[] = [
     description:
       "Adam and Eve's disobedience in Eden and exile from the garden; entry of sin and death into the world.",
     scriptureReferences: ["Genesis 3"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "flood",
@@ -28,7 +28,7 @@ export const events: BiblicalEvent[] = [
     description:
       "Yahweh judges the antediluvian world by a year-long flood; Noah and his family preserved in the ark on Ararat.",
     scriptureReferences: ["Genesis 6-9"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     placeIds: [],
   },
   {
@@ -38,7 +38,7 @@ export const events: BiblicalEvent[] = [
     description:
       "Confusion of languages and scattering of post-flood humanity at Shinar.",
     scriptureReferences: ["Genesis 11:1-9"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "call-of-abraham",
@@ -82,7 +82,7 @@ export const events: BiblicalEvent[] = [
     description:
       "Abraham's testing on Mount Moriah; the ram caught in the thicket as substitutionary sacrifice.",
     scriptureReferences: ["Genesis 22"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "joseph-into-egypt",
@@ -187,7 +187,7 @@ export const events: BiblicalEvent[] = [
     startYear: -1000,
     endYear: -1000,
     scriptureReferences: ["2 Samuel 7", "1 Chronicles 17", "Psalm 89", "Psalm 132"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "temple-built",
@@ -232,7 +232,7 @@ export const events: BiblicalEvent[] = [
     startYear: -722,
     endYear: -722,
     scriptureReferences: ["2 Kings 17", "2 Kings 18:9-12"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     placeIds: ["samaria-city", "nineveh"],
   },
   {
@@ -244,7 +244,7 @@ export const events: BiblicalEvent[] = [
     startYear: -701,
     endYear: -701,
     scriptureReferences: ["2 Kings 18-19", "2 Chronicles 32", "Isaiah 36-37"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     placeIds: ["jerusalem", "nineveh"],
   },
   {
@@ -256,7 +256,7 @@ export const events: BiblicalEvent[] = [
     startYear: -586,
     endYear: -586,
     scriptureReferences: ["2 Kings 25", "2 Chronicles 36:15-21", "Jeremiah 39", "Jeremiah 52", "Lamentations"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     placeIds: ["jerusalem", "babylon"],
   },
   {
@@ -268,7 +268,7 @@ export const events: BiblicalEvent[] = [
     startYear: -605,
     endYear: -538,
     scriptureReferences: ["2 Chronicles 36:20-21", "Jeremiah 25:11-12", "Jeremiah 29:10", "Daniel 1-9", "Ezekiel 1-48"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     placeIds: ["babylon"],
   },
   {
@@ -280,7 +280,7 @@ export const events: BiblicalEvent[] = [
     startYear: -538,
     endYear: -538,
     scriptureReferences: ["2 Chronicles 36:22-23", "Ezra 1", "Isaiah 44:28", "Isaiah 45:1-7"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "second-temple",
@@ -291,7 +291,7 @@ export const events: BiblicalEvent[] = [
     startYear: -520,
     endYear: -516,
     scriptureReferences: ["Ezra 5-6", "Haggai", "Zechariah 1-8"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     placeIds: ["jerusalem"],
   },
   {
@@ -303,7 +303,7 @@ export const events: BiblicalEvent[] = [
     startYear: -458,
     endYear: -458,
     scriptureReferences: ["Ezra 7-10"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "nehemiahs-walls",
@@ -314,7 +314,7 @@ export const events: BiblicalEvent[] = [
     startYear: -445,
     endYear: -445,
     scriptureReferences: ["Nehemiah 1-7"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     placeIds: ["jerusalem"],
   },
   {
@@ -373,7 +373,7 @@ export const events: BiblicalEvent[] = [
     startYear: 30,
     endYear: 30,
     scriptureReferences: ["Matthew 26-27", "Mark 14-15", "Luke 22-23", "John 18-19", "1 Corinthians 15:3-4"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     traditionTags: ["AD30", "AD33-alternative"],
     placeIds: ["jerusalem", "gethsemane", "golgotha"],
   },
@@ -386,7 +386,7 @@ export const events: BiblicalEvent[] = [
     startYear: 30,
     endYear: 30,
     scriptureReferences: ["Matthew 28", "Mark 16", "Luke 24", "John 20-21", "Acts 1:3", "1 Corinthians 15:3-8"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     placeIds: ["jerusalem", "golgotha"],
   },
   {
@@ -398,7 +398,7 @@ export const events: BiblicalEvent[] = [
     startYear: 30,
     endYear: 30,
     scriptureReferences: ["Luke 24:50-53", "Acts 1:6-11"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     placeIds: ["mount-of-olives"],
   },
   {
@@ -410,7 +410,7 @@ export const events: BiblicalEvent[] = [
     startYear: 30,
     endYear: 30,
     scriptureReferences: ["Acts 2"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     placeIds: ["jerusalem"],
   },
   {
@@ -422,7 +422,7 @@ export const events: BiblicalEvent[] = [
     startYear: 34,
     endYear: 34,
     scriptureReferences: ["Acts 6-7", "Acts 8:1-3"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     placeIds: ["jerusalem"],
   },
   {
@@ -434,7 +434,7 @@ export const events: BiblicalEvent[] = [
     startYear: 34,
     endYear: 34,
     scriptureReferences: ["Acts 9:1-31", "Acts 22:1-21", "Acts 26:1-23", "Galatians 1:11-24"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     placeIds: ["damascus"],
   },
   {
@@ -446,7 +446,7 @@ export const events: BiblicalEvent[] = [
     startYear: 49,
     endYear: 49,
     scriptureReferences: ["Acts 15", "Galatians 2:1-10"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     placeIds: ["jerusalem", "antioch-syria"],
   },
   {
@@ -458,7 +458,7 @@ export const events: BiblicalEvent[] = [
     startYear: 47,
     endYear: 62,
     scriptureReferences: ["Acts 13-28"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     placeIds: ["antioch-syria", "ephesus", "corinth", "athens", "philippi", "thessalonica", "rome"],
   },
   {
@@ -482,7 +482,7 @@ export const events: BiblicalEvent[] = [
     startYear: 70,
     endYear: 70,
     scriptureReferences: ["Matthew 24:1-35", "Mark 13:1-31", "Luke 21:5-24"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     placeIds: ["jerusalem"],
   },
   {

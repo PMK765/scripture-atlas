@@ -98,6 +98,30 @@ export default async function TribePage({ params }: PageProps) {
               </section>
             ) : null}
 
+            {tribe.jacobsBlessing ? (
+              <section className="space-y-3">
+                <div className="flex items-baseline justify-between gap-3">
+                  <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                    Jacob's {tribe.jacobsBlessing.type === "curse" ? "curse" : tribe.jacobsBlessing.type === "mixed" ? "oracle" : "blessing"}
+                  </h2>
+                  <span className="font-mono text-[11px] text-muted-foreground">
+                    {tribe.jacobsBlessing.reference} ({tribe.jacobsBlessing.translation})
+                  </span>
+                </div>
+                <blockquote
+                  className={`rounded-lg border-l-2 bg-card/60 px-5 py-4 text-sm italic leading-relaxed text-foreground/90 ${
+                    tribe.jacobsBlessing.type === "curse"
+                      ? "border-l-destructive/60"
+                      : tribe.jacobsBlessing.type === "mixed"
+                        ? "border-l-amber-500/60"
+                        : "border-l-primary/60"
+                  }`}
+                >
+                  {tribe.jacobsBlessing.text}
+                </blockquote>
+              </section>
+            ) : null}
+
             {tribe.subtribes.length > 0 ? (
               <section className="space-y-3">
                 <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">

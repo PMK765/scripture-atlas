@@ -1,4 +1,12 @@
-import { BookOpen, Clock, Map, Users, type LucideIcon } from "lucide-react";
+import {
+  BookOpen,
+  Clock,
+  GitBranch,
+  Map,
+  Network,
+  Users,
+  type LucideIcon,
+} from "lucide-react";
 import { featureFlags, type FeatureFlagKey } from "@bible-visualizer/config";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -13,6 +21,8 @@ const sections: SectionDef[] = [
   { key: "books", href: "#books", icon: BookOpen },
   { key: "timeline", href: "/timeline", icon: Clock },
   { key: "people", href: "/people", icon: Users },
+  { key: "tribes", href: "/tribes", icon: Network },
+  { key: "lineages", href: "/lineages", icon: GitBranch },
   { key: "map", href: "/map", icon: Map },
 ];
 
@@ -23,11 +33,11 @@ export function SectionGrid() {
         <div>
           <h2 className="text-2xl font-semibold tracking-tight">Explore</h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            Four primary lenses for the biblical narrative.
+            Six primary lenses for the biblical narrative.
           </p>
         </div>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {sections.map(({ key, href, icon: Icon }) => {
           const flag = featureFlags[key];
           return (

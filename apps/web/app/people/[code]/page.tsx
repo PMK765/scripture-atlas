@@ -7,8 +7,10 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Badge } from "@/components/ui/badge";
 import { FamilyTree } from "@/components/people/family-tree";
+import { Portrait } from "@/components/people/portrait";
 import { RelationshipList } from "@/components/people/relationship-list";
 import { getPersonByCode, getPersonNeighborhood } from "@/lib/people-queries";
+import { eraColor } from "@/components/lineages/era-color";
 import { cn } from "@/lib/utils";
 
 export const revalidate = 300;
@@ -46,7 +48,7 @@ const ROLE_LABELS: Record<string, string> = {
 };
 
 const CONFIDENCE_LABELS: Record<string, string> = {
-  explicit: "Explicit",
+  stated: "Stated",
   inferred: "Inferred",
   traditional: "Traditional",
   debated: "Debated",
@@ -59,6 +61,7 @@ export default async function PersonPage({ params }: PageProps) {
 
   const neighborhood = await getPersonNeighborhood(person.id, 2);
   const eraLabel = person.era ? ERA_LABELS[person.era as Era] ?? person.era : null;
+  const accent = eraColor(person.era);
 
   return (
     <>
@@ -73,64 +76,74 @@ export default async function PersonPage({ params }: PageProps) {
           </Link>
         </div>
 
-        <header className="mb-8 space-y-3">
-          <div className="flex flex-wrap items-baseline gap-3">
-            <h1 className="text-3xl font-semibold tracking-tight">{person.name}</h1>
-            {person.gender ? (
-              <span className="text-lg text-muted-foreground" aria-label={person.gender}>
-                {person.gender === "male" ? "♂" : person.gender === "female" ? "♀" : ""}
-              </span>
-            ) : null}
-            <Badge
-              variant={person.confidenceLevel === "debated" ? "outline" : "primary"}
-              className={cn(
-                person.confidenceLevel === "debated" &&
-                  "border-amber-500/60 bg-amber-500/10 text-amber-700 dark:text-amber-300",
-              )}
-            >
-              {CONFIDENCE_LABELS[person.confidenceLevel] ?? person.confidenceLevel}
-            </Badge>
-          </div>
-
-          {person.alternateNames.length > 0 ? (
-            <p className="text-sm text-muted-foreground">
-              Also known as{" "}
-              <span className="text-foreground">{person.alternateNames.join(" · ")}</span>
-            </p>
-          ) : null}
-
-          <div className="flex flex-wrap gap-1.5">
-            {eraLabel ? <Badge variant="primary">{eraLabel}</Badge> : null}
-            {person.lifespanYears ? (
-              <Badge variant="outline">{person.lifespanYears} years</Badge>
-            ) : null}
-            {person.roles.map((r) => (
+        <header className="mb-8 flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-6">
+          <Portrait
+            code={person.code}
+            gender={person.gender}
+            name={person.name}
+            size={144}
+            rounded="lg"
+            ringColor={`${accent}66`}
+          />
+          <div className="min-w-0 flex-1 space-y-3">
+            <div className="flex flex-wrap items-baseline gap-3">
+              <h1 className="text-3xl font-semibold tracking-tight">{person.name}</h1>
+              {person.gender ? (
+                <span className="text-lg text-muted-foreground" aria-label={person.gender}>
+                  {person.gender === "male" ? "♂" : person.gender === "female" ? "♀" : ""}
+                </span>
+              ) : null}
               <Badge
-                key={r}
-                variant={r === "ancestor-of-christ" ? "accent" : "default"}
+                variant={person.confidenceLevel === "debated" ? "outline" : "primary"}
+                className={cn(
+                  person.confidenceLevel === "debated" &&
+                    "border-amber-500/60 bg-amber-500/10 text-amber-700 dark:text-amber-300",
+                )}
               >
-                {ROLE_LABELS[r] ?? r}
+                {CONFIDENCE_LABELS[person.confidenceLevel] ?? person.confidenceLevel}
               </Badge>
-            ))}
-            {person.tribes.map((t) => (
-              <Link
-                key={t.code}
-                href={`/tribes/${t.code}`}
-                className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-md"
-              >
+            </div>
+
+            {person.alternateNames.length > 0 ? (
+              <p className="text-sm text-muted-foreground">
+                Also known as{" "}
+                <span className="text-foreground">{person.alternateNames.join(" · ")}</span>
+              </p>
+            ) : null}
+
+            <div className="flex flex-wrap gap-1.5">
+              {eraLabel ? <Badge variant="primary">{eraLabel}</Badge> : null}
+              {person.lifespanYears ? (
+                <Badge variant="outline">{person.lifespanYears} years</Badge>
+              ) : null}
+              {person.roles.map((r) => (
                 <Badge
-                  variant="default"
-                  className="cursor-pointer hover:bg-primary/10 hover:text-foreground"
+                  key={r}
+                  variant={r === "ancestor-of-christ" ? "accent" : "default"}
                 >
-                  {t.name}
+                  {ROLE_LABELS[r] ?? r}
                 </Badge>
-              </Link>
-            ))}
-            {person.traditionTags.map((t) => (
-              <Badge key={t} variant="outline" className="font-mono">
-                {t}
-              </Badge>
-            ))}
+              ))}
+              {person.tribes.map((t) => (
+                <Link
+                  key={t.code}
+                  href={`/tribes/${t.code}`}
+                  className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-md"
+                >
+                  <Badge
+                    variant="default"
+                    className="cursor-pointer hover:bg-primary/10 hover:text-foreground"
+                  >
+                    {t.name}
+                  </Badge>
+                </Link>
+              ))}
+              {person.traditionTags.map((t) => (
+                <Badge key={t} variant="outline" className="font-mono">
+                  {t}
+                </Badge>
+              ))}
+            </div>
           </div>
         </header>
 

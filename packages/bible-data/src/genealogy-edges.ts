@@ -12,7 +12,7 @@ const explicit = (
   viaParent: "father",
   relationKind: "biological",
   scriptureReferences: refs,
-  confidenceLevel: "explicit",
+  confidenceLevel: "stated",
   ...extra,
 });
 
@@ -28,7 +28,7 @@ const motherOf = (
   viaParent: "mother",
   relationKind: "biological",
   scriptureReferences: refs,
-  confidenceLevel: "explicit",
+  confidenceLevel: "stated",
   ...extra,
 });
 
@@ -44,7 +44,7 @@ const spouse = (
     relationship: "spouse-of",
     relationKind: "biological",
     scriptureReferences: refs,
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     ...extra,
   },
   {
@@ -53,7 +53,7 @@ const spouse = (
     relationship: "spouse-of",
     relationKind: "biological",
     scriptureReferences: refs,
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     ...extra,
   },
 ];
@@ -138,7 +138,7 @@ const edgesGenesis: GenealogyEdge[] = [
   explicit("terah", "nahor", ["Genesis 11:26"]),
   explicit("terah", "haran", ["Genesis 11:26-27"]),
   explicit("terah", "sarah", ["Genesis 20:12"], {
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     notes:
       "Per Genesis 20:12 Sarah was Abraham's half-sister — same father (Terah) but different mother. Implies Terah had at least two wives.",
   }),

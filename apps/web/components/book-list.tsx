@@ -32,7 +32,6 @@ function BookCard({ book }: { book: Book }) {
           </p>
         </CardHeader>
         <CardContent className="flex flex-wrap items-center gap-2 pt-0">
-          <Badge variant="primary">{book.confidenceLevel}</Badge>
           {isSeptuagint ? <Badge variant="accent">Septuagint</Badge> : null}
           {book.traditionTags
             ?.filter((tag) => tag !== "Septuagint" && tag !== "Deuterocanonical")

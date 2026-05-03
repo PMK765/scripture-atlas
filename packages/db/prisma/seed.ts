@@ -7,6 +7,7 @@ import {
   translations,
   tribes,
 } from "@bible-visualizer/bible-data";
+import { Prisma } from "@prisma/client";
 import { prisma } from "../index";
 
 async function seedBooks(): Promise<number> {
@@ -192,6 +193,10 @@ async function seedTribes(): Promise<{
       );
     }
 
+    const blessing: Prisma.InputJsonValue | typeof Prisma.DbNull = tribe.jacobsBlessing
+      ? (tribe.jacobsBlessing as unknown as Prisma.InputJsonValue)
+      : Prisma.DbNull;
+
     await prisma.tribe.upsert({
       where: { code: tribe.id },
       update: {
@@ -205,6 +210,7 @@ async function seedTribes(): Promise<{
         confidenceLevel: tribe.confidenceLevel,
         traditionTags: tribe.traditionTags ?? [],
         notes: tribe.notes ?? null,
+        jacobsBlessing: blessing,
       },
       create: {
         code: tribe.id,
@@ -217,6 +223,7 @@ async function seedTribes(): Promise<{
         confidenceLevel: tribe.confidenceLevel,
         traditionTags: tribe.traditionTags ?? [],
         notes: tribe.notes ?? null,
+        jacobsBlessing: blessing,
       },
     });
     upserts += 1;
@@ -265,7 +272,7 @@ async function seedTribes(): Promise<{
           personId,
           tribeId,
           scriptureReferences: [],
-          confidenceLevel: "explicit",
+          confidenceLevel: "stated",
         },
       });
       memberships += 1;

@@ -12,7 +12,7 @@ export const places: Place[] = [
     description:
       "Capital of Israel under David and the location of Solomon's first temple and the second temple. Site of Jesus' crucifixion and resurrection and of Pentecost. Mentioned by name over 800 times.",
     scriptureReferences: ["Genesis 14:18 (Salem)", "Joshua 10:1", "2 Samuel 5:6-9", "1 Kings 6", "2 Kings 25", "Ezra 1:5", "Nehemiah 2", "Matthew 21", "Luke 19:41-44", "Acts 2", "Hebrews 12:22", "Revelation 21:2"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "bethlehem",
@@ -25,7 +25,7 @@ export const places: Place[] = [
     description:
       "Birthplace of David and of Jesus the Messiah. Where Rachel was buried; setting of the book of Ruth.",
     scriptureReferences: ["Genesis 35:19", "Ruth 1:1-2", "1 Samuel 16:1-4", "Micah 5:2", "Matthew 2:1-6", "Luke 2:4-15"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "hebron",
@@ -38,7 +38,7 @@ export const places: Place[] = [
     description:
       "Where Abraham bought the cave of Machpelah; burial site of the patriarchs and matriarchs (Abraham, Sarah, Isaac, Rebekah, Jacob, Leah). David's first capital, where he reigned over Judah seven years before taking Jerusalem.",
     scriptureReferences: ["Genesis 13:18", "Genesis 23", "Genesis 49:29-32", "Numbers 13:22", "Joshua 14:13-15", "2 Samuel 2:1-4", "2 Samuel 5:5"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "beersheba",
@@ -51,7 +51,7 @@ export const places: Place[] = [
     description:
       "Southern boundary of the land 'from Dan to Beersheba'. Abraham, Isaac, and Jacob all dwelt here; Hagar wandered in its wilderness.",
     scriptureReferences: ["Genesis 21:14", "Genesis 21:31-33", "Genesis 26:23-33", "Genesis 28:10", "Genesis 46:1-5", "Judges 20:1", "1 Kings 4:25"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "shechem",
@@ -64,7 +64,7 @@ export const places: Place[] = [
     description:
       "First place Abraham stopped in Canaan; site of Jacob's well; where Joshua renewed the covenant. Capital of the early northern kingdom under Jeroboam I. Where Jesus met the Samaritan woman.",
     scriptureReferences: ["Genesis 12:6-7", "Genesis 33:18-20", "Genesis 34", "Joshua 24", "Judges 9", "1 Kings 12:1", "John 4:5"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "bethel",
@@ -77,7 +77,7 @@ export const places: Place[] = [
     description:
       "Site of Jacob's ladder dream; later one of Jeroboam I's two golden calf shrines.",
     scriptureReferences: ["Genesis 12:8", "Genesis 28:10-22", "Genesis 35:1-15", "Judges 20:18", "1 Kings 12:28-33", "2 Kings 23:15-19", "Amos 7:13"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "jericho",
@@ -90,7 +90,7 @@ export const places: Place[] = [
     description:
       "First city to fall in the conquest; its walls collapsed at the seven-day march. Rebuilt under Hiel under Ahab. Setting of Elisha's healing of the spring and of Jesus' meeting with Zacchaeus and Bartimaeus.",
     scriptureReferences: ["Numbers 22:1", "Joshua 6", "1 Kings 16:34", "2 Kings 2:4-22", "Matthew 20:29", "Luke 19:1-10"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "dan",
@@ -103,7 +103,7 @@ export const places: Place[] = [
     description:
       "Northernmost city of Israel ('from Dan to Beersheba'); originally Laish, captured by the tribe of Dan. Site of Jeroboam's other golden calf.",
     scriptureReferences: ["Joshua 19:47", "Judges 18:27-31", "1 Kings 12:29-30", "1 Kings 15:20", "Amos 8:14"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "shiloh",
@@ -115,7 +115,7 @@ export const places: Place[] = [
     description:
       "Where the tabernacle stood from Joshua to Eli (~400 years). Site of Hannah's vow and Samuel's childhood. Destroyed by the Philistines after the ark was captured.",
     scriptureReferences: ["Joshua 18:1", "Judges 18:31", "Judges 21:19", "1 Samuel 1-4", "Psalm 78:60", "Jeremiah 7:12-14"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "samaria-city",
@@ -127,7 +127,7 @@ export const places: Place[] = [
     description:
       "Capital of the northern kingdom from Omri (~880 BC) until its fall to Assyria in 722 BC. Center of Baal worship under Ahab and Jezebel.",
     scriptureReferences: ["1 Kings 16:24", "1 Kings 22:51", "2 Kings 17", "Hosea 7:1", "Amos 3:9", "Micah 1:6"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "nazareth",
@@ -139,7 +139,7 @@ export const places: Place[] = [
     description:
       "Galilean village where Joseph and Mary lived; where Jesus grew up and from which he was rejected at the start of his public ministry.",
     scriptureReferences: ["Matthew 2:23", "Matthew 13:54-58", "Luke 1:26", "Luke 2:39-51", "Luke 4:16-30", "John 1:46"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "capernaum",
@@ -151,7 +151,7 @@ export const places: Place[] = [
     description:
       "Fishing village on the north shore of the Sea of Galilee; Jesus' base of operations during his Galilean ministry. Home of Peter, Andrew, and Matthew.",
     scriptureReferences: ["Matthew 4:13", "Matthew 8:5", "Matthew 11:23", "Matthew 17:24", "Mark 1:21", "Mark 2:1", "Luke 4:31", "John 6:24-59"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "bethsaida",
@@ -163,7 +163,7 @@ export const places: Place[] = [
     description:
       "Town on the northeast shore of the Sea of Galilee; home of Andrew, Peter, and Philip. Site of the feeding of the 5,000 (per Luke).",
     scriptureReferences: ["Matthew 11:21", "Mark 6:45", "Mark 8:22", "Luke 9:10", "John 1:44", "John 12:21"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "sea-of-galilee",
@@ -176,7 +176,7 @@ export const places: Place[] = [
     description:
       "Freshwater lake in northern Israel; setting of much of Jesus' Galilean ministry, including the calling of the fishermen, the calming of the storm, and the resurrection appearance to seven disciples.",
     scriptureReferences: ["Numbers 34:11", "Joshua 12:3", "Matthew 4:18", "Mark 1:16", "Luke 5:1", "John 6:1", "John 21:1"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "jordan-river",
@@ -188,7 +188,7 @@ export const places: Place[] = [
     description:
       "River flowing south from the Hermon range through the Sea of Galilee to the Dead Sea. Crossed by Israel under Joshua; site of Naaman's healing and of Jesus' baptism.",
     scriptureReferences: ["Genesis 13:10", "Joshua 3-4", "2 Kings 5", "Matthew 3:13-17", "John 1:28"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "mount-sinai",
@@ -214,7 +214,7 @@ export const places: Place[] = [
     description:
       "Ridge east of Jerusalem; site of David's flight from Absalom, of Jesus' Olivet Discourse, of Gethsemane, and of the Ascension.",
     scriptureReferences: ["2 Samuel 15:30", "Zechariah 14:4", "Matthew 24-25", "Matthew 26:30", "Luke 22:39", "Acts 1:12"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "gethsemane",
@@ -226,7 +226,7 @@ export const places: Place[] = [
     description:
       "Olive grove on the Mount of Olives where Jesus prayed and was arrested.",
     scriptureReferences: ["Matthew 26:36", "Mark 14:32", "Luke 22:39-46", "John 18:1"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "golgotha",
@@ -251,7 +251,7 @@ export const places: Place[] = [
     description:
       "City in southern Mesopotamia from which Yahweh called Abraham. Identification with Tell el-Muqayyar (Sumerian Ur) is the dominant view; some scholars argue for a northern Ur near Haran.",
     scriptureReferences: ["Genesis 11:28-31", "Genesis 15:7", "Nehemiah 9:7", "Acts 7:2-4"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "haran",
@@ -263,7 +263,7 @@ export const places: Place[] = [
     description:
       "City in northwest Mesopotamia where Terah settled with Abraham; later the home of Laban. Important caravan and worship center for the moon god Sin.",
     scriptureReferences: ["Genesis 11:31-32", "Genesis 12:4-5", "Genesis 27:43", "Genesis 28:10", "Genesis 29:4", "Acts 7:2-4"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "babylon",
@@ -275,7 +275,7 @@ export const places: Place[] = [
     description:
       "Capital of the Babylonian empire under Nebuchadnezzar II; site of Judah's exile and of the events of Daniel 1-5. In Revelation, type of the city of man at war with God.",
     scriptureReferences: ["Genesis 11:1-9 (Babel)", "2 Kings 24-25", "Jeremiah 50-51", "Daniel 1-5", "1 Peter 5:13", "Revelation 17-18"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "nineveh",
@@ -287,7 +287,7 @@ export const places: Place[] = [
     description:
       "Capital of the Assyrian empire under Sennacherib; setting of Jonah's mission. Fell to a Babylonian-Median coalition in 612 BC.",
     scriptureReferences: ["Genesis 10:11", "Jonah 1-4", "Nahum 1-3", "Zephaniah 2:13-15", "Matthew 12:41", "Luke 11:30-32"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "memphis",
@@ -300,7 +300,7 @@ export const places: Place[] = [
     description:
       "Ancient capital of Lower Egypt; mentioned by the prophets as a place of refuge and judgment.",
     scriptureReferences: ["Isaiah 19:13", "Jeremiah 2:16", "Jeremiah 44:1", "Jeremiah 46:14-19", "Ezekiel 30:13-16", "Hosea 9:6"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "thebes",
@@ -313,7 +313,7 @@ export const places: Place[] = [
     description:
       "Capital of Upper Egypt; subject of the prophets' oracles against Egypt.",
     scriptureReferences: ["Jeremiah 46:25", "Ezekiel 30:14-16", "Nahum 3:8"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "egypt-goshen",
@@ -325,7 +325,7 @@ export const places: Place[] = [
     description:
       "Region of the eastern Nile Delta given to Jacob's family at Joseph's invitation; home of the Israelites during the four centuries before the Exodus.",
     scriptureReferences: ["Genesis 45:10", "Genesis 47:1-6", "Exodus 8:22", "Exodus 9:26"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "damascus",
@@ -337,7 +337,7 @@ export const places: Place[] = [
     description:
       "Capital of Aram (Syria); enemy of Israel under Hadadezer, Ben-hadad, and Hazael. Site of Saul's conversion vision.",
     scriptureReferences: ["Genesis 14:15", "Genesis 15:2", "1 Kings 11:24", "1 Kings 20", "2 Kings 5", "Isaiah 7:8", "Acts 9:1-25", "Galatians 1:17"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "tyre",
@@ -349,7 +349,7 @@ export const places: Place[] = [
     description:
       "Phoenician maritime city; supplier of cedar and craftsmen for Solomon's temple. Subject of major oracles in Isaiah, Ezekiel, and Amos. Visited by Jesus and by Paul.",
     scriptureReferences: ["Joshua 19:29", "1 Kings 5", "1 Kings 7:13-14", "Isaiah 23", "Ezekiel 26-28", "Amos 1:9-10", "Matthew 15:21", "Mark 7:24", "Acts 21:3-7"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "sidon",
@@ -361,7 +361,7 @@ export const places: Place[] = [
     description:
       "Phoenician city; home of Jezebel; Jesus visited the region. Often paired with Tyre in oracles.",
     scriptureReferences: ["Genesis 10:15", "Joshua 11:8", "1 Kings 16:31", "Ezekiel 28:20-23", "Matthew 11:21-22", "Matthew 15:21", "Acts 27:3"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "philistia-gath",
@@ -372,7 +372,7 @@ export const places: Place[] = [
     modernEquivalent: "Tell es-Safi (Israel)",
     description: "One of the five Philistine cities; home of Goliath.",
     scriptureReferences: ["Joshua 13:3", "1 Samuel 5:8", "1 Samuel 17:4", "1 Samuel 21:10", "1 Samuel 27", "2 Samuel 1:20", "Amos 6:2"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "philistia-gaza",
@@ -383,7 +383,7 @@ export const places: Place[] = [
     modernEquivalent: "Gaza City (Gaza Strip)",
     description: "Southernmost of the five Philistine cities; where Samson died.",
     scriptureReferences: ["Joshua 10:41", "Joshua 13:3", "Judges 16:21-30", "1 Samuel 6:17", "Amos 1:6-7", "Acts 8:26"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "philistia-ashkelon",
@@ -394,7 +394,7 @@ export const places: Place[] = [
     modernEquivalent: "Ashkelon (Israel)",
     description: "Coastal Philistine city.",
     scriptureReferences: ["Judges 1:18", "1 Samuel 6:17", "2 Samuel 1:20", "Jeremiah 47:5", "Amos 1:8", "Zephaniah 2:4-7", "Zechariah 9:5"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "philistia-ashdod",
@@ -406,7 +406,7 @@ export const places: Place[] = [
     modernEquivalent: "Ashdod (Israel)",
     description: "Philistine city where Dagon's temple stood when the ark was captured.",
     scriptureReferences: ["Joshua 11:22", "Joshua 15:46", "1 Samuel 5:1-7", "Isaiah 20:1", "Amos 1:8", "Zephaniah 2:4", "Acts 8:40"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "philistia-ekron",
@@ -417,7 +417,7 @@ export const places: Place[] = [
     modernEquivalent: "Tel Miqne (Israel)",
     description: "Northernmost of the five Philistine cities; cult center of Baal-zebub.",
     scriptureReferences: ["Joshua 13:3", "1 Samuel 5:10", "2 Kings 1:2-16", "Amos 1:8", "Zephaniah 2:4", "Zechariah 9:5-7"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "edom-bozrah",
@@ -428,7 +428,7 @@ export const places: Place[] = [
     modernEquivalent: "Buseirah (Jordan)",
     description: "Capital of Edom; subject of multiple prophetic oracles.",
     scriptureReferences: ["Genesis 36:33", "Isaiah 34:6", "Isaiah 63:1", "Jeremiah 49:13-22", "Amos 1:12"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "moab-heshbon",
@@ -440,7 +440,7 @@ export const places: Place[] = [
     description:
       "Capital of Sihon king of the Amorites, captured by Israel under Moses; later contested between Moab and Israel.",
     scriptureReferences: ["Numbers 21:25-30", "Deuteronomy 1:4", "Deuteronomy 2:24-37", "Joshua 13:17", "Isaiah 15:4", "Jeremiah 48:2", "Song of Solomon 7:4"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "ammon-rabbah",
@@ -453,7 +453,7 @@ export const places: Place[] = [
     description:
       "Capital of the Ammonites; besieged by Joab while David lay with Bathsheba. Subject of prophetic oracles.",
     scriptureReferences: ["Deuteronomy 3:11", "2 Samuel 11:1", "2 Samuel 12:26-31", "Jeremiah 49:2-3", "Ezekiel 21:20", "Ezekiel 25:5", "Amos 1:14"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "petra",
@@ -477,7 +477,7 @@ export const places: Place[] = [
     description:
       "Major Hellenistic city on the Orontes; capital of the Roman province of Syria. First place believers were called 'Christians'. Sending church for Paul and Barnabas.",
     scriptureReferences: ["Acts 11:19-30", "Acts 13:1-3", "Acts 14:26-28", "Acts 15:22-35", "Acts 18:22", "Galatians 2:11"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "ephesus",
@@ -489,7 +489,7 @@ export const places: Place[] = [
     description:
       "Major Greco-Roman city of Asia; site of the temple of Artemis. Paul's longest ministry (three years). Recipient of Ephesians; home base of John in tradition; one of the seven churches of Revelation.",
     scriptureReferences: ["Acts 18:19-21", "Acts 19", "Acts 20:17-38", "1 Corinthians 16:8", "Ephesians 1:1", "1 Timothy 1:3", "Revelation 1:11", "Revelation 2:1-7"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "corinth",
@@ -501,7 +501,7 @@ export const places: Place[] = [
     description:
       "Major Greek port; capital of Roman Achaia. Paul founded the church here on the second journey and addressed two letters to it.",
     scriptureReferences: ["Acts 18:1-18", "Acts 19:1", "Acts 20:2-3", "1 Corinthians 1:2", "2 Corinthians 1:1", "2 Corinthians 1:23"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "athens",
@@ -513,7 +513,7 @@ export const places: Place[] = [
     description:
       "Capital of classical Greece; Paul preached at the Areopagus on the second journey.",
     scriptureReferences: ["Acts 17:15-34", "1 Thessalonians 3:1"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "philippi",
@@ -525,7 +525,7 @@ export const places: Place[] = [
     description:
       "Roman colony in Macedonia; first European church founded by Paul (Lydia, the jailer). Recipient of Philippians.",
     scriptureReferences: ["Acts 16:11-40", "Acts 20:6", "Philippians 1:1", "1 Thessalonians 2:2"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "thessalonica",
@@ -537,7 +537,7 @@ export const places: Place[] = [
     description:
       "Capital of Macedonia; church founded by Paul on the second journey; recipient of two letters.",
     scriptureReferences: ["Acts 17:1-13", "Acts 27:2", "Philippians 4:16", "1 Thessalonians 1:1", "2 Thessalonians 1:1", "2 Timothy 4:10"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "rome",
@@ -549,7 +549,7 @@ export const places: Place[] = [
     description:
       "Capital of the Roman empire; recipient of Paul's letter; site of his two imprisonments and traditional martyrdom (along with Peter's). 'Babylon' in 1 Peter 5:13 is widely understood as Rome.",
     scriptureReferences: ["Acts 18:2", "Acts 19:21", "Acts 23:11", "Acts 28:14-31", "Romans 1:7", "2 Timothy 1:17", "1 Peter 5:13"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "patmos",
@@ -561,7 +561,7 @@ export const places: Place[] = [
     description:
       "Aegean island where John received the Apocalypse during exile, traditionally under Domitian (~AD 95).",
     scriptureReferences: ["Revelation 1:9"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "tarsus",
@@ -573,7 +573,7 @@ export const places: Place[] = [
     description:
       "Capital of Cilicia; birthplace of Saul of Tarsus (Paul). 'No mean city'.",
     scriptureReferences: ["Acts 9:11", "Acts 9:30", "Acts 11:25", "Acts 21:39", "Acts 22:3"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "caesarea-maritima",
@@ -585,7 +585,7 @@ export const places: Place[] = [
     description:
       "Mediterranean port built by Herod the Great; Roman capital of Judea. Cornelius's conversion; Paul's two-year imprisonment. Distinct from Caesarea Philippi.",
     scriptureReferences: ["Acts 8:40", "Acts 9:30", "Acts 10", "Acts 18:22", "Acts 21:8-16", "Acts 23:23-26:32"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "caesarea-philippi",
@@ -597,7 +597,7 @@ export const places: Place[] = [
     description:
       "Town at the foot of Mount Hermon; setting of Peter's confession ('thou art the Christ').",
     scriptureReferences: ["Matthew 16:13-20", "Mark 8:27"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "mount-carmel",
@@ -609,7 +609,7 @@ export const places: Place[] = [
     description:
       "Mountain ridge on the Mediterranean coast; site of Elijah's confrontation with the prophets of Baal.",
     scriptureReferences: ["Joshua 19:26", "1 Kings 18:19-46", "1 Kings 19:8", "2 Kings 2:25", "2 Kings 4:25", "Amos 1:2"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "mount-zion",
@@ -621,7 +621,7 @@ export const places: Place[] = [
     description:
       "Originally the Jebusite stronghold captured by David; later applied to the temple mount and to Jerusalem as a whole. In prophetic and NT usage, the eschatological dwelling of God with his people.",
     scriptureReferences: ["2 Samuel 5:7", "Psalm 2:6", "Psalm 48", "Psalm 132:13", "Isaiah 2:2-3", "Hebrews 12:22", "Revelation 14:1"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "dead-sea",
@@ -634,7 +634,7 @@ export const places: Place[] = [
     description:
       "Hypersaline lake at the lowest point on earth; near the destroyed cities of Sodom and Gomorrah.",
     scriptureReferences: ["Genesis 14:3", "Numbers 34:3", "Deuteronomy 3:17", "Joshua 3:16", "Ezekiel 47:8-10"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "sodom",

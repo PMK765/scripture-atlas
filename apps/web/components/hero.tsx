@@ -15,7 +15,7 @@ export function Hero() {
           </h1>
           <p className="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
             {projectMeta.description} Every datum is anchored to scripture references and labeled
-            with an explicit confidence level so you always know the difference between what the
+            with a confidence level so you always know the difference between what the
             text says, what tradition holds, and what scholars debate.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">

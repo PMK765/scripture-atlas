@@ -15,6 +15,7 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { ERA_LABELS, type Era } from "@bible-visualizer/config";
+import { Portrait } from "@/components/people/portrait";
 import { cn } from "@/lib/utils";
 import type { PersonSummary, RelationshipEdge } from "@/lib/people-queries";
 
@@ -29,7 +30,7 @@ interface PersonNodeData extends Record<string, unknown> {
   isFocus: boolean;
 }
 
-const NODE_WIDTH = 200;
+const NODE_WIDTH = 232;
 const NODE_HEIGHT = 92;
 
 function PersonNode({ data }: NodeProps) {
@@ -43,38 +44,46 @@ function PersonNode({ data }: NodeProps) {
       <Handle type="target" position={Position.Top} className="!opacity-0" />
       <div
         className={cn(
-          "rounded-lg border bg-card p-2.5 text-card-foreground shadow-sm transition-colors",
+          "flex items-center gap-2.5 rounded-lg border bg-card p-2 text-card-foreground shadow-sm transition-colors",
           isFocus && "border-primary bg-primary/10 ring-2 ring-primary/40",
           !isFocus && "hover:border-primary/50",
           isContested && !isFocus && "border-dashed border-amber-500/60",
         )}
         style={{ width: NODE_WIDTH }}
       >
-        <div className="flex items-start justify-between gap-2">
-          <p className="line-clamp-1 text-sm font-semibold tracking-tight">{person.name}</p>
-          {person.gender ? (
-            <span
-              className="mt-0.5 text-[10px] font-mono uppercase text-muted-foreground"
-              aria-label={person.gender}
-            >
-              {person.gender === "male" ? "♂" : person.gender === "female" ? "♀" : ""}
-            </span>
-          ) : null}
-        </div>
-        <div className="mt-1 flex flex-wrap items-center gap-1.5 text-[10px]">
-          {eraLabel ? (
-            <span className="rounded-sm bg-muted px-1.5 py-0.5 text-muted-foreground">
-              {eraLabel}
-            </span>
-          ) : null}
-          {lifespan ? (
-            <span className="font-mono text-muted-foreground">{lifespan}</span>
-          ) : null}
-          {isContested ? (
-            <span className="rounded-sm bg-amber-500/15 px-1.5 py-0.5 text-amber-700 dark:text-amber-300">
-              debated
-            </span>
-          ) : null}
+        <Portrait
+          code={person.code}
+          gender={person.gender}
+          name={person.name}
+          size={44}
+        />
+        <div className="flex min-w-0 flex-1 flex-col gap-1">
+          <div className="flex items-start justify-between gap-2">
+            <p className="line-clamp-1 text-sm font-semibold tracking-tight">{person.name}</p>
+            {person.gender ? (
+              <span
+                className="mt-0.5 text-[10px] font-mono uppercase text-muted-foreground"
+                aria-label={person.gender}
+              >
+                {person.gender === "male" ? "♂" : person.gender === "female" ? "♀" : ""}
+              </span>
+            ) : null}
+          </div>
+          <div className="flex flex-wrap items-center gap-1.5 text-[10px]">
+            {eraLabel ? (
+              <span className="rounded-sm bg-muted px-1.5 py-0.5 text-muted-foreground">
+                {eraLabel}
+              </span>
+            ) : null}
+            {lifespan ? (
+              <span className="font-mono text-muted-foreground">{lifespan}</span>
+            ) : null}
+            {isContested ? (
+              <span className="rounded-sm bg-amber-500/15 px-1.5 py-0.5 text-amber-700 dark:text-amber-300">
+                debated
+              </span>
+            ) : null}
+          </div>
         </div>
       </div>
       <Handle type="source" position={Position.Bottom} className="!opacity-0" />

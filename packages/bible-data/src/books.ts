@@ -26,7 +26,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Genesis 1:1", "Genesis 50:26"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     traditionTags: ["Pentateuch", "Torah"],
   },
   {
@@ -41,7 +41,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Exodus 1:1", "Exodus 40:38"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     traditionTags: ["Pentateuch", "Torah"],
   },
   {
@@ -56,7 +56,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Leviticus 1:1", "Leviticus 27:34"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     traditionTags: ["Pentateuch", "Torah"],
   },
   {
@@ -71,7 +71,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Numbers 1:1", "Numbers 36:13"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     traditionTags: ["Pentateuch", "Torah"],
   },
   {
@@ -86,7 +86,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Deuteronomy 1:1", "Deuteronomy 34:12"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     traditionTags: ["Pentateuch", "Torah"],
   },
   {
@@ -101,7 +101,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Joshua 1:1", "Joshua 24:33"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
   },
   {
     id: "jdg",
@@ -114,7 +114,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Judges 1:1", "Judges 21:25"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
   },
   {
     id: "rut",
@@ -127,7 +127,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Ruth 1:1", "Ruth 4:22"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "1sa",
@@ -140,7 +140,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["1 Samuel 1:1", "1 Samuel 31:13"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
   },
   {
     id: "2sa",
@@ -153,7 +153,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["2 Samuel 1:1", "2 Samuel 24:25"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
   },
   {
     id: "1ki",
@@ -166,7 +166,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["1 Kings 1:1", "1 Kings 22:53"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
   },
   {
     id: "2ki",
@@ -179,7 +179,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["2 Kings 1:1", "2 Kings 25:30"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
   },
   {
     id: "1ch",
@@ -192,7 +192,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["1 Chronicles 1:1", "1 Chronicles 29:30"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
   },
   {
     id: "2ch",
@@ -205,7 +205,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["2 Chronicles 1:1", "2 Chronicles 36:23"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
   },
   {
     id: "ezr",
@@ -219,7 +219,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Ezra 1:1", "Ezra 10:44"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
     notes: "Ezra 4:8–6:18 and 7:12–26 are written in Aramaic.",
   },
   {
@@ -234,7 +234,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Nehemiah 1:1", "Nehemiah 13:31"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "tob",
@@ -247,7 +247,7 @@ export const books: Book[] = [
     canons: DEUTEROCANONICAL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["Tobit 1:1", "Tobit 14:15"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
     traditionTags: ["Septuagint", "Deuterocanonical"],
     notes:
       "Aramaic and Hebrew fragments found at Qumran indicate a Semitic original; the canonical received form is Greek.",
@@ -263,7 +263,7 @@ export const books: Book[] = [
     canons: DEUTEROCANONICAL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["Judith 1:1", "Judith 16:25"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
     traditionTags: ["Septuagint", "Deuterocanonical"],
     notes:
       "Likely composed in Hebrew; the Hebrew original is lost. Received via the Septuagint.",
@@ -279,7 +279,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Esther 1:1", "Esther 10:3"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     notes:
       "Catholic and Orthodox canons include the Greek Additions to Esther (107 additional verses) integrated into the text.",
   },
@@ -294,7 +294,7 @@ export const books: Book[] = [
     canons: DEUTEROCANONICAL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["1 Maccabees 1:1", "1 Maccabees 16:24"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
     traditionTags: ["Septuagint", "Deuterocanonical"],
     notes:
       "Originally composed in Hebrew (per Origen and Jerome); the Hebrew original is lost. Surviving Greek form via the Septuagint.",
@@ -310,7 +310,7 @@ export const books: Book[] = [
     canons: DEUTEROCANONICAL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["2 Maccabees 1:1", "2 Maccabees 15:39"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
     traditionTags: ["Septuagint", "Deuterocanonical"],
     notes: "Composed originally in Greek as an epitome of Jason of Cyrene's five-volume work.",
   },
@@ -325,7 +325,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Job 1:1", "Job 42:17"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
   },
   {
     id: "psa",
@@ -339,7 +339,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Psalm 1:1", "Psalm 150:6"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     notes:
       "Eastern Orthodox and Ethiopian Orthodox canons additionally include Psalm 151 (not modeled here).",
   },
@@ -355,7 +355,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Proverbs 1:1", "Proverbs 31:31"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "ecc",
@@ -369,7 +369,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Ecclesiastes 1:1", "Ecclesiastes 12:14"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
   },
   {
     id: "sng",
@@ -383,7 +383,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Song of Solomon 1:1", "Song of Solomon 8:14"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "wis",
@@ -397,7 +397,7 @@ export const books: Book[] = [
     canons: DEUTEROCANONICAL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["Wisdom 1:1", "Wisdom 19:22"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
     traditionTags: ["Septuagint", "Deuterocanonical"],
     notes:
       "Composed in Greek by an Alexandrian Jew, traditionally pseudepigraphically attributed to Solomon.",
@@ -414,7 +414,7 @@ export const books: Book[] = [
     canons: DEUTEROCANONICAL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Sirach 1:1", "Sirach 51:30"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     traditionTags: ["Septuagint", "Deuterocanonical", "Ecclesiasticus"],
     notes:
       "Composed in Hebrew (~180 BCE) by Yeshua ben Sira; translated into Greek by his grandson per the prologue. About two-thirds of the Hebrew text survives in Cairo Geniza and Qumran fragments.",
@@ -431,7 +431,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Isaiah 1:1", "Isaiah 66:24"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "jer",
@@ -445,7 +445,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Jeremiah 1:1", "Jeremiah 52:34"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     notes: "Jeremiah 10:11 is in Aramaic.",
   },
   {
@@ -460,7 +460,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Lamentations 1:1", "Lamentations 5:22"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
   },
   {
     id: "bar",
@@ -474,7 +474,7 @@ export const books: Book[] = [
     canons: DEUTEROCANONICAL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["Baruch 1:1", "Baruch 6:73"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
     traditionTags: ["Septuagint", "Deuterocanonical"],
     notes:
       "Chapter 6 is the Letter of Jeremiah, which Eastern Orthodox tradition treats as a separate book. Chapters 1–5 likely had a Hebrew original; chapter 6 was composed in Greek.",
@@ -491,7 +491,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Ezekiel 1:1", "Ezekiel 48:35"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "dan",
@@ -505,7 +505,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Daniel 1:1", "Daniel 12:13"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
     notes:
       "Daniel 2:4b–7:28 is in Aramaic. Catholic and Orthodox canons additionally include the Prayer of Azariah, Susanna, and Bel and the Dragon (Greek additions to Daniel).",
   },
@@ -521,7 +521,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Hosea 1:1", "Hosea 14:9"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "jol",
@@ -535,7 +535,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Joel 1:1", "Joel 3:21"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "amo",
@@ -549,7 +549,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Amos 1:1", "Amos 9:15"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "oba",
@@ -563,7 +563,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Obadiah 1:1", "Obadiah 1:21"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "jon",
@@ -577,7 +577,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Jonah 1:1", "Jonah 4:11"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
   },
   {
     id: "mic",
@@ -591,7 +591,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Micah 1:1", "Micah 7:20"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "nam",
@@ -605,7 +605,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Nahum 1:1", "Nahum 3:19"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "hab",
@@ -619,7 +619,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Habakkuk 1:1", "Habakkuk 3:19"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "zep",
@@ -633,7 +633,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Zephaniah 1:1", "Zephaniah 3:20"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "hag",
@@ -647,7 +647,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Haggai 1:1", "Haggai 2:23"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "zec",
@@ -661,7 +661,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Zechariah 1:1", "Zechariah 14:21"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "mal",
@@ -675,7 +675,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "hebrew",
     scriptureReferences: ["Malachi 1:1", "Malachi 4:6"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "mat",
@@ -689,7 +689,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["Matthew 1:1", "Matthew 28:20"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
   },
   {
     id: "mrk",
@@ -703,7 +703,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["Mark 1:1", "Mark 16:20"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
   },
   {
     id: "luk",
@@ -717,7 +717,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["Luke 1:1", "Luke 24:53"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
   },
   {
     id: "jhn",
@@ -731,7 +731,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["John 1:1", "John 21:25"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
   },
   {
     id: "act",
@@ -745,7 +745,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["Acts 1:1", "Acts 28:31"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
   },
   {
     id: "rom",
@@ -759,7 +759,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["Romans 1:1", "Romans 16:27"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "1co",
@@ -773,7 +773,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["1 Corinthians 1:1", "1 Corinthians 16:24"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "2co",
@@ -787,7 +787,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["2 Corinthians 1:1", "2 Corinthians 13:14"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "gal",
@@ -801,7 +801,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["Galatians 1:1", "Galatians 6:18"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "eph",
@@ -815,7 +815,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["Ephesians 1:1", "Ephesians 6:24"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "php",
@@ -829,7 +829,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["Philippians 1:1", "Philippians 4:23"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "col",
@@ -843,7 +843,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["Colossians 1:1", "Colossians 4:18"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "1th",
@@ -857,7 +857,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["1 Thessalonians 1:1", "1 Thessalonians 5:28"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "2th",
@@ -871,7 +871,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["2 Thessalonians 1:1", "2 Thessalonians 3:18"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "1ti",
@@ -885,7 +885,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["1 Timothy 1:1", "1 Timothy 6:21"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "2ti",
@@ -899,7 +899,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["2 Timothy 1:1", "2 Timothy 4:22"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "tit",
@@ -913,7 +913,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["Titus 1:1", "Titus 3:15"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "phm",
@@ -927,7 +927,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["Philemon 1:1", "Philemon 1:25"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "heb",
@@ -940,7 +940,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["Hebrews 1:1", "Hebrews 13:25"],
-    confidenceLevel: "debated",
+    confidenceLevel: "stated",
     notes: "Authorship is historically debated.",
   },
   {
@@ -955,7 +955,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["James 1:1", "James 5:20"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "1pe",
@@ -969,7 +969,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["1 Peter 1:1", "1 Peter 5:14"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "2pe",
@@ -983,7 +983,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["2 Peter 1:1", "2 Peter 3:18"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "1jn",
@@ -997,7 +997,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["1 John 1:1", "1 John 5:21"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
   },
   {
     id: "2jn",
@@ -1011,7 +1011,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["2 John 1:1", "2 John 1:13"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
   },
   {
     id: "3jn",
@@ -1025,7 +1025,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["3 John 1:1", "3 John 1:14"],
-    confidenceLevel: "traditional",
+    confidenceLevel: "stated",
   },
   {
     id: "jud",
@@ -1039,7 +1039,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["Jude 1:1", "Jude 1:25"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
   {
     id: "rev",
@@ -1053,7 +1053,7 @@ export const books: Book[] = [
     canons: ALL_CANONS,
     originalLanguage: "greek",
     scriptureReferences: ["Revelation 1:1", "Revelation 22:21"],
-    confidenceLevel: "explicit",
+    confidenceLevel: "stated",
   },
 ];
 

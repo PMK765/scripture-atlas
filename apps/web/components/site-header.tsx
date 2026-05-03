@@ -36,6 +36,9 @@ export function SiteHeader() {
           <Link className="hover:text-foreground" href="/tribes">
             Tribes
           </Link>
+          <Link className="hover:text-foreground" href="/lineages">
+            Lineages
+          </Link>
           <Link className="hover:text-foreground" href="/map">
             Map
           </Link>
