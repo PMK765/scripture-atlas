@@ -120,4 +120,8 @@ export const merges: ReadonlyArray<readonly [keep: string, drop: string, reason:
   ["shemaiah-wall-singer", "shemaiah-wall-trumpet-singer", "Same wall-dedication Shemaiah singer"],
   ["pashhur-of-immer", "pashhur-priest", "Pashhur son of Immer (Jer 20:1) — same priest"],
   ["urijah-prophet", "uriah-of-shemaiah", "Same Urijah son of Shemaiah of Kiriath-jearim, Jer 26:20-23"],
+  ["naamah-ammonitess", "naamah-ammonite", "Same Ammonite mother of Rehoboam, 1 Kgs 14:21, 31"],
+  ["hanun-zanoah", "hanun-son-of-hashub", "Same Hanun who built the Valley Gate with Zanoah, Neh 3:13 — patronymic 'son of Hashub' was misattributed"],
+  ["gaius-3-john", "gaius-3john", "Same Gaius, recipient of 3 John — hyphenation duplicate"],
+  ["menelaus", "menelaus-high-priest", "Same Hellenizing high priest Menelaus, 2 Macc 4-5, 11, 13"],
 ];

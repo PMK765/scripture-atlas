@@ -2316,9 +2316,8 @@ const edgesEzra10: GenealogyEdge[] = [
 ];
 
 const edgesQueenMothers: GenealogyEdge[] = [
-  motherOf("naamah-ammonite", "rehoboam", ["1 Kings 14:21", "2 Chronicles 12:13"]),
-  motherOf("maacah-daughter-of-abishalom", "abijah-of-judah", ["1 Kings 15:2", "2 Chronicles 11:20"]),
-  ...spouse("rehoboam", "naamah-ammonite", ["1 Kings 14:21"]),
+    motherOf("maacah-daughter-of-abishalom", "abijah-of-judah", ["1 Kings 15:2", "2 Chronicles 11:20"]),
+  ...spouse("rehoboam", "naamah-ammonitess", ["1 Kings 14:21"]),
   ...spouse("rehoboam", "maacah-daughter-of-abishalom", ["2 Chronicles 11:20"]),
   motherOf("azubah-jehoshaphat-mother", "jehoshaphat-of-judah", ["1 Kings 22:42"]),
   explicit("shilhi", "azubah-jehoshaphat-mother", ["1 Kings 22:42"]),
@@ -2562,6 +2561,69 @@ const edgesAuditCrossLinks: GenealogyEdge[] = [
   }),
 ];
 
+const edgesAuditMissingFathers: GenealogyEdge[] = [
+  explicit("tikvah", "shallum-of-tikvah", [
+    "2 Kings 22:14",
+    "2 Chronicles 34:22",
+  ]),
+  explicit("hallohesh", "shallum-son-of-hallohesh", ["Nehemiah 3:12"]),
+  explicit("nedebaeus", "ananias-high-priest", ["Acts 23:2"], {
+    confidenceLevel: "inferred",
+    notes: "The patronymic is preserved by Josephus (Antiquities 20.103), not directly in Acts.",
+  }),
+  explicit("rehob-aramean", "hadadezer", [
+    "2 Samuel 8:3",
+    "2 Samuel 8:12",
+    "1 Chronicles 18:3",
+  ]),
+  explicit("buzi", "ezekiel", ["Ezekiel 1:3"]),
+];
+
+const edgesHasmoneanAndMaccabees: GenealogyEdge[] = [
+  explicit("simeon-grandfather-of-mattathias", "john-father-of-mattathias", [
+    "1 Maccabees 2:1",
+  ]),
+  explicit("john-father-of-mattathias", "mattathias", ["1 Maccabees 2:1"]),
+  explicit("menestheus-2macc", "apollonius-of-menestheus", [
+    "2 Maccabees 4:21",
+  ]),
+  explicit("othniel", "hathath", ["1 Chronicles 4:13"]),
+];
+
+const edgesWikipediaDiff: GenealogyEdge[] = [
+  explicit("nebat", "jeroboam-i", [
+    "1 Kings 11:26",
+    "1 Kings 12:2",
+    "1 Kings 12:15",
+  ]),
+  explicit("hadad-the-edomite", "genubath", ["1 Kings 11:20"]),
+  explicit("ginath", "tibni", ["1 Kings 16:21"]),
+  explicit("jakeh", "agur-son-of-jakeh", ["Proverbs 30:1"]),
+  ...spouse("lapidoth", "deborah", ["Judges 4:4"]),
+  explicit("bichri", "sheba-ben-bichri", ["2 Samuel 20:1"]),
+  explicit("benaiah-son-of-jehoiada", "ammizabad", ["1 Chronicles 27:6"]),
+  explicit("aphiah", "bechorath", ["1 Samuel 9:1"]),
+  explicit("bechorath", "zeror", ["1 Samuel 9:1"]),
+  explicit("zeror", "abiel-saul", ["1 Samuel 9:1"]),
+  explicit("bela-benjamin", "addar-benjamin", ["1 Chronicles 8:3"]),
+  explicit("bela-benjamin", "iri-benjamin", ["1 Chronicles 7:7"]),
+  explicit("zophah", "harnepher", ["1 Chronicles 7:36"]),
+  explicit("zophah", "hod-asher", ["1 Chronicles 7:37"]),
+  explicit("shemer-asher", "jehubbah", ["1 Chronicles 7:34"]),
+  explicit("shemer-asher", "rohgah", ["1 Chronicles 7:34"]),
+  explicit("jerahmeel", "bunah", ["1 Chronicles 2:25"]),
+  explicit("ram", "maaz-jerahmeelite", ["1 Chronicles 2:27"]),
+  explicit("jahdai", "regem-of-jahdai", ["1 Chronicles 2:47"]),
+  explicit("jehallelel", "asareel", ["1 Chronicles 4:16"]),
+  explicit("ashhur", "jezoar", ["1 Chronicles 4:7"]),
+  motherOf("helah", "jezoar", ["1 Chronicles 4:7"]),
+  explicit("nahor", "kesed", ["Genesis 22:22"]),
+  explicit("manasseh", "ashriel-manasseh", [
+    "1 Chronicles 7:14",
+    "Numbers 26:31",
+  ]),
+];
+
 export const genealogyEdges: GenealogyEdge[] = [
   ...edgesGenesis,
   ...edgesTableOfNations,
@@ -2659,4 +2721,7 @@ export const genealogyEdges: GenealogyEdge[] = [
   ...edgesJeremiah26to45,
   ...edgesRelationGapFillers,
   ...edgesAuditCrossLinks,
+  ...edgesAuditMissingFathers,
+  ...edgesHasmoneanAndMaccabees,
+  ...edgesWikipediaDiff,
 ];
