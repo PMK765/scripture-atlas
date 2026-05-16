@@ -57,7 +57,9 @@ export default async function TribePage({ params }: PageProps) {
           <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
             {TYPE_LABELS[tribe.type] ?? tribe.type}
           </p>
-          <h1 className="text-3xl font-semibold tracking-tight">{tribe.name}</h1>
+          <h1 className="font-serif text-4xl font-medium tracking-tight text-ink sm:text-5xl">
+            {tribe.name}
+          </h1>
           {tribe.alternateNames.length > 0 ? (
             <p className="text-sm text-muted-foreground">
               Also known as{" "}

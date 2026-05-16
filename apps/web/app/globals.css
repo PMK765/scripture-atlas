@@ -124,6 +124,18 @@ body {
   border: 0;
 }
 
+/* Hero headline: any <em> inside renders italic + gradient ink. Used by
+   PageHero so consumers can write <h1>Every <em>person</em>.</h1> */
+.hero-headline em {
+  font-style: italic;
+  background-image: var(--gradient-primary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  /* Padding prevents serif italic descenders/ascenders from being clipped. */
+  padding-right: 0.05em;
+}
+
 /* Verse marker: small ornamental rule + label pair used in hero/section heads */
 .verse-marker {
   display: inline-flex;

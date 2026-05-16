@@ -77,8 +77,11 @@ export default async function SearchPage({ searchParams }: PageProps) {
       <SiteHeader />
       <main className="mx-auto max-w-4xl px-6 py-10">
         <header className="mb-8">
-          <h1 className="text-3xl font-semibold tracking-tight">Search</h1>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <span className="verse-marker">Search</span>
+          <h1 className="mt-4 font-serif text-4xl font-medium tracking-tight text-ink sm:text-5xl">
+            {hasQuery ? <>&ldquo;<em className="italic text-gradient-primary">{q}</em>&rdquo;</> : <>What are you <em className="italic text-gradient-primary">looking</em> for?</>}
+          </h1>
+          <p className="mt-3 text-sm text-muted-foreground">
             {hasQuery ? (
               <>
                 {totalMatches.toLocaleString()} match{totalMatches === 1 ? "" : "es"} for{" "}

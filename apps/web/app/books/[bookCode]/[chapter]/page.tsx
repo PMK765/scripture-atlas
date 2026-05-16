@@ -120,11 +120,11 @@ export default async function ChapterReaderPage({ params, searchParams }: PagePr
 
         <header className="mb-8 border-b pb-6">
           <div className="flex items-baseline justify-between gap-4">
-            <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+            <h1 className="font-serif text-4xl font-medium tracking-tight text-ink sm:text-5xl">
               {book.name}{" "}
-              <span className="text-muted-foreground">{chapter}</span>
+              <span className="italic text-gradient-primary">{chapter}</span>
             </h1>
-            <span className="hidden text-xs text-muted-foreground sm:block">
+            <span className="hidden font-mono text-[10px] uppercase tracking-wider text-muted-foreground sm:block">
               #{book.order} · {maxChapter} chapters
             </span>
           </div>

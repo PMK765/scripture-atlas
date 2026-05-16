@@ -65,7 +65,9 @@ export default async function PlacePage({
             ) : null}
             <SourceBadge sourceId={place.source} sourceUrl={place.sourceUrl} />
           </div>
-          <h1 className="text-3xl font-semibold tracking-tight">{place.name}</h1>
+          <h1 className="font-serif text-4xl font-medium tracking-tight text-ink sm:text-5xl">
+            {place.name}
+          </h1>
           {place.alternateNames.length > 0 ? (
             <p className="text-sm text-muted-foreground">
               Also: {place.alternateNames.join(" · ")}

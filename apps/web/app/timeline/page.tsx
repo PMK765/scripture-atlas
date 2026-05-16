@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { PageHero } from "@/components/page-hero";
 import { TimelineExplorer } from "@/components/timeline/timeline-explorer";
 import { getAllEvents } from "@/lib/timeline-queries";
 
@@ -19,17 +20,21 @@ export default async function TimelinePage() {
     <>
       <SiteHeader />
       <main className="mx-auto max-w-6xl px-6 py-10">
-        <header className="mb-8">
-          <span className="verse-marker">Chronology</span>
-          <h1 className="mt-4 font-serif text-4xl font-medium tracking-tight text-ink sm:text-5xl">
-            From <span className="italic text-gradient-primary">creation</span> to canon close.
-          </h1>
-          <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
-            Drag the range sliders to zoom. Filter by category. Events marked
-            &ldquo;Traditional&rdquo; depend on interpretive choices (early-date Exodus, AD 30
-            vs AD 33 crucifixion) and carry the relevant tradition tag.
-          </p>
-        </header>
+        <PageHero
+          marker="Chronology"
+          title={
+            <>
+              From <em>creation</em> to Revelation.
+            </>
+          }
+          subtitle={
+            <>
+              Click an era to zoom in. Click any dot for details. Events marked
+              &ldquo;Traditional&rdquo; depend on interpretive choices (early-date Exodus, AD 30
+              vs AD 33 crucifixion) and carry the relevant tradition tag.
+            </>
+          }
+        />
 
         <TimelineExplorer events={events} />
 

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { PageHero } from "@/components/page-hero";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { getAllTribes } from "@/lib/tribe-queries";
@@ -43,16 +44,15 @@ export default async function TribesPage() {
     <>
       <SiteHeader />
       <main className="mx-auto max-w-6xl px-6 py-10">
-        <header className="mb-8 space-y-2">
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-            Peoples
-          </p>
-          <h1 className="text-3xl font-semibold tracking-tight">Tribes & nations</h1>
-          <p className="max-w-2xl text-sm text-muted-foreground">
-            The peoples of scripture — the twelve tribes of Israel, the nations descended from
-            Abraham, Lot, and Esau, and others. Each tribe links to its founder and members.
-          </p>
-        </header>
+        <PageHero
+          marker="Peoples"
+          title={
+            <>
+              Tribes &amp; <em>nations</em>.
+            </>
+          }
+          subtitle="Twelve tribes of Israel; nations descended from Abraham, Lot, and Esau. Each tribe links to its founder and members."
+        />
 
         <div className="space-y-10">
           {orderedGroups.map(({ type, tribes: groupTribes }) => (

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { prisma } from "@bible-visualizer/db";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { PageHero } from "@/components/page-hero";
 import { PersonCard } from "@/components/people/person-card";
 import { PeopleFilterBar } from "@/components/people/people-filter-bar";
 import { getAllPeople } from "@/lib/people-queries";
@@ -77,21 +78,21 @@ export default async function PeoplePage({ searchParams }: PageProps) {
     <>
       <SiteHeader />
       <main className="mx-auto max-w-6xl px-6 py-10">
-        <header className="mb-8 space-y-2">
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-            Figures
-          </p>
-          <h1 className="text-3xl font-semibold tracking-tight">People</h1>
-          <p className="max-w-2xl text-sm text-muted-foreground">
-            Named figures in scripture with relatives, lifespan, and scripture references. Every
-            claim is traceable; tradition tags surface where readings differ (Masoretic vs.
-            Septuagint/Lukan, etc.).{" "}
-            <span className="text-foreground/80">
+        <PageHero
+          marker="Figures"
+          title={
+            <>
+              Every named <em>figure</em>.
+            </>
+          }
+          subtitle="Lifespans, relatives, and scripture references. Every claim is traceable; tradition tags surface where readings differ."
+          meta={
+            <>
               {total.toLocaleString()} of {totalAll.toLocaleString()} curated
-              {q || era || role ? " matching" : ""}.
-            </span>
-          </p>
-        </header>
+              {q || era || role ? " matching the active filters" : ""}.
+            </>
+          }
+        />
 
         <div className="mb-8">
           <PeopleFilterBar eras={eras} roles={roles} tribes={tribes} activeSort={sort} />

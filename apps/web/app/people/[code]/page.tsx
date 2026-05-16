@@ -80,7 +80,9 @@ export default async function PersonPage({ params }: PageProps) {
           />
           <div className="min-w-0 flex-1 space-y-3">
             <div className="flex flex-wrap items-baseline gap-3">
-              <h1 className="text-3xl font-semibold tracking-tight">{person.name}</h1>
+              <h1 className="font-serif text-4xl font-medium tracking-tight text-ink sm:text-5xl">
+                {person.name}
+              </h1>
               {person.gender ? (
                 <span className="text-lg text-muted-foreground" aria-label={person.gender}>
                   {person.gender === "male" ? "♂" : person.gender === "female" ? "♀" : ""}

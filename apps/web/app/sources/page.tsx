@@ -4,6 +4,7 @@ import { ExternalLink } from "lucide-react";
 import { listDataSources } from "@bible-visualizer/bible-data";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { PageHero } from "@/components/page-hero";
 
 export const metadata: Metadata = {
   title: "Sources & attributions · Bible Visualizer",
@@ -18,15 +19,15 @@ export default function SourcesPage() {
     <>
       <SiteHeader />
       <main className="mx-auto max-w-3xl px-6 py-12">
-        <header className="mb-10 space-y-3">
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-            Provenance
-          </p>
-          <h1 className="text-3xl font-semibold tracking-tight">Sources &amp; attributions</h1>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            Bible Visualizer mixes two kinds of data, and the difference matters.
-          </p>
-        </header>
+        <PageHero
+          marker="Provenance"
+          title={
+            <>
+              Sources &amp; <em>attributions</em>.
+            </>
+          }
+          subtitle="Bible Visualizer mixes two kinds of data — and the difference matters."
+        />
 
         <section className="mb-10 grid gap-4 sm:grid-cols-2">
           <div className="rounded-lg border bg-card p-5">

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { PageHero } from "@/components/page-hero";
 import { LineageWorkbench } from "@/components/lineages/lineage-workbench";
 import { getLineageGraph } from "@/lib/lineage-queries";
 
@@ -19,16 +20,23 @@ export default async function LineagesPage() {
     <>
       <SiteHeader />
       <main className="mx-auto max-w-[1400px] px-6 py-8">
-        <header className="mb-4 space-y-1">
-          <h1 className="text-2xl font-semibold tracking-tight">Lineages</h1>
-          <p className="text-sm text-muted-foreground">
-            <span className="text-foreground">{graph.componentSize.toLocaleString()}</span>{" "}
-            interconnected people (of {graph.totalPeople.toLocaleString()} total) across{" "}
-            <span className="text-foreground">{graph.edges.length.toLocaleString()}</span>{" "}
-            relationships. Pick a root person, set how far back and forward to walk, and
-            click any node for details.
-          </p>
-        </header>
+        <PageHero
+          marker="Family"
+          title={
+            <>
+              Every <em>lineage</em>, traced.
+            </>
+          }
+          subtitle={
+            <>
+              {graph.componentSize.toLocaleString()} interconnected people (of{" "}
+              {graph.totalPeople.toLocaleString()} total) across{" "}
+              {graph.edges.length.toLocaleString()} relationships. Pick a root, walk
+              backward or forward, and click any node for details.
+            </>
+          }
+          size="compact"
+        />
         <LineageWorkbench people={graph.people} edges={graph.edges} />
       </main>
       <SiteFooter />
