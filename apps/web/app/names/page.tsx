@@ -133,7 +133,7 @@ export default function NamesPage() {
           meta={
             <>
               {DIVINE_NAMES.length} names of God · {HEBREW_NAMES.length} curated Hebrew names of
-              people.
+              people and places.
             </>
           }
         />
@@ -185,12 +185,13 @@ export default function NamesPage() {
         <section>
           <header className="mb-6">
             <h2 className="font-serif text-3xl font-medium tracking-tight text-ink">
-              Names of the people.
+              Names of the people <em className="italic text-primary">and places</em>.
             </h2>
             <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
               Hebrew names are sermons. Yehoshua = &quot;YHWH saves.&quot; Yisra&apos;el =
-              &quot;strives with God.&quot; Search the patriarchs, judges, kings, prophets, and
-              apostles — every breakdown linked back to the person.
+              &quot;strives with God.&quot; Beit Lechem = &quot;house of bread.&quot; Search the
+              patriarchs, judges, kings, prophets, apostles, and the geography of the land — every
+              breakdown linked back to the source.
             </p>
           </header>
 
@@ -200,8 +201,8 @@ export default function NamesPage() {
         <p className="mt-16 max-w-2xl text-xs leading-relaxed text-muted-foreground">
           Curation status: a selected set of the most theologically and linguistically notable
           Hebrew names. Etymologies follow standard lexicons (BDB, HALOT, TWOT); where genuinely
-          debated, the notes name the alternatives rather than pretending consensus. The lexicon
-          will expand to include place names and additional figures over time.
+          debated, the notes name the alternatives rather than pretending consensus. Loanwords
+          (Esther, Mordecai) and pre-Israelite place names (Sinai, Babel) are flagged as such.
         </p>
       </main>
       <NamesDeepLinkHighlighter />
