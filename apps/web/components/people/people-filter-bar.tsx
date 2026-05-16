@@ -197,7 +197,7 @@ export function PeopleFilterBar({ eras, roles, tribes, activeSort }: PeopleFilte
               clear="tribe"
             />
           ) : null}
-          <Link href="/people" className="ml-1 underline-offset-2 hover:underline">
+          <Link href="/people?sort=name" className="ml-1 underline-offset-2 hover:underline">
             Clear all
           </Link>
         </div>

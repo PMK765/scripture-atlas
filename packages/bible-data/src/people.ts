@@ -4335,7 +4335,7 @@ const peopleNT: Person[] = [
     alternateNames: ["Yeshua", "Jesus Christ", "The Messiah", "Son of David", "Son of God", "The Word"],
     gender: "male",
     era: "ministry",
-    roles: ["messiah", "prophet", "high-priest", "king"],
+    roles: ["messiah", "prophet", "high-priest", "king", "ancestor-of-christ"],
     tribes: ["judah", "davidic-dynasty"],
     description:
       "Born to the virgin Mary in Bethlehem; raised in Nazareth. Began public ministry at about thirty after his baptism by John. Proclaimed the kingdom of God; healed, taught, gathered twelve disciples. Crucified under Pontius Pilate at Jerusalem, ca. AD 30 or 33. Rose bodily on the third day; appeared to many over forty days; ascended. The Christian confession is that he is the eternal Son of God incarnate, Messiah of Israel, Lord and Savior of the world.",

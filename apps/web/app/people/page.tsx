@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { prisma } from "@bible-visualizer/db";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -28,6 +29,22 @@ interface PageProps {
 
 export default async function PeoplePage({ searchParams }: PageProps) {
   const sp = await searchParams;
+  /*
+   * Default landing view: when no query params are present, redirect to the
+   * lineage-of-Christ chronological view. This is the most theologically
+   * meaningful default since Genesis 3:15 — and the most interesting first
+   * impression for the page. Users can hit "Reset" or clear filters to see
+   * the full catalog.
+   */
+  if (
+    sp.era === undefined &&
+    sp.role === undefined &&
+    sp.tribe === undefined &&
+    sp.q === undefined &&
+    sp.sort === undefined
+  ) {
+    redirect("/people?sort=chronological&role=ancestor-of-christ");
+  }
   const era = typeof sp.era === "string" ? sp.era : undefined;
   const role = typeof sp.role === "string" ? sp.role : undefined;
   const tribe = typeof sp.tribe === "string" ? sp.tribe : undefined;
@@ -101,7 +118,10 @@ export default async function PeoplePage({ searchParams }: PageProps) {
         {people.length === 0 ? (
           <div className="rounded-lg border bg-card p-8 text-center text-sm text-muted-foreground">
             No people match these filters.{" "}
-            <Link href="/people" className="text-foreground underline-offset-2 hover:underline">
+            <Link
+              href="/people?sort=name"
+              className="text-foreground underline-offset-2 hover:underline"
+            >
               Reset
             </Link>
           </div>
