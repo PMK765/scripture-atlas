@@ -31,6 +31,10 @@ const serifRegular = readFileSync(join(FONT_DIR, "cormorant-regular.ttf"));
 const serifItalic = readFileSync(join(FONT_DIR, "cormorant-italic.ttf"));
 const mono = readFileSync(join(FONT_DIR, "jetbrains-mono.ttf"));
 
+const brandIcon = `data:image/png;base64,${readFileSync(
+  join(process.cwd(), "public", "portraits", "mainIcon.png"),
+).toString("base64")}`;
+
 export default async function OpenGraphImage(): Promise<ImageResponse> {
   const marker = "Gen 1:1 → Rev 22:21";
   const url = "scriptureatlas.com";
@@ -128,42 +132,28 @@ export default async function OpenGraphImage(): Promise<ImageResponse> {
                 display: "flex",
               }}
             >
-              Every person, place, event, and prophecy — mapped, sourced, and connected.
+              People, places, events, and prophecies of scripture — mapped, sourced, and connected.
             </div>
           </div>
           <div
             style={{
               display: "flex",
               alignItems: "center",
-              gap: 14,
+              gap: 16,
               fontFamily: "JetBrains Mono",
               fontSize: 22,
               color: "#1f2150",
               fontWeight: 500,
             }}
           >
-            <div
-              style={{
-                display: "flex",
-                width: 56,
-                height: 56,
-                borderRadius: 12,
-                background: "#2a2a5e",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <div
-                style={{
-                  width: 30,
-                  height: 30,
-                  borderRadius: "50%",
-                  background: "#f4d690",
-                  border: "5px solid #e0a440",
-                  display: "flex",
-                }}
-              />
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={brandIcon}
+              width={64}
+              height={64}
+              style={{ borderRadius: 12 }}
+              alt=""
+            />
             {url}
           </div>
         </div>
