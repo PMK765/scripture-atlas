@@ -20,7 +20,7 @@ export function SiteFooter() {
           <span aria-hidden className="opacity-50">
             ·
           </span>
-          <span className="font-mono text-[10px]">v0.0.0</span>
+          <span className="font-mono text-[10px]">v{projectMeta.version}</span>
         </nav>
       </div>
     </footer>
