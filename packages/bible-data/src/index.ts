@@ -7,4 +7,5 @@ export * from "./genealogy-edges";
 export * from "./tribes";
 export * from "./places";
 export * from "./events";
+export * from "./prophecies";
 export * from "./overlays";

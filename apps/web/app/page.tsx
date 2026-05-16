@@ -5,21 +5,23 @@ import { BookList } from "@/components/book-list";
 import { TranslationList } from "@/components/translation-list";
 import { PeoplePreview } from "@/components/people/people-preview";
 import { TimelinePreview } from "@/components/timeline/timeline-preview";
-import { MapPreview } from "@/components/map/map-preview";
+import { ProphecyPreview } from "@/components/prophecy/prophecy-preview";
 import { SiteFooter } from "@/components/site-footer";
 import { getVerseCountsByTranslation } from "@/lib/queries";
 import { getAllPeople } from "@/lib/people-queries";
 import { getAllEvents } from "@/lib/timeline-queries";
 import { getAllPlaces } from "@/lib/place-queries";
+import { getAllProphecies } from "@/lib/prophecy-queries";
 
 export const revalidate = 300;
 
 export default async function HomePage() {
-  const [verseCounts, people, events, places] = await Promise.all([
+  const [verseCounts, people, events, places, prophecies] = await Promise.all([
     getVerseCountsByTranslation(),
     getAllPeople(),
     getAllEvents(),
     getAllPlaces(),
+    getAllProphecies(),
   ]);
 
   const totalVerses = Object.values(verseCounts).reduce(
@@ -44,7 +46,7 @@ export default async function HomePage() {
         <TranslationList verseCounts={verseCounts} />
         <TimelinePreview events={events} />
         <PeoplePreview people={people} />
-        <MapPreview places={places} />
+        <ProphecyPreview prophecies={prophecies} />
       </main>
       <SiteFooter />
     </>

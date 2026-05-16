@@ -28,6 +28,7 @@ const PRIMARY_LINKS: NavLink[] = [
   { href: "/tribes", label: "Tribes", hint: "Tribes, dynasties, and lineages" },
   { href: "/lineages", label: "Lineages", hint: "Interactive genealogy graphs" },
   { href: "/map", label: "Map", hint: "Biblical sites with sources" },
+  { href: "/prophecies", label: "Prophecies", hint: "Promise and fulfillment, cited" },
 ];
 
 const SECONDARY_LINKS: NavLink[] = [

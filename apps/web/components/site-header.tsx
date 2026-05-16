@@ -47,6 +47,9 @@ export function SiteHeader() {
           <Link className="hover:text-foreground" href="/map">
             Map
           </Link>
+          <Link className="hover:text-foreground" href="/prophecies">
+            Prophecies
+          </Link>
         </nav>
       </div>
     </header>

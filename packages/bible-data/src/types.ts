@@ -142,12 +142,35 @@ export interface BiblicalEvent extends Traceable {
   placeIds?: string[];
 }
 
+export type ProphecyStatus =
+  | "fulfilled"
+  | "partially-fulfilled"
+  | "unfulfilled"
+  | "debated";
+
+export type ProphecyCategory =
+  | "lineage"
+  | "birth"
+  | "ministry"
+  | "betrayal"
+  | "suffering"
+  | "death"
+  | "resurrection"
+  | "exaltation"
+  | "kingdom"
+  | "second-coming";
+
 export interface ProphecyLink extends Traceable {
   id: string;
+  title: string;
+  category?: ProphecyCategory;
   prophecyRef: ScriptureReference;
   fulfillmentRef?: ScriptureReference;
   summary: string;
-  status: "fulfilled" | "partially-fulfilled" | "unfulfilled" | "debated";
+  fulfillmentSummary?: string;
+  prophecyYear?: number;
+  fulfillmentYear?: number;
+  status: ProphecyStatus;
 }
 
 export interface Lemma {

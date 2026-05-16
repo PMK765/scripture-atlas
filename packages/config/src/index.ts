@@ -75,9 +75,8 @@ export const featureFlags: Record<FeatureFlagKey, FeatureFlag> = {
   prophecy: {
     key: "prophecy",
     label: "Prophecy",
-    description: "Track prophecy → fulfillment links across scripture.",
-    enabled: false,
-    experimental: true,
+    description: "Old Testament prophecy → New Testament fulfillment, cited and dated.",
+    enabled: true,
   },
   originalLanguages: {
     key: "originalLanguages",

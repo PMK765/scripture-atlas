@@ -4,6 +4,7 @@ import {
   GitBranch,
   Map,
   Network,
+  Scroll,
   Users,
   type LucideIcon,
 } from "lucide-react";
@@ -24,6 +25,7 @@ const sections: SectionDef[] = [
   { key: "tribes", href: "/tribes", icon: Network },
   { key: "lineages", href: "/lineages", icon: GitBranch },
   { key: "map", href: "/map", icon: Map },
+  { key: "prophecy", href: "/prophecies", icon: Scroll },
 ];
 
 export function SectionGrid() {

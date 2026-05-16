@@ -4,6 +4,7 @@ import {
   genealogyEdges,
   people,
   places,
+  prophecies,
   translations,
   tribes,
 } from "@bible-visualizer/bible-data";
@@ -401,6 +402,50 @@ async function seedEvents(): Promise<{ upserts: number; pruned: number; placeLin
   return { upserts, pruned: pruned.count, placeLinks };
 }
 
+async function seedProphecies(): Promise<{ upserts: number; pruned: number }> {
+  let upserts = 0;
+  for (const p of prophecies) {
+    await prisma.prophecy.upsert({
+      where: { code: p.id },
+      update: {
+        title: p.title,
+        category: p.category ?? null,
+        summary: p.summary,
+        fulfillmentSummary: p.fulfillmentSummary ?? null,
+        prophecyRef: p.prophecyRef,
+        fulfillmentRef: p.fulfillmentRef ?? null,
+        prophecyYear: p.prophecyYear ?? null,
+        fulfillmentYear: p.fulfillmentYear ?? null,
+        status: p.status,
+        confidenceLevel: p.confidenceLevel,
+        scriptureReferences: p.scriptureReferences,
+        notes: p.notes ?? null,
+      },
+      create: {
+        code: p.id,
+        title: p.title,
+        category: p.category ?? null,
+        summary: p.summary,
+        fulfillmentSummary: p.fulfillmentSummary ?? null,
+        prophecyRef: p.prophecyRef,
+        fulfillmentRef: p.fulfillmentRef ?? null,
+        prophecyYear: p.prophecyYear ?? null,
+        fulfillmentYear: p.fulfillmentYear ?? null,
+        status: p.status,
+        confidenceLevel: p.confidenceLevel,
+        scriptureReferences: p.scriptureReferences,
+        notes: p.notes ?? null,
+      },
+    });
+    upserts += 1;
+  }
+  const validCodes = prophecies.map((p) => p.id);
+  const pruned = await prisma.prophecy.deleteMany({
+    where: { code: { notIn: validCodes } },
+  });
+  return { upserts, pruned: pruned.count };
+}
+
 async function main(): Promise<void> {
   const startedAt = Date.now();
   const bookCount = await seedBooks();
@@ -418,14 +463,16 @@ async function main(): Promise<void> {
     pruned: eventsPruned,
     placeLinks: eventPlaceLinks,
   } = await seedEvents();
+  const { upserts: prophecyCount, pruned: propheciesPruned } = await seedProphecies();
   const elapsed = Date.now() - startedAt;
   const tPrune = translationsPruned > 0 ? ` (pruned ${translationsPruned} obsolete)` : "";
   const pPrune = peoplePruned > 0 ? ` (pruned ${peoplePruned} obsolete)` : "";
   const trPrune = tribesPruned > 0 ? ` (pruned ${tribesPruned} obsolete)` : "";
   const plPrune = placesPruned > 0 ? ` (pruned ${placesPruned} obsolete)` : "";
   const evPrune = eventsPruned > 0 ? ` (pruned ${eventsPruned} obsolete)` : "";
+  const prPrune = propheciesPruned > 0 ? ` (pruned ${propheciesPruned} obsolete)` : "";
   console.log(
-    `Seed complete in ${elapsed}ms — ${bookCount} books, ${translationCount} translations${tPrune}, ${peopleCount} people${pPrune}, ${edgeCount} genealogy edges, ${tribeCount} tribes${trPrune}, ${tribeMemberships} memberships, ${placeCount} places${plPrune}, ${eventCount} events${evPrune} (${eventPlaceLinks} event-place links).`,
+    `Seed complete in ${elapsed}ms — ${bookCount} books, ${translationCount} translations${tPrune}, ${peopleCount} people${pPrune}, ${edgeCount} genealogy edges, ${tribeCount} tribes${trPrune}, ${tribeMemberships} memberships, ${placeCount} places${plPrune}, ${eventCount} events${evPrune} (${eventPlaceLinks} event-place links), ${prophecyCount} prophecies${prPrune}.`,
   );
 }
 
