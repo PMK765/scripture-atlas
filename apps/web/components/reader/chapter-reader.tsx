@@ -52,13 +52,21 @@ export function ChapterReader({ translation, verses, className }: ChapterReaderP
       </div>
       <div className="space-y-2 text-foreground">
         {verses.map((v) => (
-          <p key={v.verse} id={`v${v.verse}`} className="scroll-mt-24">
-            <sup
-              className="me-2 select-none align-super text-[0.65em] font-mono font-medium text-muted-foreground"
+          <p
+            key={v.verse}
+            id={`v${v.verse}`}
+            data-verse-row={v.verse}
+            className="scroll-mt-24 rounded-md transition-colors data-[selected=true]:bg-amber-200/50 data-[selected=true]:px-2 data-[selected=true]:-mx-2"
+          >
+            <button
+              type="button"
+              data-verse-toggle={v.verse}
+              aria-label={`Select verse ${v.verse}`}
+              className="me-2 inline-flex select-none items-baseline align-super text-[0.65em] font-mono font-medium text-muted-foreground hover:text-primary focus-visible:outline-none focus-visible:text-primary cursor-pointer"
               dir="ltr"
             >
               {v.verse}
-            </sup>
+            </button>
             {v.text}
           </p>
         ))}

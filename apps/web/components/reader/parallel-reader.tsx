@@ -69,7 +69,15 @@ export function ParallelReader({ columns, className }: ParallelReaderProps) {
       </div>
       <div className="space-y-3">
         {verseNumbers.map((v) => (
-          <div key={v} id={`v${v}`} className={cn(gridClass, "scroll-mt-24")}>
+          <div
+            key={v}
+            id={`v${v}`}
+            data-verse-row={v}
+            className={cn(
+              gridClass,
+              "scroll-mt-24 rounded-md transition-colors data-[selected=true]:bg-amber-200/50 data-[selected=true]:px-2 data-[selected=true]:-mx-2",
+            )}
+          >
             {columns.map((c, idx) => {
               const text = verseLookups[idx]?.get(v);
               const dir = isRtl(c.translation.language) ? "rtl" : "ltr";
@@ -81,12 +89,24 @@ export function ParallelReader({ columns, className }: ParallelReaderProps) {
                   lang={lang}
                   className={cn(languageColumnClass(c.translation.language), "text-foreground")}
                 >
-                  <sup
-                    className="me-2 select-none align-super text-[0.7em] font-mono font-medium text-muted-foreground"
-                    dir="ltr"
-                  >
-                    {v}
-                  </sup>
+                  {idx === 0 ? (
+                    <button
+                      type="button"
+                      data-verse-toggle={v}
+                      aria-label={`Select verse ${v}`}
+                      className="me-2 inline-flex select-none items-baseline align-super text-[0.7em] font-mono font-medium text-muted-foreground hover:text-primary focus-visible:outline-none focus-visible:text-primary cursor-pointer"
+                      dir="ltr"
+                    >
+                      {v}
+                    </button>
+                  ) : (
+                    <sup
+                      className="me-2 select-none align-super text-[0.7em] font-mono font-medium text-muted-foreground"
+                      dir="ltr"
+                    >
+                      {v}
+                    </sup>
+                  )}
                   {text ?? <span className="text-muted-foreground italic">—</span>}
                 </p>
               );

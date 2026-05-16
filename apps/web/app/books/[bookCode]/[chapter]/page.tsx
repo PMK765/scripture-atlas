@@ -6,6 +6,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ChapterReader } from "@/components/reader/chapter-reader";
 import { ParallelReader } from "@/components/reader/parallel-reader";
+import { SelectionController } from "@/components/reader/selection-controller";
 import { TranslationPicker } from "@/components/reader/translation-picker";
 import { ChapterGrid } from "@/components/reader/chapter-grid";
 import { ChapterPager } from "@/components/reader/chapter-pager";
@@ -167,6 +168,15 @@ export default async function ChapterReaderPage({ params, searchParams }: PagePr
           </div>
         </div>
       </main>
+      {verseLoads[0] ? (
+        <SelectionController
+          bookName={book.name}
+          bookCode={book.code}
+          chapter={chapter}
+          primaryTranslationCode={verseLoads[0].translation.code}
+          primaryVerses={verseLoads[0].verses.map((v) => ({ verse: v.verse, text: v.text }))}
+        />
+      ) : null}
       <SiteFooter />
     </>
   );

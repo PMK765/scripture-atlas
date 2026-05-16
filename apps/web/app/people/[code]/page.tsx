@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { ERA_LABELS, type Era } from "@bible-visualizer/config";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { ShareButton } from "@/components/share-button";
 import { Badge } from "@/components/ui/badge";
 import { FamilyTree } from "@/components/people/family-tree";
 import { Portrait } from "@/components/people/portrait";
@@ -88,6 +89,15 @@ export default async function PersonPage({ params }: PageProps) {
                   {person.gender === "male" ? "♂" : person.gender === "female" ? "♀" : ""}
                 </span>
               ) : null}
+              <ShareButton
+                title={`${person.name} · Scripture Atlas`}
+                text={
+                  person.description
+                    ? `${person.name} — ${person.description}`
+                    : `${person.name} on Scripture Atlas`
+                }
+                className="ml-auto"
+              />
             </div>
 
             {person.alternateNames.length > 0 ? (
