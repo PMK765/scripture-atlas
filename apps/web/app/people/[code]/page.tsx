@@ -21,9 +21,9 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { code } = await params;
   const person = await getPersonByCode(code);
-  if (!person) return { title: "Person not found · Bible Visualizer" };
+  if (!person) return { title: "Person not found · Scripture Atlas" };
   return {
-    title: `${person.name} · People · Bible Visualizer`,
+    title: `${person.name} · People · Scripture Atlas`,
     description: person.description ?? undefined,
   };
 }

@@ -8,7 +8,7 @@ import { getLineageGraph } from "@/lib/lineage-queries";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Lineages · Bible Visualizer",
+  title: "Lineages · Scripture Atlas",
   description:
     "Explore the biblical family network — pick any person, see ancestors all the way back and descendants forward, and click to drill in.",
 };

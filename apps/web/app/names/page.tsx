@@ -14,7 +14,7 @@ import { NamesExplorer } from "@/components/names/names-explorer";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Names · Bible Visualizer",
+  title: "Names · Scripture Atlas",
   description:
     "The Hebrew names of God and biblical figures, broken into morphemes with color-matched Hebrew, transliteration, and meaning.",
 };

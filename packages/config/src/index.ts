@@ -1,9 +1,9 @@
 export const projectMeta = {
-  name: "Bible Visualizer",
-  shortName: "BibleViz",
-  tagline: "An interactive, accurate, and visual way to understand the Bible.",
+  name: "Scripture Atlas",
+  shortName: "Scripture Atlas",
+  tagline: "An atlas of scripture.",
   description:
-    "A visualization and learning platform for structured biblical data — people, places, events, genealogies, prophecy, and geography — with traceable references and explicit confidence levels.",
+    "Every person, place, event, genealogy, prophecy, and Hebrew name in scripture — mapped, sourced, and connected, with traceable references and explicit confidence levels.",
   repository: "https://github.com/bible-visualizer/bible-visualizer",
 } as const;
 

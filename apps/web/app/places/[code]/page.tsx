@@ -23,9 +23,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { code } = await params;
   const place = await getPlaceByCode(code);
-  if (!place) return { title: "Place not found · Bible Visualizer" };
+  if (!place) return { title: "Place not found · Scripture Atlas" };
   return {
-    title: `${place.name} · Bible Visualizer`,
+    title: `${place.name} · Scripture Atlas`,
     description: place.description?.slice(0, 160) ?? `${place.name} on the biblical map.`,
   };
 }

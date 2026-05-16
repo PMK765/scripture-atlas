@@ -1,4 +1,4 @@
-// Bible Visualizer database schema.
+// Scripture Atlas database schema.
 //
 // Design principles:
 //   - Future-aware: genealogy, prophecy fulfillment, and original-language

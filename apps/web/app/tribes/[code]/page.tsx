@@ -26,9 +26,9 @@ const TYPE_LABELS: Record<string, string> = {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { code } = await params;
   const tribe = await getTribeByCode(code);
-  if (!tribe) return { title: "Tribe not found · Bible Visualizer" };
+  if (!tribe) return { title: "Tribe not found · Scripture Atlas" };
   return {
-    title: `${tribe.name} · Tribes · Bible Visualizer`,
+    title: `${tribe.name} · Tribes · Scripture Atlas`,
     description: tribe.description ?? undefined,
   };
 }

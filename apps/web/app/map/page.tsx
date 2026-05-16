@@ -8,7 +8,7 @@ import { getAllPlaces } from "@/lib/place-queries";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Map · Bible Visualizer",
+  title: "Map · Scripture Atlas",
   description:
     "Major biblical places marked on a modern map, with region, scripture references, and modern equivalents.",
 };

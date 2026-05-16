@@ -11,7 +11,7 @@ import { getAllTribes } from "@/lib/tribe-queries";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Tribes & nations · Bible Visualizer",
+  title: "Tribes & nations · Scripture Atlas",
   description:
     "Tribes, clans, and nations of scripture: their founders, members, and place in the larger narrative.",
 };

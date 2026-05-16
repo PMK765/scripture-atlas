@@ -1,6 +1,6 @@
-# Bible Visualizer
+# Scripture Atlas
 
-An interactive, accurate, and visual way to understand the Bible.
+An atlas of scripture — every person, place, event, genealogy, prophecy, and Hebrew name, mapped and sourced.
 
 A monorepo focused on **accuracy over interpretation** — structured biblical
 data (people, places, events, prophecy), genealogies, timelines, and maps.

@@ -8,7 +8,7 @@ import { getAllProphecies } from "@/lib/prophecy-queries";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Prophecies · Bible Visualizer",
+  title: "Prophecies · Scripture Atlas",
   description:
     "Old Testament messianic prophecies and their New Testament fulfillments — every link cited and dated.",
 };

@@ -12,7 +12,7 @@ import { getAllPeople } from "@/lib/people-queries";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "People · Bible Visualizer",
+  title: "People · Scripture Atlas",
   description:
     "Every named figure in scripture, with relatives, lifespan, scripture references, and confidence levels.",
 };

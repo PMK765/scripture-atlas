@@ -89,8 +89,7 @@ export function BookList() {
           <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
             All {books.length} books across the major canons — {protestantOTCount} Hebrew
             Bible + {deuterocanonicalBooks.length} Septuagint deuterocanonical +{" "}
-            {newTestamentBooks.length} New Testament. Sourced from{" "}
-            <code className="font-mono text-xs">@bible-visualizer/bible-data</code>.
+            {newTestamentBooks.length} New Testament.
           </p>
         </div>
       </div>

@@ -8,7 +8,7 @@ import { getAllEvents } from "@/lib/timeline-queries";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Timeline · Bible Visualizer",
+  title: "Timeline · Scripture Atlas",
   description:
     "Major events in scripture from creation to AD 100, with year ranges, categories, places, and confidence levels.",
 };

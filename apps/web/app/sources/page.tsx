@@ -7,9 +7,9 @@ import { SiteFooter } from "@/components/site-footer";
 import { PageHero } from "@/components/page-hero";
 
 export const metadata: Metadata = {
-  title: "Sources & attributions · Bible Visualizer",
+  title: "Sources & attributions · Scripture Atlas",
   description:
-    "Provenance for all external data used by Bible Visualizer — distinguishing scripture-anchored claims from external scholarly reconstructions.",
+    "Provenance for all external data used by Scripture Atlas — distinguishing scripture-anchored claims from external scholarly reconstructions.",
 };
 
 export default function SourcesPage() {
@@ -26,7 +26,7 @@ export default function SourcesPage() {
               Sources &amp; <em>attributions</em>.
             </>
           }
-          subtitle="Bible Visualizer mixes two kinds of data — and the difference matters."
+          subtitle="Scripture Atlas mixes two kinds of data — and the difference matters."
         />
 
         <section className="mb-10 grid gap-4 sm:grid-cols-2">

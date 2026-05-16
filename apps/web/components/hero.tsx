@@ -37,12 +37,12 @@ export function Hero({ stats }: HeroProps) {
 
           <div className="mt-10 flex flex-wrap gap-3">
             <Link
-              href="/lineages"
+              href="/people"
               className={cn(
                 "group inline-flex h-11 items-center gap-2 rounded-md bg-primary-gradient px-6 text-sm font-medium text-primary-foreground shadow-sm transition-all hover:shadow-md hover:brightness-110",
               )}
             >
-              Explore the lineages
+              Meet the People
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
             </Link>
             <Link

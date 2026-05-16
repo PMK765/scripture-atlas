@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import Link, { type LinkProps } from "next/link";
-import { BookOpen } from "lucide-react";
 import { projectMeta } from "@bible-visualizer/config";
 import {
   Sheet,
@@ -57,22 +57,29 @@ export function MobileNav() {
       <SheetTrigger asChild>
         <button
           type="button"
-          className="grid h-8 w-8 shrink-0 place-items-center rounded-md text-primary-foreground shadow-sm md:hidden"
-          style={{ background: "var(--gradient-primary)" }}
+          className="grid h-8 w-8 shrink-0 place-items-center overflow-hidden rounded-md shadow-sm md:hidden"
           aria-label="Open navigation menu"
         >
-          <BookOpen className="h-4 w-4" aria-hidden />
+          <Image
+            src="/portraits/mainIcon.png"
+            alt=""
+            width={32}
+            height={32}
+            className="h-8 w-8"
+            priority
+          />
         </button>
       </SheetTrigger>
       <SheetContent side="left" className="gap-6 p-6">
         <SheetHeader>
           <SheetTitle className="flex items-center gap-2 font-serif text-base font-medium">
-            <span
-              className="grid h-8 w-8 place-items-center rounded-md text-primary-foreground shadow-sm"
-              style={{ background: "var(--gradient-primary)" }}
-            >
-              <BookOpen className="h-4 w-4" aria-hidden />
-            </span>
+            <Image
+              src="/portraits/mainIcon.png"
+              alt=""
+              width={32}
+              height={32}
+              className="h-8 w-8 rounded-md shadow-sm"
+            />
             {projectMeta.name}
           </SheetTitle>
           <SheetDescription className="text-xs">{projectMeta.tagline}</SheetDescription>
