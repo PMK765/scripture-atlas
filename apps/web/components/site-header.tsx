@@ -50,6 +50,9 @@ export function SiteHeader() {
           <Link className="hover:text-foreground" href="/prophecies">
             Prophecies
           </Link>
+          <Link className="hover:text-foreground" href="/names">
+            Names
+          </Link>
         </nav>
       </div>
     </header>

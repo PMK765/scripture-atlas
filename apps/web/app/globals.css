@@ -136,6 +136,58 @@ body {
   padding-right: 0.05em;
 }
 
+/* Morpheme palette: a small set of distinct, accessible hues used by the
+   /names page to color-match Hebrew text, transliteration, and English gloss
+   per word-part. The palette is intentionally short so cards stay readable;
+   names with more than 5 segments cycle. Text variants are deeper/saturated
+   for contrast on parchment; chip variants are tinted backgrounds. */
+:root {
+  --morpheme-0-text: oklch(0.42 0.16 264);
+  --morpheme-0-bg: oklch(0.42 0.16 264 / 0.1);
+  --morpheme-1-text: oklch(0.5 0.16 50);
+  --morpheme-1-bg: oklch(0.5 0.16 50 / 0.11);
+  --morpheme-2-text: oklch(0.48 0.12 180);
+  --morpheme-2-bg: oklch(0.48 0.12 180 / 0.1);
+  --morpheme-3-text: oklch(0.5 0.16 350);
+  --morpheme-3-bg: oklch(0.5 0.16 350 / 0.1);
+  --morpheme-4-text: oklch(0.45 0.14 145);
+  --morpheme-4-bg: oklch(0.45 0.14 145 / 0.1);
+}
+
+.morpheme-text {
+  color: var(--morpheme-color, var(--color-foreground));
+  font-weight: 500;
+}
+.morpheme-chip {
+  display: inline-flex;
+  align-items: baseline;
+  padding: 0.05rem 0.4rem;
+  border-radius: 0.3rem;
+  background-color: var(--morpheme-bg, transparent);
+  color: var(--morpheme-color, var(--color-foreground));
+}
+
+/* Hebrew text styling. Larger size + Ezra/Frank Ruhl-style serifs where
+   available. dir="rtl" is applied at the element level so segments laid out
+   in transliteration order visually flow right-to-left. */
+.hebrew-text {
+  font-family: "SBL Hebrew", "Ezra SIL", "Frank Ruhl Libre", "Times New Roman",
+    serif;
+  font-size: 2.25rem;
+  line-height: 1.2;
+  letter-spacing: 0.005em;
+  font-feature-settings: normal;
+  direction: rtl;
+  unicode-bidi: embed;
+}
+.hebrew-text-sm {
+  font-family: "SBL Hebrew", "Ezra SIL", "Frank Ruhl Libre", "Times New Roman",
+    serif;
+  font-size: 1.25rem;
+  direction: rtl;
+  unicode-bidi: embed;
+}
+
 /* Verse marker: small ornamental rule + label pair used in hero/section heads */
 .verse-marker {
   display: inline-flex;

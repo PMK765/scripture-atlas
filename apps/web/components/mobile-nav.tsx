@@ -29,6 +29,7 @@ const PRIMARY_LINKS: NavLink[] = [
   { href: "/lineages", label: "Lineages", hint: "Interactive genealogy graphs" },
   { href: "/map", label: "Map", hint: "Biblical sites with sources" },
   { href: "/prophecies", label: "Prophecies", hint: "Promise and fulfillment, cited" },
+  { href: "/names", label: "Names", hint: "Hebrew names broken into meaning" },
 ];
 
 const SECONDARY_LINKS: NavLink[] = [

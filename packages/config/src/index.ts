@@ -16,6 +16,7 @@ export type FeatureFlagKey =
   | "lineages"
   | "genealogy"
   | "prophecy"
+  | "names"
   | "originalLanguages"
   | "crossReferences"
   | "mobileApp";
@@ -76,6 +77,12 @@ export const featureFlags: Record<FeatureFlagKey, FeatureFlag> = {
     key: "prophecy",
     label: "Prophecy",
     description: "Old Testament prophecy → New Testament fulfillment, cited and dated.",
+    enabled: true,
+  },
+  names: {
+    key: "names",
+    label: "Names",
+    description: "Hebrew names of God and biblical figures, broken into morphemes and meanings.",
     enabled: true,
   },
   originalLanguages: {

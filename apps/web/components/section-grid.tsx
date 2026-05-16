@@ -2,6 +2,7 @@ import {
   BookOpen,
   Clock,
   GitBranch,
+  Languages,
   Map,
   Network,
   Scroll,
@@ -26,13 +27,14 @@ const sections: SectionDef[] = [
   { key: "lineages", href: "/lineages", icon: GitBranch },
   { key: "map", href: "/map", icon: Map },
   { key: "prophecy", href: "/prophecies", icon: Scroll },
+  { key: "names", href: "/names", icon: Languages },
 ];
 
 export function SectionGrid() {
   return (
     <section className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
       <div className="mb-10 max-w-2xl">
-        <span className="verse-marker">Six lenses</span>
+        <span className="verse-marker">Many lenses</span>
         <h2 className="mt-4 font-serif text-3xl font-medium tracking-tight text-ink sm:text-4xl">
           Pick a way in.
         </h2>
