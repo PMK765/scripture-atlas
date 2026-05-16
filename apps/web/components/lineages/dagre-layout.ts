@@ -56,13 +56,43 @@ export function dagreLayout(
   const ids = new Set(people.map((p) => p.id));
   const peopleById = new Map(people.map((p) => [p.id, p]));
   for (const p of people) g.setNode(p.id, { width: NODE_WIDTH, height: NODE_HEIGHT });
+
+  const parentsByChild = new Map<string, string[]>();
   for (const e of parentEdges) {
     if (!ids.has(e.fromId) || !ids.has(e.toId)) continue;
+    const arr = parentsByChild.get(e.toId) ?? [];
+    arr.push(e.fromId);
+    parentsByChild.set(e.toId, arr);
     const fromRank = eraRank(peopleById.get(e.fromId)?.era ?? null);
     const toRank = eraRank(peopleById.get(e.toId)?.era ?? null);
     const minlen = Math.max(1, toRank - fromRank);
     g.setEdge(e.fromId, e.toId, { minlen });
   }
+
+  /*
+   * People who married into the family but whose own parents aren't curated
+   * (Asenath, Timna, etc.) would otherwise land at rank 0 next to Adam & Eve
+   * because dagre only uses parent edges for ranking. Inject phantom parent
+   * edges from each such person's *spouse's parents* down to them, so dagre
+   * places them at the same rank as their spouse. These phantom edges are
+   * never rendered.
+   */
+  for (const p of people) {
+    if ((parentsByChild.get(p.id)?.length ?? 0) > 0) continue;
+    const spouseIds = spouseEdges
+      .filter((e) => e.fromId === p.id || e.toId === p.id)
+      .map((e) => (e.fromId === p.id ? e.toId : e.fromId))
+      .filter((sid) => ids.has(sid) && (parentsByChild.get(sid)?.length ?? 0) > 0);
+    if (spouseIds.length === 0) continue;
+    const spouseParents = parentsByChild.get(spouseIds[0]!) ?? [];
+    for (const sp of spouseParents) {
+      const fromRank = eraRank(peopleById.get(sp)?.era ?? null);
+      const toRank = eraRank(p.era ?? null);
+      const minlen = Math.max(1, toRank - fromRank);
+      g.setEdge(sp, p.id, { minlen, weight: 0.5 });
+    }
+  }
+
   dagre.layout(g);
 
   const nodes: Node[] = people.map((p) => {

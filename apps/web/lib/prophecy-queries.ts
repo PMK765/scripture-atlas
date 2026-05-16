@@ -43,7 +43,8 @@ export async function getAllProphecies(): Promise<ProphecySummary[]> {
         { title: "asc" },
       ],
     });
-  } catch {
+  } catch (err) {
+    console.error("[prophecy-queries] getAllProphecies failed:", err);
     return [];
   }
 }
@@ -54,7 +55,8 @@ export async function getProphecyByCode(code: string): Promise<ProphecySummary |
       where: { code },
       select: PROPHECY_SELECT,
     });
-  } catch {
+  } catch (err) {
+    console.error("[prophecy-queries] getProphecyByCode failed:", err);
     return null;
   }
 }
