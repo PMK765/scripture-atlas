@@ -145,6 +145,7 @@ export function NamesExplorer({ names }: NamesExplorerProps) {
               scriptureRef={n.firstOccurrence}
               notes={n.notes}
               personHref={n.personId ? `/people/${n.personId}` : undefined}
+              shareId={n.id}
             />
           ))}
         </div>

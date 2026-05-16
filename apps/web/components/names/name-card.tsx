@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import Link from "next/link";
 import type { NameSegment } from "@bible-visualizer/bible-data";
+import { ShareButton } from "@/components/share-button";
 import { cn } from "@/lib/utils";
 
 const MORPHEME_COUNT = 5;
@@ -83,6 +84,14 @@ interface NameCardProps {
   personHref?: string;
   className?: string;
   size?: "default" | "large";
+  /*
+   * When provided, the card becomes shareable: it gets a stable DOM id used
+   * by the deep-link highlighter on /names, plus a small share button in the
+   * header that pre-fills a Web Share / clipboard payload with the name's
+   * Hebrew + meaning and a /names?id=... URL.
+   */
+  shareId?: string;
+  shareUrlBase?: string;
 }
 
 export function NameCard({
@@ -98,6 +107,8 @@ export function NameCard({
   personHref,
   className,
   size = "default",
+  shareId,
+  shareUrlBase = "/names",
 }: NameCardProps) {
   const hasSegments = segments.length > 0;
   const phraseStrip = hasSegments
@@ -106,10 +117,16 @@ export function NameCard({
         .filter((g): g is { key: string; index: number } => Boolean(g.key))
     : [];
 
+  const shareUrl = shareId ? `${shareUrlBase}?id=${shareId}` : undefined;
+  const shareText = `${title} · ${hebrew} — "${meaning}"`;
+
   return (
     <article
+      id={shareId ? `name-${shareId}` : undefined}
+      data-name-id={shareId}
       className={cn(
         "group rounded-xl border bg-card p-5 transition-colors hover:border-primary/30",
+        "scroll-mt-24 data-[highlighted=true]:border-primary/60 data-[highlighted=true]:ring-2 data-[highlighted=true]:ring-primary/30",
         className,
       )}
     >
@@ -138,11 +155,22 @@ export function NameCard({
             </p>
           ) : null}
         </div>
-        {rightLabel ? (
-          <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground whitespace-nowrap pt-1">
-            {rightLabel}
-          </span>
-        ) : null}
+        <div className="flex items-start gap-1 pt-1">
+          {rightLabel ? (
+            <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground whitespace-nowrap pt-1">
+              {rightLabel}
+            </span>
+          ) : null}
+          {shareId && shareUrl ? (
+            <ShareButton
+              title={`${title} · Scripture Atlas`}
+              text={shareText}
+              url={shareUrl}
+              iconOnly
+              size="sm"
+            />
+          ) : null}
+        </div>
       </header>
 
       <div

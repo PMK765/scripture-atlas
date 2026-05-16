@@ -49,13 +49,51 @@ function pickEffective(requested: string[], available: TranslationRecord[]): str
   return first ? [first.code] : [];
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+  searchParams,
+}: PageProps): Promise<Metadata> {
   const { bookCode, chapter } = await params;
+  const search = await searchParams;
   const book = await getBookByCode(bookCode);
   if (!book) return { title: "Not found" };
+
+  const vRaw = search.v;
+  const v = typeof vRaw === "string" ? vRaw : Array.isArray(vRaw) ? vRaw[0] : undefined;
+  const tParam = parseTranslationsParam(search.t)[0];
+
+  /*
+   * Build the OG image URL with the same selection + translation the user
+   * is currently viewing, so the social preview reflects what they share
+   * (e.g. `?v=16` on John 3 produces a card with John 3:16's text quoted).
+   */
+  const ogParams = new URLSearchParams();
+  ogParams.set("book", book.code);
+  ogParams.set("chapter", String(chapter));
+  if (v) ogParams.set("v", v);
+  if (tParam) ogParams.set("t", tParam);
+  const ogImage = `/api/og/verse?${ogParams.toString()}`;
+
+  const reference = v ? `${book.name} ${chapter}:${v}` : `${book.name} ${chapter}`;
+  const description = v
+    ? `${reference} — read across multiple translations on Scripture Atlas.`
+    : `Read ${book.name} chapter ${chapter} across multiple translations.`;
+
   return {
-    title: `${book.name} ${chapter}`,
-    description: `Read ${book.name} chapter ${chapter} across multiple translations.`,
+    title: reference,
+    description,
+    openGraph: {
+      type: "article",
+      title: reference,
+      description,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: reference }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: reference,
+      description,
+      images: [ogImage],
+    },
   };
 }
 

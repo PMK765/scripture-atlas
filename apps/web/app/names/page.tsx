@@ -9,15 +9,65 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { PageHero } from "@/components/page-hero";
 import { NameCard } from "@/components/names/name-card";
+import { NamesDeepLinkHighlighter } from "@/components/names/deep-link-highlighter";
 import { NamesExplorer } from "@/components/names/names-explorer";
 
 export const revalidate = 3600;
 
-export const metadata: Metadata = {
-  title: "Names · Scripture Atlas",
-  description:
-    "The Hebrew names of God and biblical figures, broken into morphemes with color-matched Hebrew, transliteration, and meaning.",
-};
+interface PageProps {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}
+
+const PAGE_TITLE = "Names · Scripture Atlas";
+const PAGE_DESCRIPTION =
+  "The Hebrew names of God and biblical figures, broken into morphemes with color-matched Hebrew, transliteration, and meaning.";
+
+export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
+  const search = await searchParams;
+  const idRaw = search.id;
+  const id = typeof idRaw === "string" ? idRaw : Array.isArray(idRaw) ? idRaw[0] : undefined;
+
+  /*
+   * When ?id= is present and resolves to a real name, swap the OG image for
+   * a per-name card so the social preview renders the actual Hebrew text +
+   * meaning. Title also flips to the specific name so it reads cleanly in a
+   * shared link's text body.
+   */
+  const divine = id ? DIVINE_NAMES.find((n) => n.id === id) : undefined;
+  const hebrew = id && !divine ? HEBREW_NAMES.find((n) => n.id === id) : undefined;
+  const resolved = divine
+    ? { title: divine.transliteration, meaning: divine.meaning }
+    : hebrew
+      ? { title: hebrew.englishName, meaning: hebrew.meaning }
+      : null;
+
+  if (resolved && id) {
+    const ogUrl = `/api/og/name?id=${encodeURIComponent(id)}`;
+    const cardTitle = `${resolved.title} · Scripture Atlas`;
+    const cardDescription = `"${resolved.meaning}" — a Hebrew name visualized on Scripture Atlas.`;
+    return {
+      title: cardTitle,
+      description: cardDescription,
+      openGraph: {
+        type: "article",
+        title: cardTitle,
+        description: cardDescription,
+        images: [{ url: ogUrl, width: 1200, height: 630, alt: cardTitle }],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: cardTitle,
+        description: cardDescription,
+        images: [ogUrl],
+      },
+    };
+  }
+
+  return {
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+  };
+}
 
 const DIVINE_CATEGORY_LABEL: Record<DivineNameCategory, string> = {
   tetragrammaton: "The Name",
@@ -121,6 +171,7 @@ export default function NamesPage() {
                       scriptureRef={n.firstOccurrence}
                       notes={n.notes}
                       size={cat === "tetragrammaton" ? "large" : "default"}
+                      shareId={n.id}
                     />
                   ))}
                 </div>
@@ -153,6 +204,7 @@ export default function NamesPage() {
           will expand to include place names and additional figures over time.
         </p>
       </main>
+      <NamesDeepLinkHighlighter />
       <SiteFooter />
     </>
   );

@@ -4,7 +4,7 @@ export const projectMeta = {
   version: "1.0.0",
   tagline: "An atlas of scripture.",
   description:
-    "Every person, place, event, genealogy, prophecy, and Hebrew name in scripture — mapped, sourced, and connected, with traceable references and explicit confidence levels.",
+    "People, places, events, genealogies, prophecies, and Hebrew names in scripture — mapped, sourced, and connected, with traceable references and explicit confidence levels.",
   siteUrl: "https://scriptureatlas.com",
   repository: "https://github.com/bible-visualizer/bible-visualizer",
 } as const;

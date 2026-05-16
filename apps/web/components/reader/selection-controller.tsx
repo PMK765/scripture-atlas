@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Check, Copy, Link2, Share2, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { copyText, shareOrCopy } from "@/lib/share";
@@ -81,11 +81,13 @@ export function SelectionController(props: SelectionControllerProps) {
    * scroll: false. Selection is pure client UI; URL updates via
    * history.replaceState keep deep-linking + copy-from-address-bar working
    * without any server involvement.
+   *
+   * Initial state must be null (not derived from window) to match the SSR
+   * render — otherwise React's hydration uses the server's null state and
+   * the deep-link highlight never fires on first paint. We read the URL
+   * inside an effect below.
    */
-  const [selection, setSelectionState] = useState<Selection | null>(() => {
-    if (typeof window === "undefined") return null;
-    return parseSelection(new URLSearchParams(window.location.search).get("v"));
-  });
+  const [selection, setSelectionState] = useState<Selection | null>(null);
   const [feedback, setFeedback] = useState<Feedback>(null);
   const [shareUrl, setShareUrl] = useState<string>("");
 
@@ -108,21 +110,22 @@ export function SelectionController(props: SelectionControllerProps) {
   }, [selection]);
 
   /*
-   * On initial mount with a deep-link selection, scroll the first selected
-   * verse into view. Empty deps array on purpose — only runs once on mount
-   * regardless of subsequent selection changes (those are user-driven and
-   * shouldn't yank scroll).
+   * On the first deep-link selection, scroll the first selected verse into
+   * view. Tracked via a ref so user-driven selection changes don't yank
+   * scroll afterwards. The selection itself is populated by the URL-read
+   * effect above, which runs after the initial null render.
    */
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const hasAutoScrolled = useRef(false);
   useEffect(() => {
-    if (!selection) return;
+    if (!selection || hasAutoScrolled.current) return;
+    hasAutoScrolled.current = true;
     const target = document.getElementById(`v${selection.start}`);
     if (target) {
       window.requestAnimationFrame(() => {
         target.scrollIntoView({ behavior: "smooth", block: "center" });
       });
     }
-  }, []);
+  }, [selection]);
 
   const updateSelection = useCallback((next: Selection | null) => {
     setSelectionState(next);
@@ -138,7 +141,12 @@ export function SelectionController(props: SelectionControllerProps) {
   }, []);
 
   useEffect(() => {
-    if (typeof window !== "undefined") setShareUrl(window.location.href);
+    if (typeof window === "undefined") return;
+    const initial = parseSelection(
+      new URLSearchParams(window.location.search).get("v"),
+    );
+    if (initial) setSelectionState(initial);
+    setShareUrl(window.location.href);
   }, []);
 
   /*

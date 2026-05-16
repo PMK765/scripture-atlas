@@ -32,7 +32,7 @@ export function Hero({ stats }: HeroProps) {
             <span className="italic text-gradient-primary">as a whole.</span>
           </h1>
           <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Every person, place, and event — connected, sourced, and visualized.
+            People, places, and events of scripture — connected, sourced, and visualized.
           </p>
 
           <div className="mt-10 flex flex-wrap gap-3">
