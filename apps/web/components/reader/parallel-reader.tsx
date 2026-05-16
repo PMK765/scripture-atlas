@@ -75,7 +75,7 @@ export function ParallelReader({ columns, className }: ParallelReaderProps) {
             data-verse-row={v}
             className={cn(
               gridClass,
-              "scroll-mt-24 rounded-md transition-colors data-[selected=true]:bg-amber-200/50 data-[selected=true]:px-2 data-[selected=true]:-mx-2",
+              "scroll-mt-24 rounded-md -mx-2 px-2 transition-colors hover:bg-amber-100/40 data-[selected=true]:bg-amber-200/50",
             )}
           >
             {columns.map((c, idx) => {
@@ -94,7 +94,7 @@ export function ParallelReader({ columns, className }: ParallelReaderProps) {
                       type="button"
                       data-verse-toggle={v}
                       aria-label={`Select verse ${v}`}
-                      className="me-2 inline-flex select-none items-baseline align-super text-[0.7em] font-mono font-medium text-muted-foreground hover:text-primary focus-visible:outline-none focus-visible:text-primary cursor-pointer"
+                      className="relative me-2 inline-flex select-none items-baseline align-super text-[0.7em] font-mono font-medium text-muted-foreground hover:text-primary focus-visible:outline-none focus-visible:text-primary cursor-pointer after:absolute after:inset-[-8px] after:content-['']"
                       dir="ltr"
                     >
                       {v}

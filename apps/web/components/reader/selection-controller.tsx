@@ -157,13 +157,60 @@ export function SelectionController(props: SelectionControllerProps) {
    *   single, click same verse  → clear selection
    *   click inside a range      → narrow range to just that verse
    *   click outside selection   → extend range from anchor to clicked verse
+   *
+   * Click target is any descendant of `[data-verse-row]` — tapping the verse
+   * text counts, not just the verse number. Drag-to-select text would also
+   * fire a click event, so we track pointer-down/up distance and bail out
+   * when the pointer moved more than DRAG_THRESHOLD px (the user was
+   * selecting text, not picking a verse). Same logic covers double-click
+   * word-select (the second mousedown fires inside an active selection so
+   * the click is suppressed by the existing-selection check).
    */
   useEffect(() => {
+    const DRAG_THRESHOLD = 8;
+    let pointerStart: { x: number; y: number } | null = null;
+    let hasDragged = false;
+
+    const onPointerDown = (e: PointerEvent) => {
+      pointerStart = { x: e.clientX, y: e.clientY };
+      hasDragged = false;
+    };
+    const onPointerMove = (e: PointerEvent) => {
+      if (!pointerStart) return;
+      const dx = Math.abs(e.clientX - pointerStart.x);
+      const dy = Math.abs(e.clientY - pointerStart.y);
+      if (dx > DRAG_THRESHOLD || dy > DRAG_THRESHOLD) hasDragged = true;
+    };
+
     const handler = (e: MouseEvent) => {
-      const btn = (e.target as HTMLElement | null)?.closest?.("[data-verse-toggle]");
-      if (!btn) return;
-      e.preventDefault();
-      const verse = Number(btn.getAttribute("data-verse-toggle"));
+      if (hasDragged) return;
+
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+
+      /*
+       * Let real interactive descendants (links, other buttons in the row)
+       * keep their behavior. Verse-toggle buttons are explicitly exempt so
+       * keyboard activations on the number still trigger selection.
+       */
+      if (target.closest("a, button:not([data-verse-toggle])")) return;
+
+      const row = target.closest("[data-verse-row]");
+      if (!row) return;
+
+      /*
+       * If the click lands inside an active text selection that overlaps
+       * this row, treat it as a "finish my text-selection" click and skip
+       * verse toggling — otherwise a user who selects text with a small
+       * drag (under threshold) and then releases would get an unwanted
+       * verse toggle when their pointer stops inside the selection.
+       */
+      const textSelection = window.getSelection();
+      if (textSelection && !textSelection.isCollapsed && textSelection.toString().length > 0) {
+        return;
+      }
+
+      const verse = Number(row.getAttribute("data-verse-row"));
       if (!Number.isFinite(verse)) return;
 
       if (!selection) {
@@ -183,8 +230,15 @@ export function SelectionController(props: SelectionControllerProps) {
         verse < anchor ? { start: verse, end: anchor } : { start: anchor, end: verse },
       );
     };
+
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("pointermove", onPointerMove);
     document.addEventListener("click", handler);
-    return () => document.removeEventListener("click", handler);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("pointermove", onPointerMove);
+      document.removeEventListener("click", handler);
+    };
   }, [selection, updateSelection]);
 
   useEffect(() => {
@@ -251,7 +305,7 @@ export function SelectionController(props: SelectionControllerProps) {
               <Copy className="h-4 w-4" aria-hidden />
             )}
             <span className="hidden sm:inline">
-              {feedback === "copied-text" ? "Copied" : "Text"}
+              {feedback === "copied-text" ? "Copied" : "Copy Text"}
             </span>
           </ToolbarButton>
           <ToolbarButton onClick={handleCopyLink} label={feedback === "copied-link" ? "Link copied" : "Copy link"}>

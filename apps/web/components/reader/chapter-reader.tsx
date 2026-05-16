@@ -56,13 +56,13 @@ export function ChapterReader({ translation, verses, className }: ChapterReaderP
             key={v.verse}
             id={`v${v.verse}`}
             data-verse-row={v.verse}
-            className="scroll-mt-24 rounded-md transition-colors data-[selected=true]:bg-amber-200/50 data-[selected=true]:px-2 data-[selected=true]:-mx-2"
+            className="scroll-mt-24 rounded-md -mx-2 px-2 transition-colors hover:bg-amber-100/40 data-[selected=true]:bg-amber-200/50"
           >
             <button
               type="button"
               data-verse-toggle={v.verse}
               aria-label={`Select verse ${v.verse}`}
-              className="me-2 inline-flex select-none items-baseline align-super text-[0.65em] font-mono font-medium text-muted-foreground hover:text-primary focus-visible:outline-none focus-visible:text-primary cursor-pointer"
+              className="relative me-2 inline-flex select-none items-baseline align-super text-[0.65em] font-mono font-medium text-muted-foreground hover:text-primary focus-visible:outline-none focus-visible:text-primary cursor-pointer after:absolute after:inset-[-10px] after:content-['']"
               dir="ltr"
             >
               {v.verse}
