@@ -28,31 +28,37 @@ const sections: SectionDef[] = [
 
 export function SectionGrid() {
   return (
-    <section className="mx-auto max-w-6xl px-6 py-16">
-      <div className="mb-8 flex items-end justify-between">
-        <div>
-          <h2 className="text-2xl font-semibold tracking-tight">Explore</h2>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Six primary lenses for the biblical narrative.
-          </p>
-        </div>
+    <section className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+      <div className="mb-10 max-w-2xl">
+        <span className="verse-marker">Six lenses</span>
+        <h2 className="mt-4 font-serif text-3xl font-medium tracking-tight text-ink sm:text-4xl">
+          Pick a way in.
+        </h2>
+        <p className="mt-3 text-sm text-muted-foreground">
+          Read the books. Walk the timeline. Trace a lineage. Stand on the map.
+        </p>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {sections.map(({ key, href, icon: Icon }) => {
           const flag = featureFlags[key];
           return (
             <a key={key} href={href} className="group">
-              <Card className="h-full transition-shadow group-hover:shadow-md">
+              <Card className="h-full overflow-hidden transition-all group-hover:-translate-y-0.5 group-hover:border-primary/30 group-hover:shadow-md">
                 <CardHeader>
                   <div className="mb-3 flex items-center justify-between">
-                    <span className="grid h-9 w-9 place-items-center rounded-md bg-primary/10 text-primary">
+                    <span
+                      className="grid h-10 w-10 place-items-center rounded-md text-primary-foreground shadow-sm"
+                      style={{ background: "var(--gradient-primary)" }}
+                    >
                       <Icon className="h-4 w-4" aria-hidden />
                     </span>
                     {!flag.enabled && (
                       <Badge variant="outline">{flag.experimental ? "Soon" : "Off"}</Badge>
                     )}
                   </div>
-                  <CardTitle>{flag.label}</CardTitle>
+                  <CardTitle className="font-serif text-xl font-medium tracking-tight">
+                    {flag.label}
+                  </CardTitle>
                   <CardDescription>{flag.description}</CardDescription>
                 </CardHeader>
               </Card>

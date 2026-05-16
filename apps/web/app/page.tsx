@@ -22,11 +22,23 @@ export default async function HomePage() {
     getAllPlaces(),
   ]);
 
+  const totalVerses = Object.values(verseCounts).reduce(
+    (sum, n) => sum + (typeof n === "number" ? n : 0),
+    0,
+  );
+
   return (
     <>
       <SiteHeader />
       <main>
-        <Hero />
+        <Hero
+          stats={{
+            people: people.length,
+            places: places.length,
+            events: events.length,
+            verses: totalVerses,
+          }}
+        />
         <SectionGrid />
         <BookList />
         <TranslationList verseCounts={verseCounts} />

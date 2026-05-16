@@ -19,29 +19,34 @@ export default async function TimelinePage() {
     <>
       <SiteHeader />
       <main className="mx-auto max-w-6xl px-6 py-10">
-        <header className="mb-8 space-y-2">
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-            Chronology
-          </p>
-          <h1 className="text-3xl font-semibold tracking-tight">Timeline</h1>
-          <p className="max-w-2xl text-sm text-muted-foreground">
-            Major events in the biblical narrative laid out by year. Drag the range sliders to
-            zoom; filter by category. Dates marked &ldquo;Traditional&rdquo; depend on
-            interpretive choices (early-date Exodus, AD 30 vs AD 33 crucifixion, etc.) and the
-            relevant tradition tag is shown on the event.
+        <header className="mb-8">
+          <span className="verse-marker">Chronology</span>
+          <h1 className="mt-4 font-serif text-4xl font-medium tracking-tight text-ink sm:text-5xl">
+            From <span className="italic text-gradient-primary">creation</span> to canon close.
+          </h1>
+          <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
+            Drag the range sliders to zoom. Filter by category. Events marked
+            &ldquo;Traditional&rdquo; depend on interpretive choices (early-date Exodus, AD 30
+            vs AD 33 crucifixion) and carry the relevant tradition tag.
           </p>
         </header>
 
         <TimelineExplorer events={events} />
 
-        <p className="mt-10 max-w-2xl text-xs text-muted-foreground">
-          Dating notes: Patriarchal years follow the Masoretic-text chronology. The Exodus is
-          dated 1446 BC per 1 Kings 6:1; the late-date (~1260 BC) reading is also defensible.
-          Christ&rsquo;s birth is placed ~5&ndash;4 BC (Herod the Great died in 4 BC). The
-          crucifixion is most commonly dated AD 30, with AD 33 as a notable alternative.
-          Pre-Abrahamic events (Creation, Flood) are listed without years to respect both
-          young-earth and old-earth readings.
-        </p>
+        <div className="mt-10 max-w-2xl space-y-3 text-xs leading-relaxed text-muted-foreground">
+          <p>
+            <span className="font-semibold text-foreground">Chronology used:</span> Masoretic
+            patriarchal ages following the traditional young-earth framework
+            (Ussher-adjacent). Creation is anchored at ~4004 BC; the Flood at ~2348 BC; the
+            Exodus at 1446 BC per 1 Kings 6:1.
+          </p>
+          <p>
+            <span className="font-semibold text-foreground">Where dates differ:</span>{" "}
+            Christ&rsquo;s birth is placed ~5&ndash;4 BC (Herod the Great died 4 BC). The
+            crucifixion is most commonly dated AD 30, with AD 33 as a notable alternative.
+            Late-date Exodus (~1260 BC) is held by many archaeologists; we use the early date.
+          </p>
+        </div>
       </main>
       <SiteFooter />
     </>

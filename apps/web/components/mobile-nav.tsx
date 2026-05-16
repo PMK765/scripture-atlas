@@ -55,7 +55,8 @@ export function MobileNav() {
       <SheetTrigger asChild>
         <button
           type="button"
-          className="grid h-8 w-8 shrink-0 place-items-center rounded-md bg-primary text-primary-foreground md:hidden"
+          className="grid h-8 w-8 shrink-0 place-items-center rounded-md text-primary-foreground shadow-sm md:hidden"
+          style={{ background: "var(--gradient-primary)" }}
           aria-label="Open navigation menu"
         >
           <BookOpen className="h-4 w-4" aria-hidden />
@@ -63,8 +64,11 @@ export function MobileNav() {
       </SheetTrigger>
       <SheetContent side="left" className="gap-6 p-6">
         <SheetHeader>
-          <SheetTitle className="flex items-center gap-2">
-            <span className="grid h-8 w-8 place-items-center rounded-md bg-primary text-primary-foreground">
+          <SheetTitle className="flex items-center gap-2 font-serif text-base font-medium">
+            <span
+              className="grid h-8 w-8 place-items-center rounded-md text-primary-foreground shadow-sm"
+              style={{ background: "var(--gradient-primary)" }}
+            >
               <BookOpen className="h-4 w-4" aria-hidden />
             </span>
             {projectMeta.name}

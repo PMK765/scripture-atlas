@@ -1,41 +1,80 @@
 @import "tailwindcss";
 
+/*
+ * Theme: "Illuminated parchment".
+ *
+ * Warm cream ground reminiscent of aged paper, deep ink-blue primary, rich
+ * amber accent. Gradients are used sparingly — only on the hero, primary
+ * CTAs, and section dividers — to add character without becoming kitsch.
+ *
+ * Light mode is forced regardless of OS preference. The `color-scheme:
+ * light` declaration tells the browser not to invert form controls / native
+ * scrollbars when the user's system is dark.
+ */
+
 @theme {
-  --color-background: oklch(0.99 0.005 95);
-  --color-foreground: oklch(0.18 0.02 270);
-  --color-muted: oklch(0.96 0.005 270);
-  --color-muted-foreground: oklch(0.45 0.02 270);
+  --color-background: oklch(0.985 0.012 85);
+  --color-background-elevated: oklch(1 0 0);
+  --color-foreground: oklch(0.18 0.025 270);
+  --color-muted: oklch(0.945 0.012 85);
+  --color-muted-foreground: oklch(0.46 0.02 270);
   --color-card: oklch(1 0 0);
-  --color-card-foreground: oklch(0.18 0.02 270);
-  --color-border: oklch(0.92 0.01 270);
-  --color-primary: oklch(0.42 0.16 264);
-  --color-primary-foreground: oklch(0.98 0.005 95);
-  --color-accent: oklch(0.72 0.18 70);
-  --color-accent-foreground: oklch(0.18 0.02 270);
+  --color-card-foreground: oklch(0.18 0.025 270);
+  --color-border: oklch(0.9 0.012 85);
+  --color-border-strong: oklch(0.82 0.018 80);
+  --color-primary: oklch(0.4 0.16 264);
+  --color-primary-deep: oklch(0.32 0.14 264);
+  --color-primary-foreground: oklch(0.99 0.005 95);
+  --color-accent: oklch(0.7 0.16 65);
+  --color-accent-deep: oklch(0.58 0.17 50);
+  --color-accent-foreground: oklch(0.18 0.025 270);
+  --color-ink: oklch(0.22 0.04 270);
+
+  /* Semantic gradients — referenced via CSS variables so components can
+     compose them in `style={}` or in utility classes below. */
+  --gradient-hero: radial-gradient(
+      ellipse 80% 60% at 85% 0%,
+      oklch(0.92 0.06 70 / 0.55),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 0% 100%,
+      oklch(0.88 0.06 264 / 0.4),
+      transparent 65%
+    ),
+    linear-gradient(180deg, oklch(0.985 0.012 85) 0%, oklch(0.96 0.018 80) 100%);
+  --gradient-primary: linear-gradient(
+    135deg,
+    oklch(0.4 0.16 264) 0%,
+    oklch(0.32 0.14 264) 100%
+  );
+  --gradient-accent: linear-gradient(
+    135deg,
+    oklch(0.72 0.17 70) 0%,
+    oklch(0.58 0.18 50) 100%
+  );
+  --gradient-rule: linear-gradient(
+    90deg,
+    transparent 0%,
+    oklch(0.4 0.16 264 / 0.4) 30%,
+    oklch(0.7 0.16 65 / 0.6) 70%,
+    transparent 100%
+  );
 
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-serif: "Cormorant Garamond", ui-serif, Georgia, Cambria,
+    "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas,
+    monospace;
 
   --radius-lg: 0.75rem;
   --radius-md: 0.5rem;
   --radius-sm: 0.375rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: oklch(0.16 0.02 270);
-    --color-foreground: oklch(0.96 0.005 95);
-    --color-muted: oklch(0.22 0.02 270);
-    --color-muted-foreground: oklch(0.7 0.02 270);
-    --color-card: oklch(0.2 0.02 270);
-    --color-card-foreground: oklch(0.96 0.005 95);
-    --color-border: oklch(0.28 0.02 270);
-    --color-primary: oklch(0.78 0.13 264);
-    --color-primary-foreground: oklch(0.16 0.02 270);
-    --color-accent: oklch(0.78 0.16 70);
-    --color-accent-foreground: oklch(0.16 0.02 270);
-  }
+:root {
+  color-scheme: light;
 }
 
 html,
@@ -48,5 +87,58 @@ body {
 }
 
 ::selection {
-  background-color: color-mix(in oklch, var(--color-primary) 30%, transparent);
+  background-color: color-mix(in oklch, var(--color-primary) 22%, transparent);
+}
+
+/* ---------- Theme utilities ---------- */
+
+.bg-hero-gradient {
+  background-image: var(--gradient-hero);
+}
+
+.bg-primary-gradient {
+  background-image: var(--gradient-primary);
+}
+
+.bg-accent-gradient {
+  background-image: var(--gradient-accent);
+}
+
+.text-gradient-primary {
+  background-image: var(--gradient-primary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-accent {
+  background-image: var(--gradient-accent);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.divider-gradient {
+  height: 1px;
+  background-image: var(--gradient-rule);
+  border: 0;
+}
+
+/* Verse marker: small ornamental rule + label pair used in hero/section heads */
+.verse-marker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted-foreground);
+}
+.verse-marker::before,
+.verse-marker::after {
+  content: "";
+  height: 1px;
+  width: 1.5rem;
+  background-image: var(--gradient-rule);
 }
