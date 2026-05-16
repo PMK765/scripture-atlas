@@ -59,10 +59,10 @@ function TestamentBlock({
     <div>
       <div className="mb-4 flex items-baseline justify-between">
         <div>
-          <h3 className="text-lg font-semibold tracking-tight">{title}</h3>
-          {subtitle ? <p className="text-xs text-muted-foreground">{subtitle}</p> : null}
+          <h3 className="font-serif text-xl font-medium tracking-tight text-ink">{title}</h3>
+          {subtitle ? <p className="mt-0.5 text-xs text-muted-foreground">{subtitle}</p> : null}
         </div>
-        <span className="text-xs text-muted-foreground">
+        <span className="font-mono text-[11px] tabular-nums text-muted-foreground">
           {items.length} {items.length === 1 ? "book" : "books"}
         </span>
       </div>
@@ -82,8 +82,11 @@ export function BookList() {
     <section id="books" className="mx-auto max-w-6xl px-6 py-16">
       <div className="mb-10 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 className="text-2xl font-semibold tracking-tight">Books</h2>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <span className="verse-marker">Canon</span>
+          <h2 className="mt-3 font-serif text-3xl font-medium tracking-tight text-ink sm:text-4xl">
+            Every <span className="italic text-gradient-primary">book</span>, every canon.
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
             All {books.length} books across the major canons — {protestantOTCount} Hebrew
             Bible + {deuterocanonicalBooks.length} Septuagint deuterocanonical +{" "}
             {newTestamentBooks.length} New Testament. Sourced from{" "}

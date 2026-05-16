@@ -29,13 +29,13 @@ export function PeoplePreview({ people }: PeoplePreviewProps) {
     <section id="people" className="mx-auto max-w-6xl px-6 py-16">
       <div className="mb-8 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="mb-2 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-            Figures
-          </p>
-          <h2 className="text-2xl font-semibold tracking-tight">People</h2>
+          <span className="verse-marker">Figures</span>
+          <h2 className="mt-3 font-serif text-3xl font-medium tracking-tight text-ink sm:text-4xl">
+            Every named <span className="italic text-gradient-primary">figure</span>.
+          </h2>
           <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-            Named figures in scripture with relatives, lifespans, and verse-traceable references.
-            Genesis 1–50 patriarchal narratives are complete through Joseph.{" "}
+            Relatives, lifespans, and verse-traceable references. Genesis 1–50 patriarchal
+            narratives are complete through Joseph.{" "}
             <span className="text-foreground/80">{total} curated so far.</span>
           </p>
         </div>

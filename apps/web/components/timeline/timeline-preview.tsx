@@ -62,13 +62,13 @@ export function TimelinePreview({ events }: TimelinePreviewProps) {
     <section id="timeline" className="mx-auto max-w-6xl px-6 py-16">
       <div className="mb-8 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="mb-2 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-            Chronology
-          </p>
-          <h2 className="text-2xl font-semibold tracking-tight">Timeline</h2>
+          <span className="verse-marker">Chronology</span>
+          <h2 className="mt-3 font-serif text-3xl font-medium tracking-tight text-ink sm:text-4xl">
+            Major events, <span className="italic text-gradient-primary">dated</span>.
+          </h2>
           <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-            Major events from the patriarchs to the apostolic age, dated where scripture or
-            traditional chronology supplies a year. {events.length} events curated so far.
+            From the patriarchs to the apostolic age, dated where scripture or traditional
+            chronology supplies a year. {events.length} events curated so far.
           </p>
         </div>
         <Link

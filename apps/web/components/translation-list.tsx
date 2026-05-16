@@ -57,8 +57,11 @@ export function TranslationList({
     <section id="translations" className="mx-auto max-w-6xl px-6 py-16">
       <div className="mb-10 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 className="text-2xl font-semibold tracking-tight">Translations &amp; Source Texts</h2>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <span className="verse-marker">Texts</span>
+          <h2 className="mt-3 font-serif text-3xl font-medium tracking-tight text-ink sm:text-4xl">
+            Translations &amp; <span className="italic text-gradient-primary">sources</span>.
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
             Three open-license English translations and four critical source-language texts.
             {totalVerses > 0
               ? ` ${totalVerses.toLocaleString()} verses ingested across English translations.`
@@ -68,7 +71,7 @@ export function TranslationList({
       </div>
       <div className="space-y-12">
         <div>
-          <h3 className="mb-4 text-lg font-semibold tracking-tight">English</h3>
+          <h3 className="mb-4 font-serif text-xl font-medium tracking-tight text-ink">English</h3>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {englishTranslations.map((t) => (
               <TranslationCard
@@ -80,7 +83,9 @@ export function TranslationList({
           </div>
         </div>
         <div>
-          <h3 className="mb-4 text-lg font-semibold tracking-tight">Source Languages</h3>
+          <h3 className="mb-4 font-serif text-xl font-medium tracking-tight text-ink">
+            Source languages
+          </h3>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {sourceLanguageTranslations.map((t) => (
               <TranslationCard

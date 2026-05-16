@@ -36,7 +36,7 @@ export function SectionGrid() {
       <div className="mb-10 max-w-2xl">
         <span className="verse-marker">Many lenses</span>
         <h2 className="mt-4 font-serif text-3xl font-medium tracking-tight text-ink sm:text-4xl">
-          Pick a way in.
+          Pick a <span className="italic text-gradient-primary">way</span> in.
         </h2>
         <p className="mt-3 text-sm text-muted-foreground">
           Read the books. Walk the timeline. Trace a lineage. Stand on the map.
