@@ -1,55 +1,39 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { projectMeta } from "@bible-visualizer/config";
 
 /*
- * Programmatic Open Graph image rendered via Satori (next/og). Output:
- * 1200×630 PNG served at /opengraph-image and referenced by layout metadata
- * for social previews on iMessage, Twitter, Slack, LinkedIn, etc.
+ * Programmatic Open Graph image rendered via Satori (next/og). 1200×630 PNG
+ * served at /opengraph-image and referenced by layout metadata for social
+ * previews on iMessage, Twitter/X, Discord, Slack, LinkedIn, etc.
  *
- * Brand: matches the "illuminated parchment" theme — cream gradient ground,
- * deep indigo headline ink, amber accent on the italicized key word. Uses
- * Cormorant Garamond fetched at runtime to match the serif used in-app.
+ * Runtime notes:
+ *   - Node.js runtime (not edge) so we can use fs to load bundled fonts.
+ *     Turbopack does not currently resolve `new URL(...import.meta.url)` for
+ *     binary asset imports the way Webpack does, so the edge-friendly
+ *     pattern from Vercel's docs fails the build.
+ *   - Fonts live under public/ so Vercel always includes them in the
+ *     deployment bundle — files inside app/ are only tracked when statically
+ *     imported, which doesn't apply to fs.readFileSync calls.
+ *   - Fonts are bundled rather than fetched from Google Fonts because
+ *     Vercel datacenter IPs were being silently rejected by Google's CSS
+ *     endpoint, producing blank PNGs in production.
  */
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 export const alt = `${projectMeta.name} — ${projectMeta.tagline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-/*
- * Fetch a Google Font as TTF for Satori. Sending a desktop User-Agent forces
- * the woff2-only fallback to omit unsupported variants and return TTF that
- * Satori can parse. The `text=` subset query keeps the payload small so cold
- * starts stay fast.
- */
-async function loadGoogleFont(family: string, weight: number, text: string): Promise<ArrayBuffer> {
-  const url = `https://fonts.googleapis.com/css2?family=${family.replace(
-    / /g,
-    "+",
-  )}:wght@${weight}&text=${encodeURIComponent(text)}`;
-  const css = await fetch(url, {
-    headers: {
-      "User-Agent":
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    },
-  }).then((r) => r.text());
-  const fontUrl = css.match(/src: url\((.+?)\) format\(/)?.[1];
-  if (!fontUrl) throw new Error(`Could not locate font URL for ${family}`);
-  return fetch(fontUrl).then((r) => r.arrayBuffer());
-}
+const FONT_DIR = join(process.cwd(), "public", "og-fonts");
+const serifRegular = readFileSync(join(FONT_DIR, "cormorant-regular.ttf"));
+const serifItalic = readFileSync(join(FONT_DIR, "cormorant-italic.ttf"));
+const mono = readFileSync(join(FONT_DIR, "jetbrains-mono.ttf"));
 
 export default async function OpenGraphImage(): Promise<ImageResponse> {
-  const headline = "Scripture Atlas";
-  const tagline = projectMeta.tagline;
   const marker = "Gen 1:1 → Rev 22:21";
   const url = "scriptureatlas.com";
-
-  const headlineChars = headline + tagline + marker + url + "An atlas of scripture.";
-  const [serifRegular, serifItalic, mono] = await Promise.all([
-    loadGoogleFont("Cormorant Garamond", 500, headlineChars),
-    loadGoogleFont("Cormorant Garamond", 500, headlineChars),
-    loadGoogleFont("JetBrains Mono", 500, marker + url),
-  ]);
 
   return new ImageResponse(
     (
@@ -167,7 +151,6 @@ export default async function OpenGraphImage(): Promise<ImageResponse> {
                 background: "#2a2a5e",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: 32,
               }}
             >
               <div
