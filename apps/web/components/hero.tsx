@@ -23,7 +23,7 @@ export function Hero() {
               Explore the Books
             </a>
             <a
-              href="#map"
+              href="/map"
               className={cn(buttonVariants({ size: "lg", variant: "outline" }))}
             >
               View the Map
