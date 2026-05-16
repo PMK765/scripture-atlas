@@ -177,6 +177,9 @@ importers:
       '@types/yauzl':
         specifier: 2.10.3
         version: 2.10.3
+      dotenv-cli:
+        specifier: ^8.0.0
+        version: 8.0.0
       tsx:
         specifier: 4.21.0
         version: 4.21.0

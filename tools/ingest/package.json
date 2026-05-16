@@ -14,6 +14,15 @@
     "ingest:wlc": "tsx src/cli.ts wlc",
     "ingest:lxx": "tsx src/cli.ts lxx",
     "ingest:all": "tsx src/cli.ts all",
+    "ingest:prod": "dotenv -e ../../packages/db/.env.production.local -- tsx src/cli.ts",
+    "ingest:web:prod": "dotenv -e ../../packages/db/.env.production.local -- tsx src/cli.ts web",
+    "ingest:bsb:prod": "dotenv -e ../../packages/db/.env.production.local -- tsx src/cli.ts bsb",
+    "ingest:kjv:prod": "dotenv -e ../../packages/db/.env.production.local -- tsx src/cli.ts kjv",
+    "ingest:brenton:prod": "dotenv -e ../../packages/db/.env.production.local -- tsx src/cli.ts brenton",
+    "ingest:sblgnt:prod": "dotenv -e ../../packages/db/.env.production.local -- tsx src/cli.ts sblgnt",
+    "ingest:wlc:prod": "dotenv -e ../../packages/db/.env.production.local -- tsx src/cli.ts wlc",
+    "ingest:lxx:prod": "dotenv -e ../../packages/db/.env.production.local -- tsx src/cli.ts lxx",
+    "ingest:all:prod": "dotenv -e ../../packages/db/.env.production.local -- tsx src/cli.ts all",
     "import:obi-places": "tsx src/import-obi-places.ts",
     "import:obi-overlays": "tsx src/import-obi-overlays.ts",
     "typecheck": "tsc --noEmit",
@@ -28,6 +37,7 @@
   "devDependencies": {
     "@types/node": "22.10.5",
     "@types/yauzl": "2.10.3",
+    "dotenv-cli": "^8.0.0",
     "tsx": "4.21.0",
     "typescript": "6.0.3"
   }

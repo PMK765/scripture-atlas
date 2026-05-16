@@ -8,9 +8,9 @@ import {
 import { parseVpl } from "../parsers/vpl";
 import type { IngestionResult } from "../lib/types";
 
-const URL = "https://ebible.org/Scriptures/eng-web_vpl.zip";
-const ZIP_FILENAME = "eng-web_vpl.zip";
-const INNER_FILENAME = "eng-web_vpl.txt";
+const URL = "https://ebible.org/Scriptures/eng-webbe_vpl.zip";
+const ZIP_FILENAME = "eng-webbe_vpl.zip";
+const INNER_FILENAME = "eng-webbe_vpl.txt";
 const TRANSLATION_CODE = "WEB";
 
 export async function ingestWeb(packageRoot: string): Promise<IngestionResult> {
