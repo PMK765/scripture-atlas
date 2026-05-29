@@ -12,6 +12,7 @@ import { ChapterGrid } from "@/components/reader/chapter-grid";
 import { ChapterPager } from "@/components/reader/chapter-pager";
 import { Badge } from "@/components/ui/badge";
 import { isSeptuagintExtended } from "@bible-visualizer/config";
+import { books } from "@bible-visualizer/bible-data/books";
 import {
   getAvailableTranslationsForBook,
   getBookByCode,
@@ -22,6 +23,21 @@ import {
 } from "@/lib/queries";
 
 export const revalidate = 300;
+
+/**
+ * Prerender every book/chapter at build time from the static book metadata.
+ * The corpus is read-only, so the canonical (default-translation) view of each
+ * chapter is a static page; alternate-translation combos via `?t=` are still
+ * served on demand. No database is involved at build or request time.
+ */
+export function generateStaticParams(): Array<{ bookCode: string; chapter: string }> {
+  return books.flatMap((book) =>
+    Array.from({ length: book.chapters }, (_, i) => ({
+      bookCode: book.id,
+      chapter: String(i + 1),
+    })),
+  );
+}
 
 const DEFAULT_TRANSLATION = "WEB";
 const MAX_PARALLEL = 3;

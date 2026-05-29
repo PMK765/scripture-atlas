@@ -1,12 +1,8 @@
 import { join } from "node:path";
 import { downloadIfMissing, extractMatchingEntries, getDataDir } from "../lib/download";
-import {
-  getTranslationIdByCode,
-  loadBookCodeToIdMap,
-  replaceVersesForTranslation,
-} from "../lib/db";
+import { persistCollected } from "../lib/db";
 import { parseSwete } from "../parsers/swete";
-import type { IngestionResult } from "../lib/types";
+import type { CollectedTranslation, IngestionResult } from "../lib/types";
 
 const URL = "https://github.com/eliranwong/LXX-Swete-1930/archive/refs/heads/master.zip";
 const ZIP_FILENAME = "lxx-swete-1930-master.zip";
@@ -14,8 +10,7 @@ const TRANSLATION_CODE = "LXX";
 const VERSIFICATION_SUFFIX = "/00-Swete_versification.csv";
 const WORDS_SUFFIX = "/01-Swete_word_with_punctuations.csv";
 
-export async function ingestLxx(packageRoot: string): Promise<IngestionResult> {
-  const startedAt = Date.now();
+export async function collectLxx(packageRoot: string): Promise<CollectedTranslation> {
   const dataDir = getDataDir(packageRoot);
   const zipPath = join(dataDir, ZIP_FILENAME);
 
@@ -35,20 +30,16 @@ export async function ingestLxx(packageRoot: string): Promise<IngestionResult> {
 
   const parsed = parseSwete(versification.content, words.content);
 
-  const [translationId, bookMap] = await Promise.all([
-    getTranslationIdByCode(TRANSLATION_CODE),
-    loadBookCodeToIdMap(),
-  ]);
-
-  const inserted = await replaceVersesForTranslation(translationId, bookMap, parsed.verses);
-
   return {
     translationCode: TRANSLATION_CODE,
+    verses: parsed.verses,
     totalLines: parsed.totalVerses,
-    parsedVerses: parsed.verses.length,
-    insertedVerses: inserted,
     skippedBooks: parsed.skippedBooks,
     unknownBooks: parsed.unknownBooks,
-    elapsedMs: Date.now() - startedAt,
   };
+}
+
+export async function ingestLxx(packageRoot: string): Promise<IngestionResult> {
+  const startedAt = Date.now();
+  return persistCollected(await collectLxx(packageRoot), startedAt);
 }

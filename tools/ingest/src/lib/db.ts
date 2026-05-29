@@ -1,5 +1,5 @@
 import { prisma } from "@bible-visualizer/db";
-import type { IngestedVerse } from "./types";
+import type { CollectedTranslation, IngestedVerse, IngestionResult } from "./types";
 
 const INSERT_CHUNK_SIZE = 2000;
 
@@ -54,4 +54,28 @@ export async function replaceVersesForTranslation(
     inserted += result.count;
   }
   return inserted;
+}
+
+/**
+ * Persist a collected translation to the database and shape the run report.
+ * Shared by every source adapter's `ingest*` wrapper.
+ */
+export async function persistCollected(
+  collected: CollectedTranslation,
+  startedAt: number,
+): Promise<IngestionResult> {
+  const [translationId, bookMap] = await Promise.all([
+    getTranslationIdByCode(collected.translationCode),
+    loadBookCodeToIdMap(),
+  ]);
+  const inserted = await replaceVersesForTranslation(translationId, bookMap, collected.verses);
+  return {
+    translationCode: collected.translationCode,
+    totalLines: collected.totalLines,
+    parsedVerses: collected.verses.length,
+    insertedVerses: inserted,
+    skippedBooks: collected.skippedBooks,
+    unknownBooks: collected.unknownBooks,
+    elapsedMs: Date.now() - startedAt,
+  };
 }

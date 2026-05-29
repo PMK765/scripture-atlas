@@ -21,6 +21,10 @@
     "./types": {
       "types": "./src/types.ts",
       "default": "./src/types.ts"
+    },
+    "./verses": {
+      "types": "./src/verses.ts",
+      "default": "./src/verses.ts"
     }
   },
   "files": [

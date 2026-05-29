@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "ingest": "tsx src/cli.ts",
+    "gen:verses": "tsx src/generate-verses.ts",
     "ingest:web": "tsx src/cli.ts web",
     "ingest:bsb": "tsx src/cli.ts bsb",
     "ingest:kjv": "tsx src/cli.ts kjv",

@@ -1,26 +1,30 @@
-import { prisma } from "@bible-visualizer/db";
+// Scripture-text data access. Backed entirely by the static corpus in
+// @bible-visualizer/bible-data (book/translation metadata + generated verse
+// files) — no database. The public surface here is intentionally unchanged
+// from the previous Prisma-backed version, so callers (the chapter reader,
+// search, the homepage, and /api/og/verse) keep working as-is.
+//
+// Convention: entity `id` === entity `code`. The static layer has no surrogate
+// keys, so callers that pass a previous `.id` through to another query keep
+// working because that value is just the code (e.g. "gen", "WEB").
+
+import { books } from "@bible-visualizer/bible-data/books";
+import { translations } from "@bible-visualizer/bible-data/translations";
+import {
+  getChapterVerses as readChapterVerses,
+  getMaxChapter,
+  getTotalVerseCounts,
+  getTranslationCodesForBook,
+  searchTranslationVerses,
+} from "@bible-visualizer/bible-data/verses";
+
+const bookByCode = new Map(books.map((b) => [b.id, b]));
+const translationByCode = new Map(translations.map((t) => [t.code, t]));
 
 export type VerseCountsByTranslation = Record<string, number>;
 
 export async function getVerseCountsByTranslation(): Promise<VerseCountsByTranslation> {
-  try {
-    const rows = await prisma.verse.groupBy({
-      by: ["translationId"],
-      _count: { _all: true },
-    });
-    const translations = await prisma.translation.findMany({
-      select: { id: true, code: true },
-    });
-    const idToCode = new Map(translations.map((t) => [t.id, t.code]));
-    const counts: VerseCountsByTranslation = {};
-    for (const row of rows) {
-      const code = idToCode.get(row.translationId);
-      if (code) counts[code] = row._count._all;
-    }
-    return counts;
-  } catch {
-    return {};
-  }
+  return getTotalVerseCounts();
 }
 
 export interface BookRecord {
@@ -38,22 +42,21 @@ export interface BookRecord {
 }
 
 export async function getBookByCode(code: string): Promise<BookRecord | null> {
-  return prisma.book.findUnique({
-    where: { code },
-    select: {
-      id: true,
-      code: true,
-      name: true,
-      abbreviation: true,
-      testament: true,
-      order: true,
-      chapters: true,
-      genre: true,
-      authorTraditional: true,
-      canons: true,
-      originalLanguage: true,
-    },
-  });
+  const book = bookByCode.get(code);
+  if (!book) return null;
+  return {
+    id: book.id,
+    code: book.id,
+    name: book.name,
+    abbreviation: book.abbreviation,
+    testament: book.testament,
+    order: book.order,
+    chapters: book.chapters,
+    genre: book.genre ?? null,
+    authorTraditional: book.authorTraditional ?? null,
+    canons: book.canons,
+    originalLanguage: book.originalLanguage,
+  };
 }
 
 export interface TranslationRecord {
@@ -63,22 +66,21 @@ export interface TranslationRecord {
   language: string;
 }
 
+function toTranslationRecord(t: (typeof translations)[number]): TranslationRecord {
+  return { id: t.code, code: t.code, name: t.name, language: t.language };
+}
+
 export async function getAvailableTranslationsForBook(
   bookId: string,
 ): Promise<TranslationRecord[]> {
-  const grouped = await prisma.verse.groupBy({
-    by: ["translationId"],
-    where: { bookId },
-    _count: { _all: true },
-  });
-  const ids = grouped.map((g) => g.translationId);
-  if (ids.length === 0) return [];
-  const translations = await prisma.translation.findMany({
-    where: { id: { in: ids } },
-    select: { id: true, code: true, name: true, language: true },
-    orderBy: [{ language: "asc" }, { code: "asc" }],
-  });
-  return translations;
+  const records = getTranslationCodesForBook(bookId)
+    .map((code) => translationByCode.get(code))
+    .filter((t): t is NonNullable<typeof t> => Boolean(t))
+    .map(toTranslationRecord);
+  records.sort(
+    (a, b) => a.language.localeCompare(b.language) || a.code.localeCompare(b.code),
+  );
+  return records;
 }
 
 export interface VerseRecord {
@@ -91,32 +93,21 @@ export async function getChapterVerses(
   bookId: string,
   chapter: number,
 ): Promise<VerseRecord[]> {
-  const rows = await prisma.verse.findMany({
-    where: { translationId, bookId, chapter },
-    select: { verse: true, text: true },
-    orderBy: { verse: "asc" },
-  });
-  return rows;
+  return readChapterVerses(translationId, bookId, chapter);
 }
 
 export async function getMaxChapterForBook(
   bookId: string,
   translationId?: string,
 ): Promise<number> {
-  const result = await prisma.verse.aggregate({
-    where: translationId ? { bookId, translationId } : { bookId },
-    _max: { chapter: true },
-  });
-  return result._max.chapter ?? 0;
+  return getMaxChapter(bookId, translationId);
 }
 
 export async function getTranslationByCode(
   code: string,
 ): Promise<TranslationRecord | null> {
-  return prisma.translation.findUnique({
-    where: { code },
-    select: { id: true, code: true, name: true, language: true },
-  });
+  const t = translationByCode.get(code);
+  return t ? toTranslationRecord(t) : null;
 }
 
 export interface SearchHit {
@@ -132,31 +123,13 @@ export async function searchVerses(
   translationCode: string,
   limit = 50,
 ): Promise<SearchHit[]> {
-  const translation = await getTranslationByCode(translationCode);
-  if (!translation) return [];
-  const trimmed = query.trim();
-  if (trimmed.length < 2) return [];
-
-  const rows = await prisma.verse.findMany({
-    where: {
-      translationId: translation.id,
-      text: { contains: trimmed, mode: "insensitive" },
-    },
-    select: {
-      chapter: true,
-      verse: true,
-      text: true,
-      book: { select: { code: true, name: true, order: true } },
-    },
-    orderBy: [{ book: { order: "asc" } }, { chapter: "asc" }, { verse: "asc" }],
-    take: limit,
-  });
-  return rows.map((r) => ({
-    bookCode: r.book.code,
-    bookName: r.book.name,
-    chapter: r.chapter,
-    verse: r.verse,
-    text: r.text,
+  const { hits } = await searchTranslationVerses(translationCode, query, limit);
+  return hits.map((hit) => ({
+    bookCode: hit.bookCode,
+    bookName: bookByCode.get(hit.bookCode)?.name ?? hit.bookCode,
+    chapter: hit.chapter,
+    verse: hit.verse,
+    text: hit.text,
   }));
 }
 
@@ -164,14 +137,6 @@ export async function countSearchMatches(
   query: string,
   translationCode: string,
 ): Promise<number> {
-  const translation = await getTranslationByCode(translationCode);
-  if (!translation) return 0;
-  const trimmed = query.trim();
-  if (trimmed.length < 2) return 0;
-  return prisma.verse.count({
-    where: {
-      translationId: translation.id,
-      text: { contains: trimmed, mode: "insensitive" },
-    },
-  });
+  const { total } = await searchTranslationVerses(translationCode, query, 0);
+  return total;
 }

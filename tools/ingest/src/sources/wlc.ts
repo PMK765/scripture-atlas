@@ -1,20 +1,15 @@
 import { join } from "node:path";
 import { downloadIfMissing, extractMatchingEntries, getDataDir } from "../lib/download";
-import {
-  getTranslationIdByCode,
-  loadBookCodeToIdMap,
-  replaceVersesForTranslation,
-} from "../lib/db";
+import { persistCollected } from "../lib/db";
 import { parseOsisBook } from "../parsers/osis";
-import type { IngestedVerse, IngestionResult } from "../lib/types";
+import type { CollectedTranslation, IngestedVerse, IngestionResult } from "../lib/types";
 
 const URL = "https://github.com/openscriptures/morphhb/archive/refs/heads/master.zip";
 const ZIP_FILENAME = "morphhb-master.zip";
 const TRANSLATION_CODE = "WLC";
 const WLC_PATH_PATTERN = /\/wlc\/[A-Za-z0-9]+\.xml$/;
 
-export async function ingestWlc(packageRoot: string): Promise<IngestionResult> {
-  const startedAt = Date.now();
+export async function collectWlc(packageRoot: string): Promise<CollectedTranslation> {
   const dataDir = getDataDir(packageRoot);
   const zipPath = join(dataDir, ZIP_FILENAME);
 
@@ -36,20 +31,16 @@ export async function ingestWlc(packageRoot: string): Promise<IngestionResult> {
     }
   }
 
-  const [translationId, bookMap] = await Promise.all([
-    getTranslationIdByCode(TRANSLATION_CODE),
-    loadBookCodeToIdMap(),
-  ]);
-
-  const inserted = await replaceVersesForTranslation(translationId, bookMap, allVerses);
-
   return {
     translationCode: TRANSLATION_CODE,
+    verses: allVerses,
     totalLines: entries.length,
-    parsedVerses: allVerses.length,
-    insertedVerses: inserted,
     skippedBooks,
     unknownBooks,
-    elapsedMs: Date.now() - startedAt,
   };
+}
+
+export async function ingestWlc(packageRoot: string): Promise<IngestionResult> {
+  const startedAt = Date.now();
+  return persistCollected(await collectWlc(packageRoot), startedAt);
 }

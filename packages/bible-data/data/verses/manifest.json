@@ -1,0 +1,1498 @@
+{
+  "translations": {
+    "WEB": {
+      "code": "WEB",
+      "books": {
+        "gen": {
+          "chapters": 50,
+          "verses": 1533
+        },
+        "exo": {
+          "chapters": 40,
+          "verses": 1213
+        },
+        "lev": {
+          "chapters": 27,
+          "verses": 859
+        },
+        "num": {
+          "chapters": 36,
+          "verses": 1288
+        },
+        "deu": {
+          "chapters": 34,
+          "verses": 959
+        },
+        "jos": {
+          "chapters": 24,
+          "verses": 658
+        },
+        "jdg": {
+          "chapters": 21,
+          "verses": 618
+        },
+        "rut": {
+          "chapters": 4,
+          "verses": 85
+        },
+        "1sa": {
+          "chapters": 31,
+          "verses": 810
+        },
+        "2sa": {
+          "chapters": 24,
+          "verses": 695
+        },
+        "1ki": {
+          "chapters": 22,
+          "verses": 816
+        },
+        "2ki": {
+          "chapters": 25,
+          "verses": 719
+        },
+        "1ch": {
+          "chapters": 29,
+          "verses": 942
+        },
+        "2ch": {
+          "chapters": 36,
+          "verses": 822
+        },
+        "ezr": {
+          "chapters": 10,
+          "verses": 280
+        },
+        "neh": {
+          "chapters": 13,
+          "verses": 406
+        },
+        "est": {
+          "chapters": 10,
+          "verses": 372
+        },
+        "job": {
+          "chapters": 42,
+          "verses": 1070
+        },
+        "psa": {
+          "chapters": 150,
+          "verses": 2461
+        },
+        "pro": {
+          "chapters": 31,
+          "verses": 915
+        },
+        "ecc": {
+          "chapters": 12,
+          "verses": 222
+        },
+        "sng": {
+          "chapters": 8,
+          "verses": 117
+        },
+        "isa": {
+          "chapters": 66,
+          "verses": 1292
+        },
+        "jer": {
+          "chapters": 52,
+          "verses": 1364
+        },
+        "lam": {
+          "chapters": 5,
+          "verses": 154
+        },
+        "ezk": {
+          "chapters": 48,
+          "verses": 1273
+        },
+        "dan": {
+          "chapters": 14,
+          "verses": 887
+        },
+        "hos": {
+          "chapters": 14,
+          "verses": 197
+        },
+        "jol": {
+          "chapters": 3,
+          "verses": 73
+        },
+        "amo": {
+          "chapters": 9,
+          "verses": 146
+        },
+        "oba": {
+          "chapters": 1,
+          "verses": 21
+        },
+        "jon": {
+          "chapters": 4,
+          "verses": 48
+        },
+        "mic": {
+          "chapters": 7,
+          "verses": 105
+        },
+        "nam": {
+          "chapters": 3,
+          "verses": 47
+        },
+        "hab": {
+          "chapters": 3,
+          "verses": 56
+        },
+        "zep": {
+          "chapters": 3,
+          "verses": 53
+        },
+        "hag": {
+          "chapters": 2,
+          "verses": 38
+        },
+        "zec": {
+          "chapters": 14,
+          "verses": 211
+        },
+        "mal": {
+          "chapters": 4,
+          "verses": 55
+        },
+        "tob": {
+          "chapters": 14,
+          "verses": 244
+        },
+        "jdt": {
+          "chapters": 16,
+          "verses": 339
+        },
+        "wis": {
+          "chapters": 19,
+          "verses": 436
+        },
+        "sir": {
+          "chapters": 51,
+          "verses": 1359
+        },
+        "bar": {
+          "chapters": 6,
+          "verses": 213
+        },
+        "1ma": {
+          "chapters": 16,
+          "verses": 924
+        },
+        "2ma": {
+          "chapters": 15,
+          "verses": 555
+        },
+        "mat": {
+          "chapters": 28,
+          "verses": 1071
+        },
+        "mrk": {
+          "chapters": 16,
+          "verses": 678
+        },
+        "luk": {
+          "chapters": 24,
+          "verses": 1150
+        },
+        "jhn": {
+          "chapters": 21,
+          "verses": 879
+        },
+        "act": {
+          "chapters": 28,
+          "verses": 1004
+        },
+        "rom": {
+          "chapters": 16,
+          "verses": 433
+        },
+        "1co": {
+          "chapters": 16,
+          "verses": 437
+        },
+        "2co": {
+          "chapters": 13,
+          "verses": 257
+        },
+        "gal": {
+          "chapters": 6,
+          "verses": 149
+        },
+        "eph": {
+          "chapters": 6,
+          "verses": 155
+        },
+        "php": {
+          "chapters": 4,
+          "verses": 104
+        },
+        "col": {
+          "chapters": 4,
+          "verses": 95
+        },
+        "1th": {
+          "chapters": 5,
+          "verses": 89
+        },
+        "2th": {
+          "chapters": 3,
+          "verses": 47
+        },
+        "1ti": {
+          "chapters": 6,
+          "verses": 113
+        },
+        "2ti": {
+          "chapters": 4,
+          "verses": 83
+        },
+        "tit": {
+          "chapters": 3,
+          "verses": 46
+        },
+        "phm": {
+          "chapters": 1,
+          "verses": 25
+        },
+        "heb": {
+          "chapters": 13,
+          "verses": 303
+        },
+        "jas": {
+          "chapters": 5,
+          "verses": 108
+        },
+        "1pe": {
+          "chapters": 5,
+          "verses": 105
+        },
+        "2pe": {
+          "chapters": 3,
+          "verses": 61
+        },
+        "1jn": {
+          "chapters": 5,
+          "verses": 105
+        },
+        "2jn": {
+          "chapters": 1,
+          "verses": 13
+        },
+        "3jn": {
+          "chapters": 1,
+          "verses": 14
+        },
+        "jud": {
+          "chapters": 1,
+          "verses": 25
+        },
+        "rev": {
+          "chapters": 22,
+          "verses": 404
+        }
+      },
+      "totalVerses": 35903
+    },
+    "BSB": {
+      "code": "BSB",
+      "books": {
+        "gen": {
+          "chapters": 50,
+          "verses": 1533
+        },
+        "exo": {
+          "chapters": 40,
+          "verses": 1213
+        },
+        "lev": {
+          "chapters": 27,
+          "verses": 859
+        },
+        "num": {
+          "chapters": 36,
+          "verses": 1288
+        },
+        "deu": {
+          "chapters": 34,
+          "verses": 959
+        },
+        "jos": {
+          "chapters": 24,
+          "verses": 658
+        },
+        "jdg": {
+          "chapters": 21,
+          "verses": 618
+        },
+        "rut": {
+          "chapters": 4,
+          "verses": 85
+        },
+        "1sa": {
+          "chapters": 31,
+          "verses": 810
+        },
+        "2sa": {
+          "chapters": 24,
+          "verses": 695
+        },
+        "1ki": {
+          "chapters": 22,
+          "verses": 816
+        },
+        "2ki": {
+          "chapters": 25,
+          "verses": 719
+        },
+        "1ch": {
+          "chapters": 29,
+          "verses": 942
+        },
+        "2ch": {
+          "chapters": 36,
+          "verses": 822
+        },
+        "ezr": {
+          "chapters": 10,
+          "verses": 280
+        },
+        "neh": {
+          "chapters": 13,
+          "verses": 406
+        },
+        "est": {
+          "chapters": 10,
+          "verses": 167
+        },
+        "job": {
+          "chapters": 42,
+          "verses": 1070
+        },
+        "psa": {
+          "chapters": 150,
+          "verses": 2461
+        },
+        "pro": {
+          "chapters": 31,
+          "verses": 915
+        },
+        "ecc": {
+          "chapters": 12,
+          "verses": 222
+        },
+        "sng": {
+          "chapters": 8,
+          "verses": 117
+        },
+        "isa": {
+          "chapters": 66,
+          "verses": 1292
+        },
+        "jer": {
+          "chapters": 52,
+          "verses": 1364
+        },
+        "lam": {
+          "chapters": 5,
+          "verses": 154
+        },
+        "ezk": {
+          "chapters": 48,
+          "verses": 1273
+        },
+        "dan": {
+          "chapters": 12,
+          "verses": 357
+        },
+        "hos": {
+          "chapters": 14,
+          "verses": 197
+        },
+        "jol": {
+          "chapters": 3,
+          "verses": 73
+        },
+        "amo": {
+          "chapters": 9,
+          "verses": 146
+        },
+        "oba": {
+          "chapters": 1,
+          "verses": 21
+        },
+        "jon": {
+          "chapters": 4,
+          "verses": 48
+        },
+        "mic": {
+          "chapters": 7,
+          "verses": 105
+        },
+        "nam": {
+          "chapters": 3,
+          "verses": 47
+        },
+        "hab": {
+          "chapters": 3,
+          "verses": 56
+        },
+        "zep": {
+          "chapters": 3,
+          "verses": 53
+        },
+        "hag": {
+          "chapters": 2,
+          "verses": 38
+        },
+        "zec": {
+          "chapters": 14,
+          "verses": 211
+        },
+        "mal": {
+          "chapters": 4,
+          "verses": 55
+        },
+        "mat": {
+          "chapters": 28,
+          "verses": 1068
+        },
+        "mrk": {
+          "chapters": 16,
+          "verses": 673
+        },
+        "luk": {
+          "chapters": 24,
+          "verses": 1149
+        },
+        "jhn": {
+          "chapters": 21,
+          "verses": 878
+        },
+        "act": {
+          "chapters": 28,
+          "verses": 1003
+        },
+        "rom": {
+          "chapters": 16,
+          "verses": 432
+        },
+        "1co": {
+          "chapters": 16,
+          "verses": 437
+        },
+        "2co": {
+          "chapters": 13,
+          "verses": 257
+        },
+        "gal": {
+          "chapters": 6,
+          "verses": 149
+        },
+        "eph": {
+          "chapters": 6,
+          "verses": 155
+        },
+        "php": {
+          "chapters": 4,
+          "verses": 104
+        },
+        "col": {
+          "chapters": 4,
+          "verses": 95
+        },
+        "1th": {
+          "chapters": 5,
+          "verses": 89
+        },
+        "2th": {
+          "chapters": 3,
+          "verses": 47
+        },
+        "1ti": {
+          "chapters": 6,
+          "verses": 113
+        },
+        "2ti": {
+          "chapters": 4,
+          "verses": 83
+        },
+        "tit": {
+          "chapters": 3,
+          "verses": 46
+        },
+        "phm": {
+          "chapters": 1,
+          "verses": 25
+        },
+        "heb": {
+          "chapters": 13,
+          "verses": 303
+        },
+        "jas": {
+          "chapters": 5,
+          "verses": 108
+        },
+        "1pe": {
+          "chapters": 5,
+          "verses": 105
+        },
+        "2pe": {
+          "chapters": 3,
+          "verses": 61
+        },
+        "1jn": {
+          "chapters": 5,
+          "verses": 105
+        },
+        "2jn": {
+          "chapters": 1,
+          "verses": 13
+        },
+        "3jn": {
+          "chapters": 1,
+          "verses": 14
+        },
+        "jud": {
+          "chapters": 1,
+          "verses": 25
+        },
+        "rev": {
+          "chapters": 22,
+          "verses": 404
+        }
+      },
+      "totalVerses": 31086
+    },
+    "KJV": {
+      "code": "KJV",
+      "books": {
+        "gen": {
+          "chapters": 50,
+          "verses": 1533
+        },
+        "exo": {
+          "chapters": 40,
+          "verses": 1213
+        },
+        "lev": {
+          "chapters": 27,
+          "verses": 859
+        },
+        "num": {
+          "chapters": 36,
+          "verses": 1288
+        },
+        "deu": {
+          "chapters": 34,
+          "verses": 959
+        },
+        "jos": {
+          "chapters": 24,
+          "verses": 658
+        },
+        "jdg": {
+          "chapters": 21,
+          "verses": 618
+        },
+        "rut": {
+          "chapters": 4,
+          "verses": 85
+        },
+        "1sa": {
+          "chapters": 31,
+          "verses": 810
+        },
+        "2sa": {
+          "chapters": 24,
+          "verses": 695
+        },
+        "1ki": {
+          "chapters": 22,
+          "verses": 816
+        },
+        "2ki": {
+          "chapters": 25,
+          "verses": 719
+        },
+        "1ch": {
+          "chapters": 29,
+          "verses": 942
+        },
+        "2ch": {
+          "chapters": 36,
+          "verses": 822
+        },
+        "ezr": {
+          "chapters": 10,
+          "verses": 280
+        },
+        "neh": {
+          "chapters": 13,
+          "verses": 406
+        },
+        "est": {
+          "chapters": 10,
+          "verses": 167
+        },
+        "job": {
+          "chapters": 42,
+          "verses": 1070
+        },
+        "psa": {
+          "chapters": 150,
+          "verses": 2461
+        },
+        "pro": {
+          "chapters": 31,
+          "verses": 915
+        },
+        "ecc": {
+          "chapters": 12,
+          "verses": 222
+        },
+        "sng": {
+          "chapters": 8,
+          "verses": 117
+        },
+        "isa": {
+          "chapters": 66,
+          "verses": 1292
+        },
+        "jer": {
+          "chapters": 52,
+          "verses": 1364
+        },
+        "lam": {
+          "chapters": 5,
+          "verses": 154
+        },
+        "ezk": {
+          "chapters": 48,
+          "verses": 1273
+        },
+        "dan": {
+          "chapters": 12,
+          "verses": 357
+        },
+        "hos": {
+          "chapters": 14,
+          "verses": 197
+        },
+        "jol": {
+          "chapters": 3,
+          "verses": 73
+        },
+        "amo": {
+          "chapters": 9,
+          "verses": 146
+        },
+        "oba": {
+          "chapters": 1,
+          "verses": 21
+        },
+        "jon": {
+          "chapters": 4,
+          "verses": 48
+        },
+        "mic": {
+          "chapters": 7,
+          "verses": 105
+        },
+        "nam": {
+          "chapters": 3,
+          "verses": 47
+        },
+        "hab": {
+          "chapters": 3,
+          "verses": 56
+        },
+        "zep": {
+          "chapters": 3,
+          "verses": 53
+        },
+        "hag": {
+          "chapters": 2,
+          "verses": 38
+        },
+        "zec": {
+          "chapters": 14,
+          "verses": 211
+        },
+        "mal": {
+          "chapters": 4,
+          "verses": 55
+        },
+        "mat": {
+          "chapters": 28,
+          "verses": 1071
+        },
+        "mrk": {
+          "chapters": 16,
+          "verses": 678
+        },
+        "luk": {
+          "chapters": 24,
+          "verses": 1151
+        },
+        "jhn": {
+          "chapters": 21,
+          "verses": 879
+        },
+        "act": {
+          "chapters": 28,
+          "verses": 1007
+        },
+        "rom": {
+          "chapters": 16,
+          "verses": 433
+        },
+        "1co": {
+          "chapters": 16,
+          "verses": 437
+        },
+        "2co": {
+          "chapters": 13,
+          "verses": 257
+        },
+        "gal": {
+          "chapters": 6,
+          "verses": 149
+        },
+        "eph": {
+          "chapters": 6,
+          "verses": 155
+        },
+        "php": {
+          "chapters": 4,
+          "verses": 104
+        },
+        "col": {
+          "chapters": 4,
+          "verses": 95
+        },
+        "1th": {
+          "chapters": 5,
+          "verses": 89
+        },
+        "2th": {
+          "chapters": 3,
+          "verses": 47
+        },
+        "1ti": {
+          "chapters": 6,
+          "verses": 113
+        },
+        "2ti": {
+          "chapters": 4,
+          "verses": 83
+        },
+        "tit": {
+          "chapters": 3,
+          "verses": 46
+        },
+        "phm": {
+          "chapters": 1,
+          "verses": 25
+        },
+        "heb": {
+          "chapters": 13,
+          "verses": 303
+        },
+        "jas": {
+          "chapters": 5,
+          "verses": 108
+        },
+        "1pe": {
+          "chapters": 5,
+          "verses": 105
+        },
+        "2pe": {
+          "chapters": 3,
+          "verses": 61
+        },
+        "1jn": {
+          "chapters": 5,
+          "verses": 105
+        },
+        "2jn": {
+          "chapters": 1,
+          "verses": 13
+        },
+        "3jn": {
+          "chapters": 1,
+          "verses": 14
+        },
+        "jud": {
+          "chapters": 1,
+          "verses": 25
+        },
+        "rev": {
+          "chapters": 22,
+          "verses": 404
+        }
+      },
+      "totalVerses": 31102
+    },
+    "BRENTON": {
+      "code": "BRENTON",
+      "books": {
+        "gen": {
+          "chapters": 50,
+          "verses": 1531
+        },
+        "exo": {
+          "chapters": 40,
+          "verses": 1163
+        },
+        "lev": {
+          "chapters": 27,
+          "verses": 859
+        },
+        "num": {
+          "chapters": 36,
+          "verses": 1288
+        },
+        "deu": {
+          "chapters": 34,
+          "verses": 958
+        },
+        "jos": {
+          "chapters": 24,
+          "verses": 643
+        },
+        "jdg": {
+          "chapters": 21,
+          "verses": 618
+        },
+        "rut": {
+          "chapters": 4,
+          "verses": 85
+        },
+        "1sa": {
+          "chapters": 31,
+          "verses": 791
+        },
+        "2sa": {
+          "chapters": 24,
+          "verses": 693
+        },
+        "1ki": {
+          "chapters": 22,
+          "verses": 754
+        },
+        "2ki": {
+          "chapters": 25,
+          "verses": 719
+        },
+        "1ch": {
+          "chapters": 29,
+          "verses": 930
+        },
+        "2ch": {
+          "chapters": 36,
+          "verses": 820
+        },
+        "ezr": {
+          "chapters": 23,
+          "verses": 668
+        },
+        "neh": {
+          "chapters": 13,
+          "verses": 389
+        },
+        "job": {
+          "chapters": 42,
+          "verses": 1068
+        },
+        "psa": {
+          "chapters": 151,
+          "verses": 2533
+        },
+        "pro": {
+          "chapters": 31,
+          "verses": 875
+        },
+        "ecc": {
+          "chapters": 12,
+          "verses": 222
+        },
+        "sng": {
+          "chapters": 8,
+          "verses": 117
+        },
+        "isa": {
+          "chapters": 66,
+          "verses": 1289
+        },
+        "jer": {
+          "chapters": 52,
+          "verses": 1296
+        },
+        "lam": {
+          "chapters": 5,
+          "verses": 150
+        },
+        "ezk": {
+          "chapters": 48,
+          "verses": 1265
+        },
+        "hos": {
+          "chapters": 14,
+          "verses": 197
+        },
+        "jol": {
+          "chapters": 4,
+          "verses": 73
+        },
+        "amo": {
+          "chapters": 9,
+          "verses": 146
+        },
+        "oba": {
+          "chapters": 1,
+          "verses": 21
+        },
+        "jon": {
+          "chapters": 4,
+          "verses": 48
+        },
+        "mic": {
+          "chapters": 7,
+          "verses": 105
+        },
+        "nam": {
+          "chapters": 3,
+          "verses": 47
+        },
+        "hab": {
+          "chapters": 3,
+          "verses": 56
+        },
+        "zep": {
+          "chapters": 3,
+          "verses": 53
+        },
+        "hag": {
+          "chapters": 2,
+          "verses": 38
+        },
+        "zec": {
+          "chapters": 14,
+          "verses": 211
+        },
+        "mal": {
+          "chapters": 3,
+          "verses": 55
+        },
+        "tob": {
+          "chapters": 14,
+          "verses": 231
+        },
+        "jdt": {
+          "chapters": 16,
+          "verses": 339
+        },
+        "est": {
+          "chapters": 10,
+          "verses": 164
+        },
+        "wis": {
+          "chapters": 19,
+          "verses": 436
+        },
+        "sir": {
+          "chapters": 51,
+          "verses": 1356
+        },
+        "bar": {
+          "chapters": 5,
+          "verses": 140
+        },
+        "1ma": {
+          "chapters": 16,
+          "verses": 924
+        },
+        "2ma": {
+          "chapters": 15,
+          "verses": 555
+        },
+        "dan": {
+          "chapters": 12,
+          "verses": 420
+        }
+      },
+      "totalVerses": 27339
+    },
+    "SBLGNT": {
+      "code": "SBLGNT",
+      "books": {
+        "mat": {
+          "chapters": 28,
+          "verses": 1068
+        },
+        "mrk": {
+          "chapters": 16,
+          "verses": 673
+        },
+        "luk": {
+          "chapters": 24,
+          "verses": 1149
+        },
+        "jhn": {
+          "chapters": 21,
+          "verses": 878
+        },
+        "act": {
+          "chapters": 28,
+          "verses": 1002
+        },
+        "rom": {
+          "chapters": 16,
+          "verses": 430
+        },
+        "1co": {
+          "chapters": 16,
+          "verses": 437
+        },
+        "2co": {
+          "chapters": 13,
+          "verses": 256
+        },
+        "gal": {
+          "chapters": 6,
+          "verses": 149
+        },
+        "eph": {
+          "chapters": 6,
+          "verses": 155
+        },
+        "php": {
+          "chapters": 4,
+          "verses": 104
+        },
+        "col": {
+          "chapters": 4,
+          "verses": 95
+        },
+        "1th": {
+          "chapters": 5,
+          "verses": 89
+        },
+        "2th": {
+          "chapters": 3,
+          "verses": 47
+        },
+        "1ti": {
+          "chapters": 6,
+          "verses": 113
+        },
+        "2ti": {
+          "chapters": 4,
+          "verses": 83
+        },
+        "tit": {
+          "chapters": 3,
+          "verses": 46
+        },
+        "phm": {
+          "chapters": 1,
+          "verses": 25
+        },
+        "heb": {
+          "chapters": 13,
+          "verses": 303
+        },
+        "jas": {
+          "chapters": 5,
+          "verses": 108
+        },
+        "1pe": {
+          "chapters": 5,
+          "verses": 105
+        },
+        "2pe": {
+          "chapters": 3,
+          "verses": 61
+        },
+        "1jn": {
+          "chapters": 5,
+          "verses": 105
+        },
+        "2jn": {
+          "chapters": 1,
+          "verses": 13
+        },
+        "3jn": {
+          "chapters": 1,
+          "verses": 15
+        },
+        "jud": {
+          "chapters": 1,
+          "verses": 25
+        },
+        "rev": {
+          "chapters": 22,
+          "verses": 405
+        }
+      },
+      "totalVerses": 7939
+    },
+    "WLC": {
+      "code": "WLC",
+      "books": {
+        "1ch": {
+          "chapters": 29,
+          "verses": 943
+        },
+        "1ki": {
+          "chapters": 22,
+          "verses": 817
+        },
+        "1sa": {
+          "chapters": 31,
+          "verses": 811
+        },
+        "2ch": {
+          "chapters": 36,
+          "verses": 822
+        },
+        "2ki": {
+          "chapters": 25,
+          "verses": 719
+        },
+        "2sa": {
+          "chapters": 24,
+          "verses": 695
+        },
+        "amo": {
+          "chapters": 9,
+          "verses": 146
+        },
+        "dan": {
+          "chapters": 12,
+          "verses": 357
+        },
+        "deu": {
+          "chapters": 34,
+          "verses": 959
+        },
+        "ecc": {
+          "chapters": 12,
+          "verses": 222
+        },
+        "est": {
+          "chapters": 10,
+          "verses": 167
+        },
+        "exo": {
+          "chapters": 40,
+          "verses": 1213
+        },
+        "ezk": {
+          "chapters": 48,
+          "verses": 1273
+        },
+        "ezr": {
+          "chapters": 10,
+          "verses": 280
+        },
+        "gen": {
+          "chapters": 50,
+          "verses": 1533
+        },
+        "hab": {
+          "chapters": 3,
+          "verses": 56
+        },
+        "hag": {
+          "chapters": 2,
+          "verses": 38
+        },
+        "hos": {
+          "chapters": 14,
+          "verses": 197
+        },
+        "isa": {
+          "chapters": 66,
+          "verses": 1291
+        },
+        "jer": {
+          "chapters": 52,
+          "verses": 1364
+        },
+        "job": {
+          "chapters": 42,
+          "verses": 1070
+        },
+        "jol": {
+          "chapters": 4,
+          "verses": 73
+        },
+        "jon": {
+          "chapters": 4,
+          "verses": 48
+        },
+        "jos": {
+          "chapters": 24,
+          "verses": 658
+        },
+        "jdg": {
+          "chapters": 21,
+          "verses": 618
+        },
+        "lam": {
+          "chapters": 5,
+          "verses": 154
+        },
+        "lev": {
+          "chapters": 27,
+          "verses": 859
+        },
+        "mal": {
+          "chapters": 3,
+          "verses": 55
+        },
+        "mic": {
+          "chapters": 7,
+          "verses": 105
+        },
+        "nam": {
+          "chapters": 3,
+          "verses": 47
+        },
+        "neh": {
+          "chapters": 13,
+          "verses": 405
+        },
+        "num": {
+          "chapters": 36,
+          "verses": 1289
+        },
+        "oba": {
+          "chapters": 1,
+          "verses": 21
+        },
+        "pro": {
+          "chapters": 31,
+          "verses": 915
+        },
+        "psa": {
+          "chapters": 150,
+          "verses": 2527
+        },
+        "rut": {
+          "chapters": 4,
+          "verses": 85
+        },
+        "sng": {
+          "chapters": 8,
+          "verses": 117
+        },
+        "zec": {
+          "chapters": 14,
+          "verses": 211
+        },
+        "zep": {
+          "chapters": 3,
+          "verses": 53
+        }
+      },
+      "totalVerses": 23213
+    },
+    "LXX": {
+      "code": "LXX",
+      "books": {
+        "gen": {
+          "chapters": 50,
+          "verses": 1530
+        },
+        "exo": {
+          "chapters": 40,
+          "verses": 1172
+        },
+        "lev": {
+          "chapters": 27,
+          "verses": 859
+        },
+        "num": {
+          "chapters": 36,
+          "verses": 1288
+        },
+        "deu": {
+          "chapters": 34,
+          "verses": 955
+        },
+        "jos": {
+          "chapters": 24,
+          "verses": 649
+        },
+        "jdg": {
+          "chapters": 21,
+          "verses": 618
+        },
+        "rut": {
+          "chapters": 4,
+          "verses": 85
+        },
+        "1sa": {
+          "chapters": 31,
+          "verses": 771
+        },
+        "2sa": {
+          "chapters": 24,
+          "verses": 695
+        },
+        "1ki": {
+          "chapters": 22,
+          "verses": 765
+        },
+        "2ki": {
+          "chapters": 25,
+          "verses": 718
+        },
+        "1ch": {
+          "chapters": 29,
+          "verses": 927
+        },
+        "2ch": {
+          "chapters": 36,
+          "verses": 820
+        },
+        "ezr": {
+          "chapters": 10,
+          "verses": 278
+        },
+        "neh": {
+          "chapters": 13,
+          "verses": 378
+        },
+        "psa": {
+          "chapters": 151,
+          "verses": 2527
+        },
+        "pro": {
+          "chapters": 29,
+          "verses": 893
+        },
+        "ecc": {
+          "chapters": 12,
+          "verses": 222
+        },
+        "sng": {
+          "chapters": 8,
+          "verses": 117
+        },
+        "job": {
+          "chapters": 42,
+          "verses": 1068
+        },
+        "wis": {
+          "chapters": 19,
+          "verses": 436
+        },
+        "sir": {
+          "chapters": 51,
+          "verses": 1368
+        },
+        "est": {
+          "chapters": 10,
+          "verses": 164
+        },
+        "jdt": {
+          "chapters": 16,
+          "verses": 340
+        },
+        "tob": {
+          "chapters": 14,
+          "verses": 244
+        },
+        "hos": {
+          "chapters": 14,
+          "verses": 197
+        },
+        "amo": {
+          "chapters": 9,
+          "verses": 146
+        },
+        "mic": {
+          "chapters": 7,
+          "verses": 105
+        },
+        "jol": {
+          "chapters": 3,
+          "verses": 73
+        },
+        "oba": {
+          "chapters": 1,
+          "verses": 21
+        },
+        "jon": {
+          "chapters": 4,
+          "verses": 48
+        },
+        "nam": {
+          "chapters": 3,
+          "verses": 48
+        },
+        "hab": {
+          "chapters": 3,
+          "verses": 56
+        },
+        "zep": {
+          "chapters": 3,
+          "verses": 52
+        },
+        "hag": {
+          "chapters": 2,
+          "verses": 37
+        },
+        "zec": {
+          "chapters": 14,
+          "verses": 211
+        },
+        "mal": {
+          "chapters": 4,
+          "verses": 55
+        },
+        "isa": {
+          "chapters": 66,
+          "verses": 1289
+        },
+        "jer": {
+          "chapters": 52,
+          "verses": 1295
+        },
+        "bar": {
+          "chapters": 5,
+          "verses": 141
+        },
+        "lam": {
+          "chapters": 5,
+          "verses": 150
+        },
+        "ezk": {
+          "chapters": 48,
+          "verses": 1265
+        },
+        "dan": {
+          "chapters": 12,
+          "verses": 408
+        },
+        "1ma": {
+          "chapters": 16,
+          "verses": 924
+        },
+        "2ma": {
+          "chapters": 15,
+          "verses": 555
+        }
+      },
+      "totalVerses": 26963
+    }
+  }
+}
