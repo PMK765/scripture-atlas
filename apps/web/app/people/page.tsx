@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { prisma } from "@bible-visualizer/db";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { PageHero } from "@/components/page-hero";
 import { PersonCard } from "@/components/people/person-card";
 import { PeopleFilterBar } from "@/components/people/people-filter-bar";
-import { getAllPeople } from "@/lib/people-queries";
+import { getAllPeople, getPeopleFacets } from "@/lib/people-queries";
 
 export const revalidate = 300;
 
@@ -51,44 +50,12 @@ export default async function PeoplePage({ searchParams }: PageProps) {
   const q = typeof sp.q === "string" ? sp.q : undefined;
   const sort = sp.sort === "chronological" ? "chronological" : "name";
 
-  const [people, eraGroups, roleGroupsRaw, tribeRows, totalAll] = await Promise.all([
+  const [people, facets] = await Promise.all([
     getAllPeople({ era, role, tribe, search: q, sort }),
-    prisma.person.groupBy({
-      by: ["era"],
-      _count: { _all: true },
-      where: { era: { not: null } },
-    }),
-    prisma.person.findMany({ select: { roles: true } }),
-    prisma.tribe.findMany({
-      select: {
-        code: true,
-        name: true,
-        type: true,
-        _count: { select: { members: true } },
-      },
-      orderBy: [{ type: "asc" }, { name: "asc" }],
-    }),
-    prisma.person.count(),
+    getPeopleFacets(),
   ]);
 
-  const eras = eraGroups
-    .filter((g): g is { era: string; _count: { _all: number } } => g.era !== null)
-    .map((g) => ({ era: g.era, count: g._count._all }))
-    .sort((a, b) => b.count - a.count);
-
-  const roleCounts = new Map<string, number>();
-  for (const row of roleGroupsRaw) {
-    for (const r of row.roles) roleCounts.set(r, (roleCounts.get(r) ?? 0) + 1);
-  }
-  const roles = Array.from(roleCounts.entries())
-    .map(([r, count]) => ({ role: r, count }))
-    .sort((a, b) => b.count - a.count);
-
-  const tribes = tribeRows
-    .map((t) => ({ code: t.code, name: t.name, count: t._count.members }))
-    .filter((t) => t.count > 0)
-    .sort((a, b) => b.count - a.count);
-
+  const { eras, roles, tribes, total: totalAll } = facets;
   const total = people.length;
 
   return (

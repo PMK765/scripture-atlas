@@ -1,4 +1,6 @@
-import { prisma } from "@bible-visualizer/db";
+// Prophecy data access, backed by static @bible-visualizer/bible-data — no database.
+
+import { prophecies } from "@bible-visualizer/bible-data/prophecies";
 
 export interface ProphecySummary {
   id: string;
@@ -17,46 +19,44 @@ export interface ProphecySummary {
   notes: string | null;
 }
 
-const PROPHECY_SELECT = {
-  id: true,
-  code: true,
-  title: true,
-  category: true,
-  summary: true,
-  fulfillmentSummary: true,
-  prophecyRef: true,
-  fulfillmentRef: true,
-  prophecyYear: true,
-  fulfillmentYear: true,
-  status: true,
-  confidenceLevel: true,
-  scriptureReferences: true,
-  notes: true,
-} as const;
+type Prophecy = (typeof prophecies)[number];
+
+const prophecyByCode = new Map(prophecies.map((p) => [p.id, p]));
+
+function toProphecySummary(p: Prophecy): ProphecySummary {
+  return {
+    id: p.id,
+    code: p.id,
+    title: p.title,
+    category: p.category ?? null,
+    summary: p.summary,
+    fulfillmentSummary: p.fulfillmentSummary ?? null,
+    prophecyRef: p.prophecyRef,
+    fulfillmentRef: p.fulfillmentRef ?? null,
+    prophecyYear: p.prophecyYear ?? null,
+    fulfillmentYear: p.fulfillmentYear ?? null,
+    status: p.status,
+    confidenceLevel: p.confidenceLevel,
+    scriptureReferences: p.scriptureReferences,
+    notes: p.notes ?? null,
+  };
+}
 
 export async function getAllProphecies(): Promise<ProphecySummary[]> {
-  try {
-    return await prisma.prophecy.findMany({
-      select: PROPHECY_SELECT,
-      orderBy: [
-        { prophecyYear: { sort: "asc", nulls: "last" } },
-        { title: "asc" },
-      ],
-    });
-  } catch (err) {
-    console.error("[prophecy-queries] getAllProphecies failed:", err);
-    return [];
-  }
+  // prophecyYear asc with nulls last, then title asc.
+  return [...prophecies]
+    .sort((a, b) => {
+      const ay = a.prophecyYear ?? null;
+      const by = b.prophecyYear ?? null;
+      if (ay !== null && by !== null && ay !== by) return ay - by;
+      if (ay !== null && by === null) return -1;
+      if (ay === null && by !== null) return 1;
+      return a.title.localeCompare(b.title);
+    })
+    .map(toProphecySummary);
 }
 
 export async function getProphecyByCode(code: string): Promise<ProphecySummary | null> {
-  try {
-    return await prisma.prophecy.findUnique({
-      where: { code },
-      select: PROPHECY_SELECT,
-    });
-  } catch (err) {
-    console.error("[prophecy-queries] getProphecyByCode failed:", err);
-    return null;
-  }
+  const p = prophecyByCode.get(code);
+  return p ? toProphecySummary(p) : null;
 }

@@ -1,5 +1,15 @@
+// People data access. Backed entirely by the static @bible-visualizer/bible-data
+// package (people + genealogy edges + tribe memberships) — no database. Public
+// surface is unchanged from the previous Prisma-backed version.
+//
+// Convention: entity `id` === entity `code`. People reference each other by
+// code in genealogy edges and tribe memberships, so the in-memory graph keys on
+// code throughout.
+
 import { ERAS } from "@bible-visualizer/config";
-import { prisma } from "@bible-visualizer/db";
+import { people } from "@bible-visualizer/bible-data/people";
+import { genealogyEdges } from "@bible-visualizer/bible-data/genealogy-edges";
+import { tribes } from "@bible-visualizer/bible-data/tribes";
 
 export interface PersonSummary {
   id: string;
@@ -48,56 +58,73 @@ export interface RelationshipEdge {
   notes: string | null;
 }
 
-const personSummarySelect = {
-  id: true,
-  code: true,
-  name: true,
-  alternateNames: true,
-  gender: true,
-  era: true,
-  roles: true,
-  description: true,
-  lifespanYears: true,
-  confidenceLevel: true,
-  traditionTags: true,
-  tribes: {
-    select: {
-      tribe: { select: { code: true, name: true, type: true } },
-    },
-  },
-} as const;
+type Person = (typeof people)[number];
 
-type PersonSummaryRow = {
-  id: string;
-  code: string;
-  name: string;
-  alternateNames: string[];
-  gender: string | null;
-  era: string | null;
-  roles: string[];
-  description: string | null;
-  lifespanYears: number | null;
-  confidenceLevel: string;
-  traditionTags: string[];
-  tribes: Array<{ tribe: { code: string; name: string; type: string } }>;
-};
+// --- Indexes (built once per process) ---------------------------------------
 
-function toSummary(row: PersonSummaryRow): PersonSummary {
+const peopleByCode = new Map(people.map((p) => [p.id, p]));
+const tribeByCode = new Map(tribes.map((t) => [t.id, t]));
+
+/** Genealogy edges whose endpoints both resolve to known people (mirrors seed). */
+const validEdges = genealogyEdges.filter(
+  (e) => peopleByCode.has(e.from) && peopleByCode.has(e.to),
+);
+
+/** Stable, deterministic edge id (matches the previous DB @@unique tuple). */
+function edgeId(e: (typeof genealogyEdges)[number]): string {
+  return `${e.from}|${e.relationship}|${e.to}|${e.viaParent ?? ""}`;
+}
+
+function tribeBadge(code: string): TribeBadge | null {
+  const t = tribeByCode.get(code);
+  return t ? { code: t.id, name: t.name, type: t.type } : null;
+}
+
+function tribeBadgesFor(person: Person): TribeBadge[] {
+  return (person.tribes ?? [])
+    .map(tribeBadge)
+    .filter((b): b is TribeBadge => b !== null);
+}
+
+function toSummary(p: Person): PersonSummary {
   return {
-    id: row.id,
-    code: row.code,
-    name: row.name,
-    alternateNames: row.alternateNames,
-    gender: row.gender,
-    era: row.era,
-    roles: row.roles,
-    description: row.description,
-    lifespanYears: row.lifespanYears,
-    confidenceLevel: row.confidenceLevel,
-    traditionTags: row.traditionTags,
-    tribes: row.tribes.map((t) => t.tribe),
+    id: p.id,
+    code: p.id,
+    name: p.name,
+    alternateNames: p.alternateNames ?? [],
+    gender: p.gender ?? null,
+    era: p.era ?? null,
+    roles: p.roles ?? [],
+    description: p.description ?? null,
+    lifespanYears: p.lifespanYears ?? null,
+    confidenceLevel: p.confidenceLevel,
+    traditionTags: p.traditionTags ?? [],
+    tribes: tribeBadgesFor(p),
   };
 }
+
+function toEdge(e: (typeof genealogyEdges)[number]): RelationshipEdge {
+  const from = peopleByCode.get(e.from)!;
+  const to = peopleByCode.get(e.to)!;
+  return {
+    id: edgeId(e),
+    fromPersonId: e.from,
+    toPersonId: e.to,
+    fromCode: e.from,
+    fromName: from.name,
+    toCode: e.to,
+    toName: to.name,
+    relationship: e.relationship,
+    viaParent: e.viaParent ?? null,
+    relationKind: e.relationKind ?? "biological",
+    scriptureReferences: e.scriptureReferences,
+    confidenceLevel: e.confidenceLevel,
+    traditionTags: e.traditionTags ?? [],
+    notes: e.notes ?? null,
+  };
+}
+
+// --- Queries ----------------------------------------------------------------
 
 export type PeopleSort = "name" | "chronological";
 
@@ -108,61 +135,48 @@ export async function getAllPeople(filters?: {
   search?: string;
   sort?: PeopleSort;
 }): Promise<PersonSummary[]> {
-  const where: {
-    era?: string;
-    roles?: { has: string };
-    tribes?: { some: { tribe: { code: string } } };
-    OR?: Array<
-      | { name: { contains: string; mode: "insensitive" } }
-      | { alternateNames: { has: string } }
-    >;
-  } = {};
-  if (filters?.era) where.era = filters.era;
-  if (filters?.role) where.roles = { has: filters.role };
-  if (filters?.tribe) where.tribes = { some: { tribe: { code: filters.tribe } } };
-  if (filters?.search) {
-    const q = filters.search.trim();
-    if (q.length >= 1) {
-      where.OR = [
-        { name: { contains: q, mode: "insensitive" } },
-        { alternateNames: { has: q } },
-      ];
+  const search = filters?.search?.trim();
+  const needle = search && search.length >= 1 ? search.toLowerCase() : null;
+
+  let matched = people.filter((p) => {
+    if (filters?.era && p.era !== filters.era) return false;
+    if (filters?.role && !(p.roles ?? []).some((r) => r === filters.role)) return false;
+    if (filters?.tribe && !(p.tribes ?? []).includes(filters.tribe)) return false;
+    if (needle) {
+      const inName = p.name.toLowerCase().includes(needle);
+      const inAlt = (p.alternateNames ?? []).some((a) => a.toLowerCase() === needle);
+      if (!inName && !inAlt) return false;
     }
-  }
-  const rows = await prisma.person.findMany({
-    where,
-    select: { ...personSummarySelect, birthYear: true },
-    orderBy: [{ name: "asc" }],
+    return true;
   });
 
-  if (filters?.sort === "chronological") {
-    return chronologicalOrder(rows);
-  }
+  matched = [...matched].sort((a, b) => a.name.localeCompare(b.name));
 
-  return rows.map(toSummary);
+  if (filters?.sort === "chronological") {
+    return chronologicalOrder(matched).map(toSummary);
+  }
+  return matched.map(toSummary);
 }
 
-async function chronologicalOrder(
-  rows: Array<PersonSummaryRow & { birthYear: number | null }>,
-): Promise<PersonSummary[]> {
+/**
+ * Order people within era buckets by genealogical depth (parents before
+ * children), propagating depth across spouses and keeping spouses adjacent.
+ * Ported verbatim from the previous Prisma implementation; only the data
+ * source changed (in-memory static edges instead of DB rows).
+ */
+function chronologicalOrder(rows: Person[]): Person[] {
   const eraRank = new Map<string, number>(ERAS.map((e, i) => [e, i]));
   const idsInScope = new Set(rows.map((r) => r.id));
 
-  const edges = await prisma.genealogyEdge.findMany({
-    where: {
-      OR: [{ relationship: "parent-of" }, { relationship: "spouse-of" }],
-      fromPersonId: { in: [...idsInScope] },
-      toPersonId: { in: [...idsInScope] },
-    },
-    select: {
-      fromPersonId: true,
-      toPersonId: true,
-      relationship: true,
-    },
-  });
+  const edges = validEdges.filter(
+    (e) =>
+      (e.relationship === "parent-of" || e.relationship === "spouse-of") &&
+      idsInScope.has(e.from) &&
+      idsInScope.has(e.to),
+  );
 
   const byId = new Map(rows.map((r) => [r.id, r]));
-  const buckets = new Map<string, Array<typeof rows[number]>>();
+  const buckets = new Map<string, Person[]>();
   for (const r of rows) {
     const era = r.era ?? "__unknown__";
     const list = buckets.get(era);
@@ -170,7 +184,7 @@ async function chronologicalOrder(
     else buckets.set(era, [r]);
   }
 
-  const ordered: typeof rows = [];
+  const ordered: Person[] = [];
 
   const sortedEras = [...buckets.keys()].sort((a, b) => {
     const ar = eraRank.get(a) ?? ERAS.length;
@@ -185,15 +199,15 @@ async function chronologicalOrder(
     const parentsInBucket = new Map<string, string[]>();
     const spousesInBucket = new Map<string, string[]>();
     for (const e of edges) {
-      if (!bucketIds.has(e.fromPersonId) || !bucketIds.has(e.toPersonId)) continue;
+      if (!bucketIds.has(e.from) || !bucketIds.has(e.to)) continue;
       if (e.relationship === "parent-of") {
-        const list = parentsInBucket.get(e.toPersonId);
-        if (list) list.push(e.fromPersonId);
-        else parentsInBucket.set(e.toPersonId, [e.fromPersonId]);
+        const list = parentsInBucket.get(e.to);
+        if (list) list.push(e.from);
+        else parentsInBucket.set(e.to, [e.from]);
       } else if (e.relationship === "spouse-of") {
-        const list = spousesInBucket.get(e.fromPersonId);
-        if (list) list.push(e.toPersonId);
-        else spousesInBucket.set(e.fromPersonId, [e.toPersonId]);
+        const list = spousesInBucket.get(e.from);
+        if (list) list.push(e.to);
+        else spousesInBucket.set(e.from, [e.to]);
       }
     }
 
@@ -240,8 +254,8 @@ async function chronologicalOrder(
       const ad = depth.get(a.id) ?? 0;
       const bd = depth.get(b.id) ?? 0;
       if (ad !== bd) return ad - bd;
-      const ay = a.birthYear;
-      const by = b.birthYear;
+      const ay = a.birthYear ?? null;
+      const by = b.birthYear ?? null;
       if (ay !== null && by !== null) return ay - by;
       if (ay !== null) return -1;
       if (by !== null) return 1;
@@ -249,7 +263,7 @@ async function chronologicalOrder(
     });
 
     const placed = new Set<string>();
-    const result: typeof rows = [];
+    const result: Person[] = [];
     for (const person of bucket) {
       if (placed.has(person.id)) continue;
       result.push(person);
@@ -259,9 +273,9 @@ async function chronologicalOrder(
         if (placed.has(sid)) continue;
         const spouse = byId.get(sid);
         if (!spouse) continue;
-        if (spouse.era !== person.era) continue;
+        if ((spouse.era ?? null) !== (person.era ?? null)) continue;
         const spouseHasParents = (parentsInBucket.get(sid) ?? []).length > 0;
-        const spouseHasYear = spouse.birthYear !== null;
+        const spouseHasYear = (spouse.birthYear ?? null) !== null;
         if (spouseHasParents || spouseHasYear) continue;
         result.push(spouse);
         placed.add(sid);
@@ -271,77 +285,29 @@ async function chronologicalOrder(
     ordered.push(...result);
   }
 
-  return ordered.map(toSummary);
+  return ordered;
 }
 
 export async function getPersonByCode(code: string): Promise<PersonDetail | null> {
-  const row = await prisma.person.findUnique({
-    where: { code },
-    select: {
-      ...personSummarySelect,
-      scriptureReferences: true,
-      birthYear: true,
-      deathYear: true,
-      ageAtDeathRef: true,
-      isHistoricallyContested: true,
-      notes: true,
-    },
-  });
-  if (!row) return null;
-  const summary = toSummary(row);
+  const p = peopleByCode.get(code);
+  if (!p) return null;
   return {
-    ...summary,
-    scriptureReferences: row.scriptureReferences,
-    birthYear: row.birthYear,
-    deathYear: row.deathYear,
-    ageAtDeathRef: row.ageAtDeathRef,
-    isHistoricallyContested: row.isHistoricallyContested,
-    notes: row.notes,
+    ...toSummary(p),
+    scriptureReferences: p.scriptureReferences,
+    birthYear: p.birthYear ?? null,
+    deathYear: p.deathYear ?? null,
+    ageAtDeathRef: p.ageAtDeathRef ?? null,
+    isHistoricallyContested: p.isHistoricallyContested ?? false,
+    notes: p.notes ?? null,
   };
 }
 
-async function fetchEdges(
-  personIds: string[],
-): Promise<RelationshipEdge[]> {
-  if (personIds.length === 0) return [];
-  const rows = await prisma.genealogyEdge.findMany({
-    where: {
-      OR: [
-        { fromPersonId: { in: personIds } },
-        { toPersonId: { in: personIds } },
-      ],
-    },
-    select: {
-      id: true,
-      fromPersonId: true,
-      toPersonId: true,
-      relationship: true,
-      viaParent: true,
-      relationKind: true,
-      scriptureReferences: true,
-      confidenceLevel: true,
-      traditionTags: true,
-      notes: true,
-      fromPerson: { select: { code: true, name: true } },
-      toPerson: { select: { code: true, name: true } },
-    },
-  });
-  return rows.map((r) => ({
-    id: r.id,
-    fromPersonId: r.fromPersonId,
-    toPersonId: r.toPersonId,
-    fromCode: r.fromPerson.code,
-    fromName: r.fromPerson.name,
-    toCode: r.toPerson.code,
-    toName: r.toPerson.name,
-    relationship: r.relationship,
-    viaParent: r.viaParent,
-    relationKind: r.relationKind,
-    scriptureReferences: r.scriptureReferences,
-    confidenceLevel: r.confidenceLevel,
-    traditionTags: r.traditionTags,
-    notes: r.notes,
-  }));
+function fetchEdges(personCodes: string[]): RelationshipEdge[] {
+  if (personCodes.length === 0) return [];
+  const scope = new Set(personCodes);
+  return validEdges
+    .filter((e) => scope.has(e.from) || scope.has(e.to))
+    .map(toEdge);
 }
 
 export interface PersonNeighborhood {
@@ -354,56 +320,88 @@ export async function getPersonNeighborhood(
   personId: string,
   depth = 2,
 ): Promise<PersonNeighborhood | null> {
-  const focus = await prisma.person.findUnique({
-    where: { id: personId },
-    select: personSummarySelect,
-  });
+  const focus = peopleByCode.get(personId);
   if (!focus) return null;
 
   const visited = new Set<string>([personId]);
   const frontier = new Set<string>([personId]);
   const allEdges: RelationshipEdge[] = [];
+  const seenEdgeIds = new Set<string>();
 
   for (let i = 0; i < depth; i += 1) {
     if (frontier.size === 0) break;
-    const edges = await fetchEdges([...frontier]);
+    const edges = fetchEdges([...frontier]);
     const nextFrontier = new Set<string>();
     for (const edge of edges) {
-      if (!allEdges.find((existing) => existing.id === edge.id)) {
+      if (!seenEdgeIds.has(edge.id)) {
+        seenEdgeIds.add(edge.id);
         allEdges.push(edge);
       }
-      if (!visited.has(edge.fromPersonId)) {
-        nextFrontier.add(edge.fromPersonId);
-      }
-      if (!visited.has(edge.toPersonId)) {
-        nextFrontier.add(edge.toPersonId);
-      }
+      if (!visited.has(edge.fromPersonId)) nextFrontier.add(edge.fromPersonId);
+      if (!visited.has(edge.toPersonId)) nextFrontier.add(edge.toPersonId);
     }
     for (const id of nextFrontier) visited.add(id);
     frontier.clear();
     for (const id of nextFrontier) frontier.add(id);
   }
 
-  const nodeRows = await prisma.person.findMany({
-    where: { id: { in: [...visited] } },
-    select: personSummarySelect,
-  });
-  const nodes = nodeRows.map(toSummary);
+  const nodes = [...visited]
+    .map((code) => peopleByCode.get(code))
+    .filter((p): p is Person => Boolean(p))
+    .map(toSummary);
 
   return { focus: toSummary(focus), nodes, edges: allEdges };
 }
 
 export async function countPeople(): Promise<number> {
-  return prisma.person.count();
+  return people.length;
 }
 
 export async function getEraCounts(): Promise<Array<{ era: string; count: number }>> {
-  const rows = await prisma.person.groupBy({
-    by: ["era"],
-    _count: { _all: true },
-    where: { era: { not: null } },
-  });
-  return rows
-    .filter((r): r is { era: string; _count: { _all: number } } => r.era !== null)
-    .map((r) => ({ era: r.era, count: r._count._all }));
+  const counts = new Map<string, number>();
+  for (const p of people) {
+    if (!p.era) continue;
+    counts.set(p.era, (counts.get(p.era) ?? 0) + 1);
+  }
+  return [...counts.entries()].map(([era, count]) => ({ era, count }));
+}
+
+export interface PeopleFacets {
+  eras: Array<{ era: string; count: number }>;
+  roles: Array<{ role: string; count: number }>;
+  tribes: Array<{ code: string; name: string; count: number }>;
+  total: number;
+}
+
+/** Aggregate facets for the /people filter bar. */
+export async function getPeopleFacets(): Promise<PeopleFacets> {
+  const eraCounts = new Map<string, number>();
+  const roleCounts = new Map<string, number>();
+  const tribeMemberCounts = new Map<string, number>();
+
+  for (const p of people) {
+    if (p.era) eraCounts.set(p.era, (eraCounts.get(p.era) ?? 0) + 1);
+    for (const r of p.roles ?? []) roleCounts.set(r, (roleCounts.get(r) ?? 0) + 1);
+    for (const t of p.tribes ?? []) {
+      tribeMemberCounts.set(t, (tribeMemberCounts.get(t) ?? 0) + 1);
+    }
+  }
+
+  const eras = [...eraCounts.entries()]
+    .map(([era, count]) => ({ era, count }))
+    .sort((a, b) => b.count - a.count);
+
+  const roles = [...roleCounts.entries()]
+    .map(([role, count]) => ({ role, count }))
+    .sort((a, b) => b.count - a.count);
+
+  const tribesFacet = [...tribeMemberCounts.entries()]
+    .map(([code, count]) => {
+      const t = tribeByCode.get(code);
+      return { code, name: t?.name ?? code, count };
+    })
+    .filter((t) => t.count > 0)
+    .sort((a, b) => b.count - a.count);
+
+  return { eras, roles, tribes: tribesFacet, total: people.length };
 }

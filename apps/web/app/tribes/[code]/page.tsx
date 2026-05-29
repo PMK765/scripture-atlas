@@ -7,9 +7,14 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getTribeByCode, getTribeMembers } from "@/lib/tribe-queries";
+import { getAllTribes, getTribeByCode, getTribeMembers } from "@/lib/tribe-queries";
 
 export const revalidate = 300;
+
+export async function generateStaticParams(): Promise<Array<{ code: string }>> {
+  const tribes = await getAllTribes();
+  return tribes.map((t) => ({ code: t.code }));
+}
 
 interface PageProps {
   params: Promise<{ code: string }>;

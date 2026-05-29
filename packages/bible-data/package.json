@@ -25,6 +25,30 @@
     "./verses": {
       "types": "./src/verses.ts",
       "default": "./src/verses.ts"
+    },
+    "./people": {
+      "types": "./src/people.ts",
+      "default": "./src/people.ts"
+    },
+    "./tribes": {
+      "types": "./src/tribes.ts",
+      "default": "./src/tribes.ts"
+    },
+    "./genealogy-edges": {
+      "types": "./src/genealogy-edges.ts",
+      "default": "./src/genealogy-edges.ts"
+    },
+    "./places": {
+      "types": "./src/places.ts",
+      "default": "./src/places.ts"
+    },
+    "./events": {
+      "types": "./src/events.ts",
+      "default": "./src/events.ts"
+    },
+    "./prophecies": {
+      "types": "./src/prophecies.ts",
+      "default": "./src/prophecies.ts"
     }
   },
   "files": [

@@ -1,4 +1,9 @@
-import { prisma } from "@bible-visualizer/db";
+// Tribe data access, backed by static @bible-visualizer/bible-data — no database.
+// Membership comes from `person.tribes` (tribe codes); founder/parent/subtribe
+// links resolve by code across the static people and tribes lists.
+
+import { tribes } from "@bible-visualizer/bible-data/tribes";
+import { people } from "@bible-visualizer/bible-data/people";
 
 export interface TribeSummary {
   id: string;
@@ -38,34 +43,59 @@ export interface TribeMember {
   lifespanYears: number | null;
 }
 
-const tribeBaseSelect = {
-  id: true,
-  code: true,
-  name: true,
-  alternateNames: true,
-  type: true,
-  description: true,
-  founder: { select: { code: true, name: true } },
-  parent: { select: { code: true, name: true } },
-  _count: { select: { members: true } },
-} as const;
+type Tribe = (typeof tribes)[number];
+type Person = (typeof people)[number];
+
+const tribeByCode = new Map(tribes.map((t) => [t.id, t]));
+const personByCode = new Map(people.map((p) => [p.id, p]));
+
+const membersByTribe = new Map<string, Person[]>();
+for (const person of people) {
+  for (const tribeCode of person.tribes ?? []) {
+    const list = membersByTribe.get(tribeCode);
+    if (list) list.push(person);
+    else membersByTribe.set(tribeCode, [person]);
+  }
+}
+
+const subtribesByParent = new Map<string, Tribe[]>();
+for (const t of tribes) {
+  if (!t.parentTribeId) continue;
+  const list = subtribesByParent.get(t.parentTribeId);
+  if (list) list.push(t);
+  else subtribesByParent.set(t.parentTribeId, [t]);
+}
+
+function founderBadge(t: Tribe): { code: string; name: string } | null {
+  if (!t.founderId) return null;
+  const p = personByCode.get(t.founderId);
+  return p ? { code: p.id, name: p.name } : null;
+}
+
+function parentBadge(t: Tribe): { code: string; name: string } | null {
+  if (!t.parentTribeId) return null;
+  const parent = tribeByCode.get(t.parentTribeId);
+  return parent ? { code: parent.id, name: parent.name } : null;
+}
+
+function toTribeSummary(t: Tribe): TribeSummary {
+  return {
+    id: t.id,
+    code: t.id,
+    name: t.name,
+    alternateNames: t.alternateNames ?? [],
+    type: t.type,
+    description: t.description ?? null,
+    memberCount: membersByTribe.get(t.id)?.length ?? 0,
+    founder: founderBadge(t),
+    parent: parentBadge(t),
+  };
+}
 
 export async function getAllTribes(): Promise<TribeSummary[]> {
-  const rows = await prisma.tribe.findMany({
-    select: tribeBaseSelect,
-    orderBy: [{ type: "asc" }, { name: "asc" }],
-  });
-  return rows.map((r) => ({
-    id: r.id,
-    code: r.code,
-    name: r.name,
-    alternateNames: r.alternateNames,
-    type: r.type,
-    description: r.description,
-    memberCount: r._count.members,
-    founder: r.founder,
-    parent: r.parent,
-  }));
+  return [...tribes]
+    .sort((a, b) => a.type.localeCompare(b.type) || a.name.localeCompare(b.name))
+    .map(toTribeSummary);
 }
 
 function parseJacobsBlessing(value: unknown): JacobsBlessingView | null {
@@ -88,56 +118,34 @@ function parseJacobsBlessing(value: unknown): JacobsBlessingView | null {
 }
 
 export async function getTribeByCode(code: string): Promise<TribeDetail | null> {
-  const row = await prisma.tribe.findUnique({
-    where: { code },
-    select: {
-      ...tribeBaseSelect,
-      scriptureReferences: true,
-      confidenceLevel: true,
-      traditionTags: true,
-      notes: true,
-      jacobsBlessing: true,
-      subtribes: { select: { code: true, name: true, type: true } },
-    },
-  });
-  if (!row) return null;
+  const t = tribeByCode.get(code);
+  if (!t) return null;
+  const subtribes = (subtribesByParent.get(t.id) ?? []).map((s) => ({
+    code: s.id,
+    name: s.name,
+    type: s.type,
+  }));
   return {
-    id: row.id,
-    code: row.code,
-    name: row.name,
-    alternateNames: row.alternateNames,
-    type: row.type,
-    description: row.description,
-    memberCount: row._count.members,
-    founder: row.founder,
-    parent: row.parent,
-    scriptureReferences: row.scriptureReferences,
-    confidenceLevel: row.confidenceLevel,
-    traditionTags: row.traditionTags,
-    notes: row.notes,
-    jacobsBlessing: parseJacobsBlessing(row.jacobsBlessing),
-    subtribes: row.subtribes,
+    ...toTribeSummary(t),
+    scriptureReferences: t.scriptureReferences,
+    confidenceLevel: t.confidenceLevel,
+    traditionTags: t.traditionTags ?? [],
+    notes: t.notes ?? null,
+    jacobsBlessing: parseJacobsBlessing(t.jacobsBlessing),
+    subtribes,
   };
 }
 
 export async function getTribeMembers(tribeId: string): Promise<TribeMember[]> {
-  const rows = await prisma.personTribe.findMany({
-    where: { tribeId },
-    select: {
-      person: {
-        select: {
-          id: true,
-          code: true,
-          name: true,
-          era: true,
-          gender: true,
-          roles: true,
-          lifespanYears: true,
-        },
-      },
-    },
-  });
-  return rows
-    .map((r) => r.person)
+  return (membersByTribe.get(tribeId) ?? [])
+    .map((p) => ({
+      id: p.id,
+      code: p.id,
+      name: p.name,
+      era: p.era ?? null,
+      gender: p.gender ?? null,
+      roles: p.roles ?? [],
+      lifespanYears: p.lifespanYears ?? null,
+    }))
     .sort((a, b) => a.name.localeCompare(b.name));
 }

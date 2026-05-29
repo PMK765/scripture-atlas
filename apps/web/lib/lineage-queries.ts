@@ -1,4 +1,9 @@
-import { prisma } from "@bible-visualizer/db";
+// Lineage-graph data access, backed by static @bible-visualizer/bible-data — no
+// database. Builds the largest connected component of the parent/spouse graph.
+// Person ids === codes; edges reference people by code.
+
+import { people } from "@bible-visualizer/bible-data/people";
+import { genealogyEdges } from "@bible-visualizer/bible-data/genealogy-edges";
 
 export interface LineagePerson {
   id: string;
@@ -33,63 +38,34 @@ export interface LineageGraph {
 }
 
 export async function getLineageGraph(): Promise<LineageGraph> {
-  const [peopleRows, edgeRows, totalPeople] = await Promise.all([
-    prisma.person.findMany({
-      select: {
-        id: true,
-        code: true,
-        name: true,
-        era: true,
-        gender: true,
-        lifespanYears: true,
-        birthYear: true,
-        deathYear: true,
-        roles: true,
-        tribes: { select: { tribe: { select: { code: true } } } },
-      },
-    }),
-    prisma.genealogyEdge.findMany({
-      where: {
-        OR: [{ relationship: "parent-of" }, { relationship: "spouse-of" }],
-      },
-      select: {
-        id: true,
-        fromPersonId: true,
-        toPersonId: true,
-        relationship: true,
-        viaParent: true,
-        relationKind: true,
-        confidenceLevel: true,
-        traditionTags: true,
-      },
-    }),
-    prisma.person.count(),
-  ]);
-
   const peopleById = new Map<string, LineagePerson>(
-    peopleRows.map((p) => [
+    people.map((p) => [
       p.id,
       {
         id: p.id,
-        code: p.code,
+        code: p.id,
         name: p.name,
-        era: p.era,
-        gender: p.gender,
-        tribeCodes: p.tribes.map((t) => t.tribe.code),
-        lifespanYears: p.lifespanYears,
-        birthYear: p.birthYear,
-        deathYear: p.deathYear,
-        roles: p.roles,
+        era: p.era ?? null,
+        gender: p.gender ?? null,
+        tribeCodes: p.tribes ?? [],
+        lifespanYears: p.lifespanYears ?? null,
+        birthYear: p.birthYear ?? null,
+        deathYear: p.deathYear ?? null,
+        roles: p.roles ?? [],
       },
     ]),
+  );
+
+  const edgeRows = genealogyEdges.filter(
+    (e) => e.relationship === "parent-of" || e.relationship === "spouse-of",
   );
 
   const adjacency = new Map<string, Set<string>>();
   for (const id of peopleById.keys()) adjacency.set(id, new Set());
   for (const e of edgeRows) {
-    if (!peopleById.has(e.fromPersonId) || !peopleById.has(e.toPersonId)) continue;
-    adjacency.get(e.fromPersonId)!.add(e.toPersonId);
-    adjacency.get(e.toPersonId)!.add(e.fromPersonId);
+    if (!peopleById.has(e.from) || !peopleById.has(e.to)) continue;
+    adjacency.get(e.from)!.add(e.to);
+    adjacency.get(e.to)!.add(e.from);
   }
 
   const visited = new Set<string>();
@@ -115,16 +91,16 @@ export async function getLineageGraph(): Promise<LineageGraph> {
     .sort((a, b) => a.name.localeCompare(b.name));
 
   const edges: LineageEdge[] = edgeRows
-    .filter((e) => largest.has(e.fromPersonId) && largest.has(e.toPersonId))
+    .filter((e) => largest.has(e.from) && largest.has(e.to))
     .map((e) => ({
-      id: e.id,
-      fromId: e.fromPersonId,
-      toId: e.toPersonId,
+      id: `${e.from}|${e.relationship}|${e.to}|${e.viaParent ?? ""}`,
+      fromId: e.from,
+      toId: e.to,
       relationship: e.relationship as "parent-of" | "spouse-of",
-      viaParent: e.viaParent,
-      relationKind: e.relationKind,
+      viaParent: e.viaParent ?? null,
+      relationKind: e.relationKind ?? "biological",
       confidenceLevel: e.confidenceLevel,
-      traditionTags: e.traditionTags,
+      traditionTags: e.traditionTags ?? [],
     }));
 
   const adam = peopleInComponent.find((p) => p.code === "adam");
@@ -133,7 +109,7 @@ export async function getLineageGraph(): Promise<LineageGraph> {
   return {
     people: peopleInComponent,
     edges,
-    totalPeople,
+    totalPeople: people.length,
     componentSize: largest.size,
     rootCode,
   };

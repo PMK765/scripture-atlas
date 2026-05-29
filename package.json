@@ -15,7 +15,7 @@
     "typecheck": "turbo run typecheck",
     "clean": "turbo run clean && rm -rf node_modules",
     "db:generate": "turbo run db:generate",
-    "vercel-build": "pnpm --filter @bible-visualizer/db exec prisma migrate deploy && pnpm --filter @bible-visualizer/web build",
+    "vercel-build": "pnpm --filter @bible-visualizer/web build",
     "postinstall": "pnpm --filter @bible-visualizer/db exec prisma generate",
     "format": "prettier --write \"**/*.{ts,tsx,md,json}\""
   },

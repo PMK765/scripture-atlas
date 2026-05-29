@@ -12,8 +12,14 @@ import { Portrait } from "@/components/people/portrait";
 import { RelationshipList } from "@/components/people/relationship-list";
 import { getPersonByCode, getPersonNeighborhood } from "@/lib/people-queries";
 import { eraColor } from "@/components/lineages/era-color";
+import { people } from "@bible-visualizer/bible-data/people";
 
 export const revalidate = 300;
+
+/** Prerender a static page for every person (no DB, no request-time params). */
+export function generateStaticParams(): Array<{ code: string }> {
+  return people.map((p) => ({ code: p.id }));
+}
 
 interface PageProps {
   params: Promise<{ code: string }>;

@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
   transpilePackages: [
     "@bible-visualizer/bible-data",
     "@bible-visualizer/config",
-    "@bible-visualizer/db",
   ],
   typedRoutes: true,
 };
